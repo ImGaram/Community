@@ -18,6 +18,7 @@ object OkHttp {
 
 object AndroidX {
     const val ACTIVITY = "androidx.activity:activity-ktx:1.1.0"
+    const val CONSTRAINT = "androidx.constraintlayout:constraintlayout:2.1.3"
 }
 
 object LifeCycle {
