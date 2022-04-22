@@ -37,12 +37,10 @@
         android:layout_height="wrap_content"
         app:layout_constraintBottom_toBottomOf="parent"
         app:itemTextColor="@color/white"
-        app:itemIconTint="@color/main_color"
+        app:itemIconTint="#00ffffff"
         app:itemTextAppearanceActive="@style/BottomNavigationView.IsActive"
         app:itemTextAppearanceInactive="@style/BottomNavigationView.IsNotActive"
         android:background="@color/main_color"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:menu="@menu/btm_menu" />
 
     <androidx.fragment.app.FragmentContainerView
