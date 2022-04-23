@@ -10,24 +10,24 @@
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="100dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="NB"
             android:layout_gravity="center"
-            android:theme="@style/Toolbar.TitleText"
-            android:fontFamily="@font/kodchasan_light"/>
+            android:fontFamily="@font/kodchasan_light"
+            android:text="NB"
+            android:theme="@style/Toolbar.TitleText" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Guest"
-            android:fontFamily="@font/kodchasan_light"
-            android:textSize="20sp"
             android:layout_gravity="end"
-            android:layout_marginEnd="15dp"/>
+            android:layout_marginEnd="15dp"
+            android:fontFamily="@font/kodchasan_light"
+            android:text="Guest"
+            android:textSize="20sp" />
 
     </androidx.appcompat.widget.Toolbar>
 

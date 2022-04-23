@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <style name="Toolbar.TitleText" parent="Widget.AppCompat.TextView">
-        <item name="android:textSize">35sp</item>
+        <item name="android:textSize">45sp</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/main_color</item>
     </style>
