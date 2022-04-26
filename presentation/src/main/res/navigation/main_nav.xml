@@ -9,7 +9,11 @@
         android:id="@+id/freeBoardFragment"
         android:name="com.example.presentation.view.fragment.FreeBoardFragment"
         android:label="fragment_free_board"
-        tools:layout="@layout/fragment_free_board" />
+        tools:layout="@layout/fragment_free_board" >
+        <action
+            android:id="@+id/action_freeBoardFragment_to_loginActivity"
+            app:destination="@id/loginActivity" />
+    </fragment>
     <fragment
         android:id="@+id/storyBoardFragment"
         android:name="com.example.presentation.view.fragment.StoryBoardFragment"
@@ -22,4 +26,9 @@
         android:id="@+id/noticeFragment"
         android:name="com.example.presentation.view.fragment.NoticeFragment"
         android:label="fragment_notice" />
+    <activity
+        android:id="@+id/loginActivity"
+        android:name="com.example.presentation.view.login.LoginActivity"
+        android:label="activity_login"
+        tools:layout="@layout/activity_login" />
 </navigation>
