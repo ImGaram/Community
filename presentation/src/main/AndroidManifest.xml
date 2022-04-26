@@ -4,6 +4,9 @@
 
     <application>
         <activity
+            android:name=".view.login.LoginActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>
