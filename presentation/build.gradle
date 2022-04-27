@@ -29,15 +29,16 @@ android {
     kotlinOptions {
         jvmTarget = '1.8'
     }
-//    dataBinding {
-//        enabled = true
-//    }
+    dataBinding {
+        enabled = true
+    }
     viewBinding {
         enabled = true
     }
 }
 
 dependencies {
+    implementation project(":data")
     implementation project(":domain")
 
     // dagger hilt
@@ -54,6 +55,13 @@ dependencies {
     implementation (Retrofit.RETROFIT)
     implementation (Retrofit.CONVERTER_GSON)
     implementation (Retrofit.CONVERTER_JAXB)
+
+    // rx
+    implementation (RxJava.RXJAVA)
+    implementation (RxJava.RXKOTLIN)
+    implementation (RxJava.ADAPTER)
+    implementation (RxJava.RXANDROID)
+    //
 
     //okHttp
     implementation (OkHttp.OKHTTP)

@@ -38,6 +38,12 @@ dependencies {
     implementation (DaggerHilt.DAGGER_HILT_VIEW_MODEL)
     kapt (DaggerHilt.DAGGER_HILT_ANDROIDX_COMPILER)
 
+    // rxjava
+    implementation (RxJava.RXJAVA)
+    implementation (RxJava.RXKOTLIN)
+    implementation (RxJava.ADAPTER)
+    implementation (RxJava.RXANDROID)
+
     // Retrofit
     implementation (Retrofit.RETROFIT)
     implementation (Retrofit.CONVERTER_GSON)

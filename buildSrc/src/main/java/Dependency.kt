@@ -5,6 +5,13 @@ object DaggerHilt {
     const val DAGGER_HILT_ANDROIDX_COMPILER = "androidx.hilt:hilt-compiler:1.0.0"
 }
 
+object RxJava {
+    const val RXJAVA = "io.reactivex.rxjava3:rxjava:3.0.6"
+    const val RXKOTLIN = "io.reactivex.rxjava3:rxkotlin:3.0.0"
+    const val ADAPTER = "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+    const val RXANDROID = "io.reactivex.rxjava3:rxandroid:3.0.0"
+}
+
 object Retrofit {
     const val RETROFIT = "com.squareup.retrofit2:retrofit:2.9.0"
     const val CONVERTER_GSON = "com.squareup.retrofit2:converter-gson:2.9.0"
