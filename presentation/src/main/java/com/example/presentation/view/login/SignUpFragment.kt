@@ -1,31 +1,52 @@
 package com.example.presentation.view.login
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
 import com.example.presentation.R
+import com.example.presentation.base.BaseFragment
 import com.example.presentation.databinding.FragmentSignUpBinding
+import com.example.presentation.viewmodel.NbViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class SignUpFragment : Fragment() {
+@AndroidEntryPoint
+class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sign_up), View.OnClickListener {
+    private val nbViewModel by activityViewModels<NbViewModel>()
 
-    private lateinit var binding: FragmentSignUpBinding
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        binding = FragmentSignUpBinding.inflate(layoutInflater, container, false)
-        binding.loginText.setOnClickListener {
-            Navigation.findNavController(binding.root).navigate(R.id.action_signUpFragment_to_loginFragment)
+    override fun init() {
+        binding.signIn = this
+        viewSetting()
+    }
+
+    override fun onClick(v: View?) {
+        when(v!!.id) {
+            binding.loginText.id -> {
+                Navigation.findNavController(binding.root).navigate(R.id.action_signUpFragment_to_loginFragment)
+            }
+            binding.signUpBtn.id -> {
+                createUser()
+                Navigation.findNavController(binding.root).navigate(R.id.action_signUpFragment_to_loginFragment)
+            }
         }
+    }
 
-        binding.signUpBtn.setOnClickListener {
-            // 회원가입 로직
-            Navigation.findNavController(binding.root).navigate(R.id.action_signUpFragment_to_loginFragment)
+    private fun createUser() {
+        val email = binding.editEmail.text.toString()
+        val name = binding.editName.text.toString()
+        val password = binding.editPw.text.toString()
+        signInLogic(email, name, password)
+        Log.d("SUCCESS", "createUser: ${nbViewModel.signInLogic(name, email, password)}")
+    }
+
+    private fun signInLogic(email: String, name: String, password: String) {
+        nbViewModel.signInLogic(name, email, password)
+    }
+
+    private fun viewSetting() {
+        binding.apply {
+            loginText.setOnClickListener(this@SignUpFragment)
+            signUpBtn.setOnClickListener(this@SignUpFragment)
         }
-
-        return binding.root
     }
 }
