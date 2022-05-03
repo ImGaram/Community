@@ -2,11 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.presentation">
 
-    <application>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
+    <application
+        android:name=".di.App"
+        android:usesCleartextTraffic="true">
         <activity
             android:name=".view.login.LoginActivity"
             android:exported="false" />
-        <activity
+          <activity
             android:name=".view.MainActivity"
             android:exported="true">
             <intent-filter>

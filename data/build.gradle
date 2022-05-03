@@ -46,6 +46,9 @@ dependencies {
     implementation (RxJava.ADAPTER)
     implementation (RxJava.RXANDROID)
 
+    // coroutine
+    implementation (Coroutine.COROUTINE)
+
     // Retrofit
     implementation (Retrofit.RETROFIT)
     implementation (Retrofit.CONVERTER_GSON)

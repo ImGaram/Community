@@ -61,7 +61,6 @@ dependencies {
     implementation (RxJava.RXKOTLIN)
     implementation (RxJava.ADAPTER)
     implementation (RxJava.RXANDROID)
-    //
 
     //okHttp
     implementation (OkHttp.OKHTTP)

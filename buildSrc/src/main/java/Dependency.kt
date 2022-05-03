@@ -8,7 +8,7 @@ object DaggerHilt {
 object RxJava {
     const val RXJAVA = "io.reactivex.rxjava3:rxjava:3.0.6"
     const val RXKOTLIN = "io.reactivex.rxjava3:rxkotlin:3.0.0"
-    const val ADAPTER = "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
+    const val ADAPTER = "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
     const val RXANDROID = "io.reactivex.rxjava3:rxandroid:3.0.0"
 }
 
