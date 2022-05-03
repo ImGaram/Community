@@ -10,5 +10,5 @@ interface SignInRepository {
         name: String,
         email: String,
         password: String
-    ): Single<DomainSignInResponse>
+    ): DomainSignInResponse?
 }
