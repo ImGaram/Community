@@ -37,6 +37,9 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
         val password = binding.editPw.text.toString()
         signInLogic(email, name, password)
         Log.d("SUCCESS", "createUser: ${nbViewModel.signInLogic(name, email, password)}")
+        nbViewModel.apiCallResult.observe(viewLifecycleOwner) {
+            Log.d("SUCCESS", "createUser it: $it")
+        }
     }
 
     private fun signInLogic(email: String, name: String, password: String) {
