@@ -1,16 +1,27 @@
 package com.example.domain.usecase
 
-import com.example.domain.ParamsUseCase
 import com.example.domain.model.DomainSignInResponse
 import com.example.domain.repository.SignInRepository
-import io.reactivex.rxjava3.core.Single
-import javax.inject.Inject
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
-class SignInUseCase @Inject constructor(
+class SignInUseCase (
     private val repository: SignInRepository
 ) {
-    suspend fun buildUseCaseObservable
-                (name: String,
-                 email: String,
-                 password: String) = repository.signUp(name, email, password)
+    operator fun invoke(
+        name: String,
+        email: String,
+        password: String,
+        scope: CoroutineScope,
+        onResult: (DomainSignInResponse?) -> Unit = {}
+    ) {
+        scope.launch(Dispatchers.Main) {
+            val deferred = async(Dispatchers.IO) {
+                repository.signUp(name, email, password)
+            }
+            onResult(deferred.await())
+        }
+    }
 }
