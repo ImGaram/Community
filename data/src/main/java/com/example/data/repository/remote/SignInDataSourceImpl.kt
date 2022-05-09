@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 class SignInDataSourceImpl @Inject constructor(
     override val service: NbService
-    ): BaseDataSource<NbService>(), SignInDataSource {
+): BaseDataSource<NbService>(), SignInDataSource {
     override suspend fun signUp(
         body: SignInRequest
     ): SignInResponse? {
