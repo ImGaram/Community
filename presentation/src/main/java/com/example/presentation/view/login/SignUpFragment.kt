@@ -26,7 +26,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
             }
             binding.signUpBtn.id -> {
                 createUser()
-                Navigation.findNavController(binding.root).navigate(R.id.action_signUpFragment_to_loginFragment)
+                Navigation.findNavController(binding.root).navigate(R.id.action_signUpFragment_to_loginFragment)    // 성공 시 화면 이동
             }
         }
     }
@@ -36,7 +36,7 @@ class SignUpFragment : BaseFragment<FragmentSignUpBinding>(R.layout.fragment_sig
         val name = binding.editName.text.toString()
         val password = binding.editPw.text.toString()
         signInLogic(email, name, password)
-        nbViewModel.apiCallResult.observe(viewLifecycleOwner) {
+        nbViewModel.signInApiCallResult.observe(viewLifecycleOwner) {
             Log.d("SUCCESS", "createUser it: $it")
         }
     }
