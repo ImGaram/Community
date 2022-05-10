@@ -1,7 +1,7 @@
-package com.example.domain.usecase
+package com.example.domain.usecase.signin
 
-import com.example.domain.model.DomainSignInResponse
-import com.example.domain.repository.SignInRepository
+import com.example.domain.model.user.DomainSignInResponse
+import com.example.domain.repository.user.signin.SignInRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async

@@ -1,9 +1,8 @@
-package com.example.data.entity.response
+package com.example.data.entity.user.request
 
 import com.google.gson.annotations.SerializedName
 
-data class SignInResponse(
-    @SerializedName("id") var id: String,
+data class SignInRequest(
     @SerializedName("name") var name: String,
     @SerializedName("email") var email: String,
     @SerializedName("password") var password: String
