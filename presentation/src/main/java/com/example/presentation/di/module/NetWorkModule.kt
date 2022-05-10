@@ -1,6 +1,6 @@
 package com.example.presentation.di.module
 
-import com.example.data.api.NbService
+import com.example.data.api.NbJoinService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -55,7 +55,7 @@ object NetWorkModule {
 
     @Provides
     @Singleton
-    fun provideCommonService(retrofit: Retrofit): NbService {
-        return retrofit.create(NbService::class.java)
+    fun provideCommonService(retrofit: Retrofit): NbJoinService {
+        return retrofit.create(NbJoinService::class.java)
     }
 }
