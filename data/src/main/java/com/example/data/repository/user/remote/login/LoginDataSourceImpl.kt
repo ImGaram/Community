@@ -9,7 +9,9 @@ import javax.inject.Inject
 class LoginDataSourceImpl @Inject constructor(
     override val service: NbLoginService
 ) : BaseDataSource<NbLoginService>(), LoginDataSource{
-    override suspend fun login(user: LoginRequest): LoginResponse? {
+    override suspend fun login(
+        user: LoginRequest
+    ): LoginResponse? {
         return safeApiCall {
             service.loginService(user)
         }?.body()
