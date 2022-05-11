@@ -8,7 +8,7 @@ import retrofit2.http.POST
 
 interface NbLoginService {
     @POST("/login/")
-    fun loginService(
+    suspend fun loginService(
         @Body user: LoginRequest
     ): Response<LoginResponse>
 }
