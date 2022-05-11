@@ -1,6 +1,9 @@
 package com.example.presentation.di.module
 
+import android.util.Log
+import com.example.data.ApiClient
 import com.example.data.api.NbJoinService
+import com.example.data.api.NbLoginService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -11,13 +14,14 @@ import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
+import javax.inject.Named
 import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
 object NetWorkModule {
 
-    private const val BASE_URL = "http://10.120.74.34:8000/"
+    private const val BASE_URL = ApiClient.BASE_URL
 
     @Provides
     @Singleton
@@ -32,9 +36,10 @@ object NetWorkModule {
             .build()
     }
 
+    @Named("signin")
     @Provides
     @Singleton
-    fun provideRetrofitInstance(
+    fun provideSignInRetrofitInstance(
         okHttpClient: OkHttpClient,
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
@@ -47,6 +52,22 @@ object NetWorkModule {
             .build()
     }
 
+    @Named("login")
+    @Provides
+    @Singleton
+    fun provideLoginRetrofitInstance(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .client(provideOkhttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Provides
     @Singleton
     fun provideConverterFactory(): GsonConverterFactory {
@@ -55,7 +76,13 @@ object NetWorkModule {
 
     @Provides
     @Singleton
-    fun provideCommonService(retrofit: Retrofit): NbJoinService {
+    fun provideJoinService(@Named("signin") retrofit: Retrofit): NbJoinService {
         return retrofit.create(NbJoinService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoginService(@Named("login") retrofit: Retrofit): NbLoginService {
+        return retrofit.create(NbLoginService::class.java)
     }
 }
