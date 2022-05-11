@@ -8,7 +8,9 @@ import com.example.presentation.R
 import com.example.presentation.base.BaseFragment
 import com.example.presentation.databinding.FragmentLoginBinding
 import com.example.presentation.viewmodel.NbViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login), View.OnClickListener {
     private val nbViewModel by activityViewModels<NbViewModel>()
 
