@@ -41,9 +41,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         nbViewModel.loginApiCallResult.observe(this) {
             Log.d("SUCCESS", "login it: $it")
             if (ApiClient.resultCode == 200) {
-//                Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_mainActivity)
                 val intent = Intent(context, MainActivity::class.java)
-                    .putExtra("userId", it.id)  // TODO :: user id
+                    .putExtra("userId", it.id.toInt())
                 startActivity(intent)
             }
         }
