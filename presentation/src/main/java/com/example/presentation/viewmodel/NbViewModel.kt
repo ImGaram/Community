@@ -6,8 +6,10 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.user.DomainLoginResponse
 import com.example.domain.model.user.DomainSignInResponse
+import com.example.domain.model.user.DomainUserInfoResponse
 import com.example.domain.usecase.login.LoginUseCase
 import com.example.domain.usecase.signin.SignInUseCase
+import com.example.domain.usecase.userinfo.UserInfoUseCase
 import com.example.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,7 +18,8 @@ import javax.inject.Inject
 @HiltViewModel
 class NbViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
-    private val loginUseCase: LoginUseCase
+    private val loginUseCase: LoginUseCase,
+    private val userInfoUseCase: UserInfoUseCase
 ): BaseViewModel() {
     // 회원가입
     private val _signInApiCallResult = MutableLiveData<DomainSignInResponse>()
@@ -38,6 +41,18 @@ class NbViewModel @Inject constructor(
             loginUseCase(email, password, viewModelScope) {
                 _loginApiCallResult.value = it
                 Log.d("SUCCESS", "_loginApiCallResult.value: ${_loginApiCallResult.value}")
+            }
+        }
+    }
+
+    // 유저 정보
+    private val _userInfoApiCallResult = MutableLiveData<DomainUserInfoResponse>()
+    val userInfoApiCallResult: LiveData<DomainUserInfoResponse> = _userInfoApiCallResult
+    fun getUserLogic(id: Int?) {
+        viewModelScope.launch {
+            userInfoUseCase(id, viewModelScope) {
+                _userInfoApiCallResult.value = it
+                Log.d("SUCCESS", "_userInfoApiCallResult.value: ${_userInfoApiCallResult.value}")
             }
         }
     }
