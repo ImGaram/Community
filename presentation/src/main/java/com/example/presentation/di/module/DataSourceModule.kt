@@ -2,8 +2,10 @@ package com.example.presentation.di.module
 
 import com.example.data.api.NbJoinService
 import com.example.data.api.NbLoginService
+import com.example.data.api.NbUserInfoService
 import com.example.data.repository.user.remote.login.LoginDataSourceImpl
 import com.example.data.repository.user.remote.signin.SignInDataSourceImpl
+import com.example.data.repository.user.remote.userinfo.UserInfoDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,5 +26,11 @@ object DataSourceModule {
     @Singleton
     fun provideLoginDataSource(loginService: NbLoginService): LoginDataSourceImpl {
         return LoginDataSourceImpl(loginService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserInfoDataSource(userInfoService: NbUserInfoService): UserInfoDataSourceImpl {
+        return UserInfoDataSourceImpl(userInfoService)
     }
 }

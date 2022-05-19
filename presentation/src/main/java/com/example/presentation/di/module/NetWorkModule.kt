@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.data.ApiClient
 import com.example.data.api.NbJoinService
 import com.example.data.api.NbLoginService
+import com.example.data.api.NbUserInfoService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -13,6 +14,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
@@ -68,6 +70,22 @@ object NetWorkModule {
             .build()
     }
 
+    @Named("userInfo")
+    @Provides
+    @Singleton
+    fun provideUserInfoRetrofitInstance(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .client(provideOkhttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Provides
     @Singleton
     fun provideConverterFactory(): GsonConverterFactory {
@@ -84,5 +102,11 @@ object NetWorkModule {
     @Singleton
     fun provideLoginService(@Named("login") retrofit: Retrofit): NbLoginService {
         return retrofit.create(NbLoginService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideUserInfoService(@Named("userInfo") retrofit: Retrofit): NbUserInfoService {
+        return retrofit.create(NbUserInfoService::class.java)
     }
 }
