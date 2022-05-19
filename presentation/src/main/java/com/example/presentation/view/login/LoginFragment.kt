@@ -1,12 +1,15 @@
 package com.example.presentation.view.login
 
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.navigation.Navigation
+import com.example.data.ApiClient
 import com.example.presentation.R
 import com.example.presentation.base.BaseFragment
 import com.example.presentation.databinding.FragmentLoginBinding
+import com.example.presentation.view.MainActivity
 import com.example.presentation.viewmodel.NbViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,7 +29,6 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             }
             binding.loginBtn.id -> {
                 login(binding.editEmail.text.toString(), binding.editPw.text.toString())
-                Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_mainActivity)
             }
             binding.signUpText.id -> {
                 Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_signUpFragment)
@@ -38,6 +40,12 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
         loginLogic(email, password)
         nbViewModel.loginApiCallResult.observe(this) {
             Log.d("SUCCESS", "login it: $it")
+            if (ApiClient.resultCode == 200) {
+//                Navigation.findNavController(binding.root).navigate(R.id.action_loginFragment_to_mainActivity)
+                val intent = Intent(context, MainActivity::class.java)
+                    .putExtra("userId", it.id)  // TODO :: user id
+                startActivity(intent)
+            }
         }
     }
 
