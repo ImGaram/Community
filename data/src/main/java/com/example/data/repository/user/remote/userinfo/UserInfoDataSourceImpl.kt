@@ -9,10 +9,10 @@ class UserInfoDataSourceImpl @Inject constructor(
     override val service: NbUserInfoService
 ): BaseDataSource<NbUserInfoService>(), UserInfoDataSource {
     override suspend fun getUserInfo(
-        userId: Int
+        id: Int
     ): UserInfoResponse? {
         return safeApiCall {
-            service.getUser(userId)
+            service.getUser(id)
         }?.body()
     }
 }

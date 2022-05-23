@@ -4,6 +4,6 @@ import com.example.data.entity.user.response.UserInfoResponse
 
 interface UserInfoDataSource {
     suspend fun getUserInfo(
-        userId: Int
+        id: Int
     ): UserInfoResponse?
 }
