@@ -11,7 +11,7 @@ class UserInfoUseCase(
     private val repository: UserInfoRepository
 ) {
     operator fun invoke(
-        id: Int?,
+        id: Int,
         scope: CoroutineScope,
         onResult: (DomainUserInfoResponse?) -> Unit = {}
     ) {
