@@ -10,8 +10,8 @@ class UserInfoRepositoryImpl @Inject constructor(
     private val dataSource: UserInfoDataSource
 ): UserInfoRepository {
     override suspend fun getUserInfo(
-        id: Int?
+        id: Int
     ): DomainUserInfoResponse? {
-        return Mapper.toDomainUserInfoResponse(dataSource.getUserInfo(id!!))
+        return Mapper.toDomainUserInfoResponse(dataSource.getUserInfo(id))
     }
 }

@@ -4,6 +4,6 @@ import com.example.domain.model.user.DomainUserInfoResponse
 
 interface UserInfoRepository {
     suspend fun getUserInfo(
-        id: Int?
+        id: Int
     ): DomainUserInfoResponse?
 }
