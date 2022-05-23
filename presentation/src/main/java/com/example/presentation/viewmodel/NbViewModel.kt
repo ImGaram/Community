@@ -48,7 +48,7 @@ class NbViewModel @Inject constructor(
     // 유저 정보
     private val _userInfoApiCallResult = MutableLiveData<DomainUserInfoResponse>()
     val userInfoApiCallResult: LiveData<DomainUserInfoResponse> = _userInfoApiCallResult
-    fun getUserLogic(id: Int?) {
+    fun getUserLogic(id: Int) {
         viewModelScope.launch {
             userInfoUseCase(id, viewModelScope) {
                 _userInfoApiCallResult.value = it
