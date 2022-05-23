@@ -3,10 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main_nav"
-    app:startDestination="@id/freeBoardFragment">
+    app:startDestination="@id/freeBoard">
 
     <fragment
-        android:id="@+id/freeBoardFragment"
+        android:id="@+id/freeBoard"
         android:name="com.example.presentation.view.fragment.FreeBoardFragment"
         android:label="fragment_free_board"
         tools:layout="@layout/fragment_free_board" >
@@ -15,15 +15,15 @@
             app:destination="@id/loginActivity" />
     </fragment>
     <fragment
-        android:id="@+id/storyBoardFragment"
+        android:id="@+id/storyBoard"
         android:name="com.example.presentation.view.fragment.StoryBoardFragment"
         android:label="fragment_story_board" />
     <fragment
-        android:id="@+id/inquiryFragment"
+        android:id="@+id/inquiry"
         android:name="com.example.presentation.view.fragment.InquiryFragment"
         android:label="fragment_inquiry" />
     <fragment
-        android:id="@+id/noticeFragment"
+        android:id="@+id/notice"
         android:name="com.example.presentation.view.fragment.NoticeFragment"
         android:label="fragment_notice" />
     <activity

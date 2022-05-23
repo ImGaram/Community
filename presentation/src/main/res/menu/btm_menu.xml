@@ -1,18 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item android:id="@+id/freeBoardFragment"
+    <item android:id="@+id/freeBoard"
         android:title="자유"
         android:icon="@color/main_color"/>
 
-    <item android:id="@+id/storyBoardFragment"
+    <item android:id="@+id/storyBoard"
         android:title="스토리"
         android:icon="@color/main_color"/>
 
-    <item android:id="@+id/inquiryFragment"
+    <item android:id="@+id/inquiry"
         android:title="문의"
         android:icon="@color/main_color"/>
 
-    <item android:id="@+id/noticeFragment"
+    <item android:id="@+id/notice"
         android:title="공지"
         android:icon="@color/main_color"/>
 </menu>
