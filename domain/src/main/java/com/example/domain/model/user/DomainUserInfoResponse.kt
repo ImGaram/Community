@@ -1,8 +1,8 @@
 package com.example.domain.model.user
 
 data class DomainUserInfoResponse(
-    var id: Int,
-    var name: String,
-    var email: String,
-    var password: String
+    val id: Int,
+    val name: String,
+    val email: String,
+    val password: String
 )
