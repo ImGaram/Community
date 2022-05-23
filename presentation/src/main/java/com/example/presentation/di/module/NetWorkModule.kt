@@ -70,7 +70,7 @@ object NetWorkModule {
             .build()
     }
 
-    @Named("userInfo")
+    @Named("userinfo")
     @Provides
     @Singleton
     fun provideUserInfoRetrofitInstance(
@@ -106,7 +106,7 @@ object NetWorkModule {
 
     @Provides
     @Singleton
-    fun provideUserInfoService(@Named("userInfo") retrofit: Retrofit): NbUserInfoService {
+    fun provideUserInfoService(@Named("userinfo") retrofit: Retrofit): NbUserInfoService {
         return retrofit.create(NbUserInfoService::class.java)
     }
 }
