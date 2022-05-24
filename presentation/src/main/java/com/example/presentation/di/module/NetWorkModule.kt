@@ -4,6 +4,7 @@ import android.util.Log
 import com.example.data.ApiClient
 import com.example.data.api.NbJoinService
 import com.example.data.api.NbLoginService
+import com.example.data.api.NbRevisionService
 import com.example.data.api.NbUserInfoService
 import dagger.Module
 import dagger.Provides
@@ -86,6 +87,22 @@ object NetWorkModule {
             .build()
     }
 
+    @Named("revision")
+    @Provides
+    @Singleton
+    fun provideRevisionRetrofitInstance(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .client(provideOkhttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Provides
     @Singleton
     fun provideConverterFactory(): GsonConverterFactory {
@@ -108,5 +125,11 @@ object NetWorkModule {
     @Singleton
     fun provideUserInfoService(@Named("userinfo") retrofit: Retrofit): NbUserInfoService {
         return retrofit.create(NbUserInfoService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideRevisionService(@Named("revision") retrofit: Retrofit): NbRevisionService {
+        return retrofit.create(NbRevisionService::class.java)
     }
 }

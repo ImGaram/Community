@@ -10,7 +10,10 @@ import javax.inject.Inject
 class LoginRepositoryImpl @Inject constructor(
     private val dataSource: LoginDataSource
 ): LoginRepository {
-    override suspend fun login(email: String, password: String): DomainLoginResponse? {
+    override suspend fun login(
+        email: String,
+        password: String
+    ): DomainLoginResponse? {
         return Mapper.toDomainLogInResponse(dataSource.login(LoginRequest(email, password)))
     }
 }

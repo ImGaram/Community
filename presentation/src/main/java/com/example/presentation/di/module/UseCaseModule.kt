@@ -1,9 +1,11 @@
 package com.example.presentation.di.module
 
 import com.example.domain.repository.user.login.LoginRepository
+import com.example.domain.repository.user.revision.RevisionRepository
 import com.example.domain.repository.user.signin.SignInRepository
 import com.example.domain.repository.user.userinfo.UserInfoRepository
 import com.example.domain.usecase.login.LoginUseCase
+import com.example.domain.usecase.revision.RevisionUseCase
 import com.example.domain.usecase.signin.SignInUseCase
 import com.example.domain.usecase.userinfo.UserInfoUseCase
 import dagger.Module
@@ -27,4 +29,8 @@ class UseCaseModule {
     @Provides
     @Singleton
     fun provideUserInfoUseCase(repository: UserInfoRepository) = UserInfoUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideRevisionUseCase(repository: RevisionRepository) = RevisionUseCase(repository)
 }
