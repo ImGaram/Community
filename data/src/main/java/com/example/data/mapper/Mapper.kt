@@ -1,6 +1,6 @@
 package com.example.data.mapper
 
-import com.example.data.base.BaseSignInResponse
+import com.example.data.base.BaseResponse
 import com.example.data.entity.user.response.LoginResponse
 import com.example.data.entity.user.response.SignInResponse
 import com.example.data.entity.user.response.UserInfoResponse
@@ -51,7 +51,7 @@ object Mapper {
     }
 
     fun toDomainBaseResponse(
-        dataResponse: BaseSignInResponse?
+        dataResponse: BaseResponse?
     ): DomainBaseResponse? {
         return if (dataResponse != null) {
             DomainBaseResponse(
