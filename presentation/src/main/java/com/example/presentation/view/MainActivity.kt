@@ -24,7 +24,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         setContentView(binding.root)
 
         binding.bottomNavigationView.setOnNavigationItemSelectedListener(this)
-        supportFragmentManager.beginTransaction().add(R.id.fragmentContainerView, FreeBoardFragment()).commit()
+        supportFragmentManager.beginTransaction().add(R.id.fragmentContainerView, FreeBoardFragment().apply {
+            arguments = Bundle().apply {
+                Log.d("SUCCESS", "onNavigationItemSelected intent extra: ${intent.getIntExtra("userId", 0)}")
+                putInt("id", intent.getIntExtra("userId", 0))
+            }
+        }).commit()
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
@@ -32,22 +37,33 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
             R.id.freeBoard -> {
                 supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, FreeBoardFragment().apply {
                     arguments = Bundle().apply {
-                        Log.d("SUCCESS", "onNavigationItemSelected intent extra: ${intent.getIntExtra("userId", 0)}")
                         putInt("id", intent.getIntExtra("userId", 0))
                     }
                 }).commitAllowingStateLoss()
                 return true
             }
             R.id.inquiry -> {
-                supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, InquiryFragment()).commitAllowingStateLoss()
+                supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, InquiryFragment().apply {
+                    arguments = Bundle().apply {
+                        putInt("id", intent.getIntExtra("userId", 0))
+                    }
+                }).commitAllowingStateLoss()
                 return true
             }
             R.id.notice -> {
-                supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, NoticeFragment()).commitAllowingStateLoss()
+                supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, NoticeFragment().apply {
+                    arguments = Bundle().apply {
+                        putInt("id", intent.getIntExtra("userId", 0))
+                    }
+                }).commitAllowingStateLoss()
                 return true
             }
             R.id.storyBoard -> {
-                supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, StoryBoardFragment()).commitAllowingStateLoss()
+                supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, StoryBoardFragment().apply {
+                    arguments = Bundle().apply {
+                        putInt("id", intent.getIntExtra("userId", 0))
+                    }
+                }).commitAllowingStateLoss()
                 return true
             }
         }
