@@ -1,8 +1,10 @@
 package com.example.data.mapper
 
+import com.example.data.base.BaseSignInResponse
 import com.example.data.entity.user.response.LoginResponse
 import com.example.data.entity.user.response.SignInResponse
 import com.example.data.entity.user.response.UserInfoResponse
+import com.example.domain.model.base.DomainBaseResponse
 import com.example.domain.model.user.DomainLoginResponse
 import com.example.domain.model.user.DomainSignInResponse
 import com.example.domain.model.user.DomainUserInfoResponse
@@ -40,6 +42,19 @@ object Mapper {
     ): DomainUserInfoResponse? {
         return if (dataResponse != null) {
             DomainUserInfoResponse(
+                id = dataResponse.id,
+                name = dataResponse.name,
+                email = dataResponse.email,
+                password = dataResponse.password
+            )
+        } else dataResponse
+    }
+
+    fun toDomainBaseResponse(
+        dataResponse: BaseSignInResponse?
+    ): DomainBaseResponse? {
+        return if (dataResponse != null) {
+            DomainBaseResponse(
                 id = dataResponse.id,
                 name = dataResponse.name,
                 email = dataResponse.email,
