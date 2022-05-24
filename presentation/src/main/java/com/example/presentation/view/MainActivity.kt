@@ -1,15 +1,19 @@
 package com.example.presentation.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import com.example.presentation.R
 import com.example.presentation.databinding.ActivityMainBinding
 import com.example.presentation.view.fragment.FreeBoardFragment
 import com.example.presentation.view.fragment.InquiryFragment
 import com.example.presentation.view.fragment.NoticeFragment
 import com.example.presentation.view.fragment.StoryBoardFragment
+import com.example.presentation.view.user.UserInfoFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -30,6 +34,32 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 putInt("id", intent.getIntExtra("userId", 0))
             }
         }).commit()
+        setView()
+
+        binding.userNameText.setOnClickListener {
+            val name = intent.getStringExtra("userName")
+            val email = intent.getStringExtra("email")
+            val password = intent.getStringExtra("password")
+
+            supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, UserInfoFragment().apply {
+                arguments = Bundle().apply {
+                    putInt("id", intent.getIntExtra("userId", 0))
+                    putString("name", name)
+                    putString("email", email)
+                    putString("password", password)
+                }
+            }).commit()
+        }
+    }
+
+    private fun setView() {
+        val username = intent.getStringExtra("userName")
+
+        if (username != null) {
+            binding.userNameText.text = username
+        } else {
+            binding.userNameText.text = "Guest"
+        }
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {

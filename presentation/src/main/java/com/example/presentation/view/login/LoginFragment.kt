@@ -43,6 +43,9 @@ class LoginFragment : BaseFragment<FragmentLoginBinding>(R.layout.fragment_login
             if (ApiClient.resultCode == 200) {
                 val intent = Intent(context, MainActivity::class.java)
                     .putExtra("userId", it.id.toInt())
+                    .putExtra("userName", it.name)
+                    .putExtra("email", it.email)
+                    .putExtra("password", it.password)
                 startActivity(intent)
             }
         }
