@@ -11,6 +11,7 @@ class RevisionUseCase(
     private val repository: RevisionRepository
 ) {
     operator fun invoke(
+        id: Int,
         name: String,
         email: String,
         password: String,
@@ -19,7 +20,7 @@ class RevisionUseCase(
     ){
         scope.launch(Dispatchers.Main) {
             val deferred = async(Dispatchers.IO) {
-                repository.revision(name, email, password)
+                repository.revision(id, name, email, password)
             }
             onResult(deferred.await())
         }
