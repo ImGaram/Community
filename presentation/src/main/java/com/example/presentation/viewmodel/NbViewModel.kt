@@ -4,10 +4,12 @@ import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
+import com.example.domain.model.base.DomainBaseResponse
 import com.example.domain.model.user.DomainLoginResponse
 import com.example.domain.model.user.DomainSignInResponse
 import com.example.domain.model.user.DomainUserInfoResponse
 import com.example.domain.usecase.login.LoginUseCase
+import com.example.domain.usecase.revision.RevisionUseCase
 import com.example.domain.usecase.signin.SignInUseCase
 import com.example.domain.usecase.userinfo.UserInfoUseCase
 import com.example.presentation.base.BaseViewModel
@@ -19,7 +21,8 @@ import javax.inject.Inject
 class NbViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
     private val loginUseCase: LoginUseCase,
-    private val userInfoUseCase: UserInfoUseCase
+    private val userInfoUseCase: UserInfoUseCase,
+    private val revisionUseCase: RevisionUseCase
 ): BaseViewModel() {
     // 회원가입
     private val _signInApiCallResult = MutableLiveData<DomainSignInResponse>()
@@ -53,6 +56,18 @@ class NbViewModel @Inject constructor(
             userInfoUseCase(id, viewModelScope) {
                 _userInfoApiCallResult.value = it
                 Log.d("SUCCESS", "_userInfoApiCallResult.value: ${_userInfoApiCallResult.value}")
+            }
+        }
+    }
+
+    // 유저 수정
+   private val _userRevisionApiCallResult = MutableLiveData<DomainBaseResponse>()
+    val userRevisionApiCallResult: LiveData<DomainBaseResponse> = _userRevisionApiCallResult
+    fun revisionLogic(id: Int, name: String, email: String, password: String) {
+        viewModelScope.launch {
+            revisionUseCase(id, name, email, password, viewModelScope) {
+                _userRevisionApiCallResult.value = it
+                Log.d("SUCCESS", "_userRevisionApiCallResult.value: ${_userRevisionApiCallResult.value}")
             }
         }
     }
