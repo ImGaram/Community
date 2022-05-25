@@ -5,6 +5,8 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import okhttp3.Response
+import okhttp3.ResponseBody
 
 class DeleteUserUseCase(
     private val repository: DeleteUserRepository
@@ -12,7 +14,7 @@ class DeleteUserUseCase(
     operator fun invoke(
         pk: Int,
         scpoe: CoroutineScope,
-        onResult: (Int?) -> Unit = {}
+        onResult: (ResponseBody?) -> Unit = {}
     ) {
         scpoe.launch(Dispatchers.Main) {
             val deferred = async(Dispatchers.IO) {

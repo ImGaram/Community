@@ -16,6 +16,8 @@ import com.example.domain.usecase.userinfo.UserInfoUseCase
 import com.example.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import okhttp3.Response
+import okhttp3.ResponseBody
 import javax.inject.Inject
 
 @HiltViewModel
@@ -75,13 +77,13 @@ class NbViewModel @Inject constructor(
     }
 
     // 유저 삭제
-    private val _deleteUserApiCallResult = MutableLiveData<Int>()
-    val deleteUserApiCallResult: LiveData<Int> = _deleteUserApiCallResult
+    private val _deleteUserApiCallResult = MutableLiveData<ResponseBody>()
+    val deleteUserApiCallResult: LiveData<ResponseBody> = _deleteUserApiCallResult
     fun deleteUserLogic(pk: Int) {
         viewModelScope.launch {
             deleteUserUseCase(pk, viewModelScope) {
                 _deleteUserApiCallResult.value = it
-                Log.d("SUCCESS", "_deleteUserApiCallResult.value: ${_deleteUserApiCallResult.value}")
+//                Log.d("SUCCESS", "_deleteUserApiCallResult.value: ${_deleteUserApiCallResult.value}")
             }
         }
     }
