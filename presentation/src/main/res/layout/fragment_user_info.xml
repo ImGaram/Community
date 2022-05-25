@@ -198,5 +198,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/revision_linear" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/delete_btn"
+            android:layout_width="65dp"
+            android:layout_height="30dp"
+            android:background="@drawable/btn_background2"
+            android:gravity="center"
+            android:text="회원 탈퇴"
+            android:layout_marginTop="20dp"
+            android:textColor="@color/white"
+            app:layout_constraintStart_toStartOf="@+id/revision_linear"
+            app:layout_constraintTop_toBottomOf="@+id/save_revision2" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
