@@ -1,11 +1,7 @@
 package com.example.presentation.di.module
 
-import android.util.Log
 import com.example.data.ApiClient
-import com.example.data.api.NbJoinService
-import com.example.data.api.NbLoginService
-import com.example.data.api.NbRevisionService
-import com.example.data.api.NbUserInfoService
+import com.example.data.api.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,7 +11,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
@@ -103,6 +98,22 @@ object NetWorkModule {
             .build()
     }
 
+    @Named("del")
+    @Provides
+    @Singleton
+    fun provideDeleteRetrofitInstance(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .client(provideOkhttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Provides
     @Singleton
     fun provideConverterFactory(): GsonConverterFactory {
@@ -131,5 +142,11 @@ object NetWorkModule {
     @Singleton
     fun provideRevisionService(@Named("revision") retrofit: Retrofit): NbRevisionService {
         return retrofit.create(NbRevisionService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeleteUserService(@Named("del") retrofit: Retrofit): NbDeleteUserService {
+        return retrofit.create(NbDeleteUserService::class.java)
     }
 }

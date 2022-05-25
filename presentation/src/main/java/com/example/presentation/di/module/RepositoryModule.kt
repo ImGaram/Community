@@ -1,13 +1,16 @@
 package com.example.presentation.di.module
 
+import com.example.data.repository.user.remote.delete.DeleteUserDataSourceImpl
 import com.example.data.repository.user.remote.login.LoginDataSourceImpl
 import com.example.data.repository.user.remote.revision.RevisionDataSourceImpl
 import com.example.data.repository.user.repositoryimpl.signin.SignInRepositoryImpl
 import com.example.data.repository.user.remote.signin.SignInDataSourceImpl
 import com.example.data.repository.user.remote.userinfo.UserInfoDataSourceImpl
+import com.example.data.repository.user.repositoryimpl.delete.DeleteRepositoryImpl
 import com.example.data.repository.user.repositoryimpl.login.LoginRepositoryImpl
 import com.example.data.repository.user.repositoryimpl.revision.RevisionRepositoryImpl
 import com.example.data.repository.user.repositoryimpl.userinfo.UserInfoRepositoryImpl
+import com.example.domain.repository.user.delete.DeleteUserRepository
 import com.example.domain.repository.user.login.LoginRepository
 import com.example.domain.repository.user.revision.RevisionRepository
 import com.example.domain.repository.user.signin.SignInRepository
@@ -44,5 +47,11 @@ object RepositoryModule {
     @Singleton
     fun provideRevisionRepository(revisionRepositoryImpl: RevisionDataSourceImpl): RevisionRepository {
         return RevisionRepositoryImpl(revisionRepositoryImpl)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeleteRepository(deleteRepositoryImpl: DeleteUserDataSourceImpl): DeleteUserRepository {
+        return DeleteRepositoryImpl(deleteRepositoryImpl)
     }
 }

@@ -1,9 +1,7 @@
 package com.example.presentation.di.module
 
-import com.example.data.api.NbJoinService
-import com.example.data.api.NbLoginService
-import com.example.data.api.NbRevisionService
-import com.example.data.api.NbUserInfoService
+import com.example.data.api.*
+import com.example.data.repository.user.remote.delete.DeleteUserDataSourceImpl
 import com.example.data.repository.user.remote.login.LoginDataSourceImpl
 import com.example.data.repository.user.remote.revision.RevisionDataSourceImpl
 import com.example.data.repository.user.remote.signin.SignInDataSourceImpl
@@ -40,5 +38,11 @@ object DataSourceModule {
     @Singleton
     fun provideRevisionDataSource(revisionService: NbRevisionService): RevisionDataSourceImpl {
         return RevisionDataSourceImpl(revisionService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeleteDataSource(deleteUserService: NbDeleteUserService): DeleteUserDataSourceImpl {
+        return DeleteUserDataSourceImpl(deleteUserService)
     }
 }
