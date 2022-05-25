@@ -3,8 +3,8 @@ package com.example.presentation.view.user
 import android.content.Intent
 import android.util.Log
 import android.view.View
-import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
+import com.example.data.ApiClient
 import com.example.presentation.R
 import com.example.presentation.base.BaseFragment
 import com.example.presentation.databinding.FragmentUserInfoBinding
@@ -75,6 +75,18 @@ class UserInfoFragment : BaseFragment<FragmentUserInfoBinding>(R.layout.fragment
                     .putExtra("dataId", binding.name.toString())
                 startActivity(intent)
             }
+            binding.deleteBtn.id -> {
+                val id = arguments?.getInt("id")
+                nbViewModel.deleteUserLogic(id!!)
+                nbViewModel.deleteUserApiCallResult.observe(viewLifecycleOwner) {
+                    if (ApiClient.resultCode == 204) {
+                        Log.d("SUCCESS", "성공적으로 삭제함 status: ${ApiClient.resultCode}")
+                        startActivity(Intent(activity, MainActivity::class.java))
+                    } else {
+                        Log.d("FAIL", "삭제 실패함 status: ${ApiClient.resultCode}")
+                    }
+                }
+            }
         }
     }
 
@@ -85,6 +97,7 @@ class UserInfoFragment : BaseFragment<FragmentUserInfoBinding>(R.layout.fragment
             passwordRevision.setOnClickListener(this@UserInfoFragment)
             saveRevision1.setOnClickListener(this@UserInfoFragment)
             saveRevision2.setOnClickListener(this@UserInfoFragment)
+            deleteBtn.setOnClickListener(this@UserInfoFragment)
         }
     }
 }
