@@ -1,11 +1,14 @@
 package com.example.presentation.view.user
 
+import android.content.Intent
 import android.util.Log
 import android.view.View
+import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.activityViewModels
 import com.example.presentation.R
 import com.example.presentation.base.BaseFragment
 import com.example.presentation.databinding.FragmentUserInfoBinding
+import com.example.presentation.view.MainActivity
 import com.example.presentation.viewmodel.NbViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -68,6 +71,9 @@ class UserInfoFragment : BaseFragment<FragmentUserInfoBinding>(R.layout.fragment
                 nbViewModel.userRevisionApiCallResult.observe(viewLifecycleOwner) {
                     Log.d("SUCCESS", "revisionLogic it: $it")
                 }
+                val intent = Intent(activity, MainActivity::class.java)
+                    .putExtra("dataId", binding.name.toString())
+                startActivity(intent)
             }
         }
     }
