@@ -8,6 +8,7 @@ import com.example.domain.model.base.DomainBaseResponse
 import com.example.domain.model.user.DomainLoginResponse
 import com.example.domain.model.user.DomainSignInResponse
 import com.example.domain.model.user.DomainUserInfoResponse
+import com.example.domain.usecase.delete.DeleteUserUseCase
 import com.example.domain.usecase.login.LoginUseCase
 import com.example.domain.usecase.revision.RevisionUseCase
 import com.example.domain.usecase.signin.SignInUseCase
@@ -22,7 +23,8 @@ class NbViewModel @Inject constructor(
     private val signInUseCase: SignInUseCase,
     private val loginUseCase: LoginUseCase,
     private val userInfoUseCase: UserInfoUseCase,
-    private val revisionUseCase: RevisionUseCase
+    private val revisionUseCase: RevisionUseCase,
+    private val deleteUserUseCase: DeleteUserUseCase
 ): BaseViewModel() {
     // 회원가입
     private val _signInApiCallResult = MutableLiveData<DomainSignInResponse>()
@@ -68,6 +70,18 @@ class NbViewModel @Inject constructor(
             revisionUseCase(id, name, email, password, viewModelScope) {
                 _userRevisionApiCallResult.value = it
                 Log.d("SUCCESS", "_userRevisionApiCallResult.value: ${_userRevisionApiCallResult.value}")
+            }
+        }
+    }
+
+    // 유저 삭제
+    private val _deleteUserApiCallResult = MutableLiveData<Int>()
+    val deleteUserApiCallResult: LiveData<Int> = _deleteUserApiCallResult
+    fun deleteUserLogic(pk: Int) {
+        viewModelScope.launch {
+            deleteUserUseCase(pk, viewModelScope) {
+                _deleteUserApiCallResult.value = it
+                Log.d("SUCCESS", "_deleteUserApiCallResult.value: ${_deleteUserApiCallResult.value}")
             }
         }
     }
