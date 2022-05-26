@@ -9,7 +9,7 @@
     tools:context=".view.fragment.InquiryFragment">
 
     <View
-        android:id="@+id/view"
+        android:id="@+id/add_post"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginStart="20dp"
@@ -27,10 +27,10 @@
         android:textColor="@color/white"
         android:textSize="27sp"
         android:fontFamily="@font/nanum_square_round_regular"
-        app:layout_constraintBottom_toBottomOf="@+id/view"
-        app:layout_constraintEnd_toEndOf="@+id/view"
-        app:layout_constraintStart_toStartOf="@+id/view"
-        app:layout_constraintTop_toTopOf="@+id/view" />
+        app:layout_constraintBottom_toBottomOf="@+id/add_post"
+        app:layout_constraintEnd_toEndOf="@+id/add_post"
+        app:layout_constraintStart_toStartOf="@+id/add_post"
+        app:layout_constraintTop_toTopOf="@+id/add_post" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
         android:layout_marginBottom="40dp"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/view" />
+        app:layout_constraintTop_toBottomOf="@+id/add_post" />
 
     <Button
         android:id="@+id/button"

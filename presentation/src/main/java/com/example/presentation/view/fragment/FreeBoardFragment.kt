@@ -7,6 +7,7 @@ import androidx.fragment.app.activityViewModels
 import com.example.presentation.R
 import com.example.presentation.base.BaseFragment
 import com.example.presentation.databinding.FragmentFreeBoardBinding
+import com.example.presentation.view.freeboard.AddFreeBoardActivity
 import com.example.presentation.view.login.LoginActivity
 import com.example.presentation.viewmodel.NbViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -23,6 +24,9 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
     override fun onClick(view: View?) {
         when(view?.id) {
             binding.goLoginText.id -> startActivity(Intent(context, LoginActivity::class.java))
+            binding.addPost.id -> {
+                startActivity(Intent(context, AddFreeBoardActivity::class.java))
+            }
         }
     }
 
@@ -46,6 +50,7 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
     private fun viewSetting() {
         binding.apply {
             goLoginText.setOnClickListener(this@FreeBoardFragment)
+            addPost.setOnClickListener(this@FreeBoardFragment)
         }
     }
 }
