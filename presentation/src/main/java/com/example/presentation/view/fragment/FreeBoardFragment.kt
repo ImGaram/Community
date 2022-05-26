@@ -28,14 +28,18 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
 
     private fun getUser() {
         val id = arguments?.getInt("id")
-        Log.d("SUCCESS", "bundle id: $id")
-        if (id == null) {
-            Log.d("SUCCESS", "getUser: tlqkf")
-        } else {
+        if (id != null) {
             nbViewModel.getUserLogic(id)
             nbViewModel.userInfoApiCallResult.observe(viewLifecycleOwner) {
-                Log.d("SUCCESS", "getUser it: $it")
+                if (it != null) {   // 로그인한 유저가 있음
+                    Log.d("SUCCESS", "getUser it: $it")
+                    binding.goLoginText.visibility = View.GONE
+                } else {
+                    Log.d("SUCCESS", "guest user")
+                }
             }
+        } else {
+            Log.d("FAIL", "id: $id")
         }
     }
 

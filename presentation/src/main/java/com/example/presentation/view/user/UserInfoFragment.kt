@@ -9,6 +9,7 @@ import com.example.presentation.R
 import com.example.presentation.base.BaseFragment
 import com.example.presentation.databinding.FragmentUserInfoBinding
 import com.example.presentation.view.MainActivity
+import com.example.presentation.view.login.LoginActivity
 import com.example.presentation.viewmodel.NbViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -87,6 +88,7 @@ class UserInfoFragment : BaseFragment<FragmentUserInfoBinding>(R.layout.fragment
                     }
                 }
             }
+            binding.logoutBtn.id -> startActivity(Intent(activity, LoginActivity::class.java))
         }
     }
 
@@ -97,6 +99,7 @@ class UserInfoFragment : BaseFragment<FragmentUserInfoBinding>(R.layout.fragment
             passwordRevision.setOnClickListener(this@UserInfoFragment)
             saveRevision1.setOnClickListener(this@UserInfoFragment)
             saveRevision2.setOnClickListener(this@UserInfoFragment)
+            logoutBtn.setOnClickListener(this@UserInfoFragment)
             deleteBtn.setOnClickListener(this@UserInfoFragment)
         }
     }
