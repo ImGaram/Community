@@ -1,9 +1,11 @@
 package com.example.presentation.view.freeboard
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
 import android.provider.MediaStore
+import android.util.Base64
 import android.util.Log
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -12,6 +14,8 @@ import com.example.presentation.databinding.ActivityAddFreeBoardBinding
 import com.example.presentation.view.freeboard.adapter.SelectPhotoAdapter
 import com.example.presentation.viewmodel.NbViewModel
 import dagger.hilt.android.AndroidEntryPoint
+import java.io.ByteArrayOutputStream
+import java.net.URL
 
 @AndroidEntryPoint
 class AddFreeBoardActivity : AppCompatActivity() {
@@ -31,7 +35,10 @@ class AddFreeBoardActivity : AppCompatActivity() {
 
     private fun btnClick() {
         binding.createBtn.setOnClickListener {
-
+            for (i in 0 until uriList.size) {
+                toBase64(i, uriList[i])
+                Log.d("SUCCESS", "uriList i: $i")
+            }
         }
 
         binding.putImage.setOnClickListener {
@@ -88,4 +95,12 @@ class AddFreeBoardActivity : AppCompatActivity() {
         }
     }
 
+    private fun toBase64(i: Int, uri: Uri) {
+        val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
+        val stream = ByteArrayOutputStream()
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+        val byteArray: ByteArray = stream.toByteArray()
+        val endCoded = Base64.encodeToString(byteArray, Base64.DEFAULT)
+        Log.d("SUCCESS", "image number $i: $endCoded")
+    }
 }
