@@ -25,7 +25,10 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
         when(view?.id) {
             binding.goLoginText.id -> startActivity(Intent(context, LoginActivity::class.java))
             binding.addPost.id -> {
-                startActivity(Intent(context, AddFreeBoardActivity::class.java))
+                val id = arguments?.getInt("id")
+                val intent = Intent(context, AddFreeBoardActivity::class.java)
+                    .putExtra("createUser", id)
+                startActivity(intent)
             }
         }
     }

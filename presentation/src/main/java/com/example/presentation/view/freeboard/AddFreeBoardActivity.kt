@@ -22,6 +22,7 @@ class AddFreeBoardActivity : AppCompatActivity() {
     private val nbViewModel by viewModels<NbViewModel>()
     private lateinit var binding: ActivityAddFreeBoardBinding
     var uriList: ArrayList<Uri> = arrayListOf()
+    val base64List: ArrayList<String> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +39,12 @@ class AddFreeBoardActivity : AppCompatActivity() {
             for (i in 0 until uriList.size) {
                 toBase64(i, uriList[i])
                 Log.d("SUCCESS", "uriList i: $i")
+            }
+            nbViewModel.createPostLogic(binding.editTitle.text.toString(), binding.editContent.text.toString(),
+                base64List[0], base64List[1], base64List[2], base64List[3], base64List[4], intent.getIntExtra("createUser", 0))
+            nbViewModel.addPostApiCallResult.observe(this) {
+                Log.d("SUCCESS", "addPostApiCallResult it: $it")
+                if (it != null) finish()
             }
         }
 
@@ -101,6 +108,6 @@ class AddFreeBoardActivity : AppCompatActivity() {
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
         val byteArray: ByteArray = stream.toByteArray()
         val endCoded = Base64.encodeToString(byteArray, Base64.DEFAULT)
-        Log.d("SUCCESS", "image number $i: $endCoded")
+        base64List.add(endCoded)
     }
 }
