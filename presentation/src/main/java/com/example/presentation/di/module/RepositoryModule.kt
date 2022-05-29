@@ -1,15 +1,18 @@
 package com.example.presentation.di.module
 
-import com.example.data.repository.user.remote.delete.DeleteUserDataSourceImpl
-import com.example.data.repository.user.remote.login.LoginDataSourceImpl
-import com.example.data.repository.user.remote.revision.RevisionDataSourceImpl
-import com.example.data.repository.user.repositoryimpl.signin.SignInRepositoryImpl
-import com.example.data.repository.user.remote.signin.SignInDataSourceImpl
-import com.example.data.repository.user.remote.userinfo.UserInfoDataSourceImpl
-import com.example.data.repository.user.repositoryimpl.delete.DeleteRepositoryImpl
-import com.example.data.repository.user.repositoryimpl.login.LoginRepositoryImpl
-import com.example.data.repository.user.repositoryimpl.revision.RevisionRepositoryImpl
-import com.example.data.repository.user.repositoryimpl.userinfo.UserInfoRepositoryImpl
+import com.example.data.datasource.freeboard.remote.AddPostDataSourceImpl
+import com.example.data.datasource.freeboard.repositoryimpl.AddPostRepositoryImpl
+import com.example.data.datasource.user.remote.delete.DeleteUserDataSourceImpl
+import com.example.data.datasource.user.remote.login.LoginDataSourceImpl
+import com.example.data.datasource.user.remote.revision.RevisionDataSourceImpl
+import com.example.data.datasource.user.repositoryimpl.signin.SignInRepositoryImpl
+import com.example.data.datasource.user.remote.signin.SignInDataSourceImpl
+import com.example.data.datasource.user.remote.userinfo.UserInfoDataSourceImpl
+import com.example.data.datasource.user.repositoryimpl.delete.DeleteRepositoryImpl
+import com.example.data.datasource.user.repositoryimpl.login.LoginRepositoryImpl
+import com.example.data.datasource.user.repositoryimpl.revision.RevisionRepositoryImpl
+import com.example.data.datasource.user.repositoryimpl.userinfo.UserInfoRepositoryImpl
+import com.example.domain.repository.freeboard.AddPostRepository
 import com.example.domain.repository.user.delete.DeleteUserRepository
 import com.example.domain.repository.user.login.LoginRepository
 import com.example.domain.repository.user.revision.RevisionRepository
@@ -53,5 +56,12 @@ object RepositoryModule {
     @Singleton
     fun provideDeleteRepository(deleteRepositoryImpl: DeleteUserDataSourceImpl): DeleteUserRepository {
         return DeleteRepositoryImpl(deleteRepositoryImpl)
+    }
+
+    // free board
+    @Provides
+    @Singleton
+    fun provideAddPostRepository(addPostDataSourceImpl: AddPostDataSourceImpl): AddPostRepository {
+        return AddPostRepositoryImpl(addPostDataSourceImpl)
     }
 }

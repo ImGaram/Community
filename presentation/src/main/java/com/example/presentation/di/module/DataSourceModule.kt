@@ -1,11 +1,13 @@
 package com.example.presentation.di.module
 
-import com.example.data.api.*
-import com.example.data.repository.user.remote.delete.DeleteUserDataSourceImpl
-import com.example.data.repository.user.remote.login.LoginDataSourceImpl
-import com.example.data.repository.user.remote.revision.RevisionDataSourceImpl
-import com.example.data.repository.user.remote.signin.SignInDataSourceImpl
-import com.example.data.repository.user.remote.userinfo.UserInfoDataSourceImpl
+import com.example.data.api.freeboard.FreeAddPostService
+import com.example.data.api.user.*
+import com.example.data.datasource.freeboard.remote.AddPostDataSourceImpl
+import com.example.data.datasource.user.remote.delete.DeleteUserDataSourceImpl
+import com.example.data.datasource.user.remote.login.LoginDataSourceImpl
+import com.example.data.datasource.user.remote.revision.RevisionDataSourceImpl
+import com.example.data.datasource.user.remote.signin.SignInDataSourceImpl
+import com.example.data.datasource.user.remote.userinfo.UserInfoDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -44,5 +46,12 @@ object DataSourceModule {
     @Singleton
     fun provideDeleteDataSource(deleteUserService: NbDeleteUserService): DeleteUserDataSourceImpl {
         return DeleteUserDataSourceImpl(deleteUserService)
+    }
+
+    // free board
+    @Provides
+    @Singleton
+    fun provideAddPostDataSource(freeAddPostService: FreeAddPostService): AddPostDataSourceImpl {
+        return AddPostDataSourceImpl(freeAddPostService)
     }
 }

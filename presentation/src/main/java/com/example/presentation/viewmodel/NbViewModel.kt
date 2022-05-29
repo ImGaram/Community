@@ -5,18 +5,19 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.base.DomainBaseResponse
+import com.example.domain.model.freeboard.DomainAddFreeBoardResponse
 import com.example.domain.model.user.DomainLoginResponse
 import com.example.domain.model.user.DomainSignInResponse
 import com.example.domain.model.user.DomainUserInfoResponse
-import com.example.domain.usecase.delete.DeleteUserUseCase
-import com.example.domain.usecase.login.LoginUseCase
-import com.example.domain.usecase.revision.RevisionUseCase
-import com.example.domain.usecase.signin.SignInUseCase
-import com.example.domain.usecase.userinfo.UserInfoUseCase
+import com.example.domain.usecase.freeboard.AddPostUseCase
+import com.example.domain.usecase.user.delete.DeleteUserUseCase
+import com.example.domain.usecase.user.login.LoginUseCase
+import com.example.domain.usecase.user.revision.RevisionUseCase
+import com.example.domain.usecase.user.signin.SignInUseCase
+import com.example.domain.usecase.user.userinfo.UserInfoUseCase
 import com.example.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
-import okhttp3.Response
 import okhttp3.ResponseBody
 import javax.inject.Inject
 
@@ -26,7 +27,8 @@ class NbViewModel @Inject constructor(
     private val loginUseCase: LoginUseCase,
     private val userInfoUseCase: UserInfoUseCase,
     private val revisionUseCase: RevisionUseCase,
-    private val deleteUserUseCase: DeleteUserUseCase
+    private val deleteUserUseCase: DeleteUserUseCase,
+    private val addPostUseCase: AddPostUseCase
 ): BaseViewModel() {
     // 회원가입
     private val _signInApiCallResult = MutableLiveData<DomainSignInResponse>()
@@ -83,7 +85,22 @@ class NbViewModel @Inject constructor(
         viewModelScope.launch {
             deleteUserUseCase(pk, viewModelScope) {
                 _deleteUserApiCallResult.value = it
-//                Log.d("SUCCESS", "_deleteUserApiCallResult.value: ${_deleteUserApiCallResult.value}")
+            }
+        }
+    }
+
+    // free board
+
+    // 게시물 추가
+    private val _addPostApiCallResult = MutableLiveData<DomainAddFreeBoardResponse>()
+    val addPostApiCallResult: LiveData<DomainAddFreeBoardResponse> = _addPostApiCallResult
+    fun createPostLogic(
+        title: String, content:String, img1:String, img2:String,
+        img3:String, img4:String, img5:String, createUser: Int
+    ) {
+        viewModelScope.launch {
+            addPostUseCase(title, content, img1, img2, img3, img4, img5, createUser, viewModelScope) {
+                _addPostApiCallResult.value = it
             }
         }
     }
