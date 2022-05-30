@@ -1,5 +1,6 @@
 package com.example.data.entity.freeboard.response
 
+import com.example.domain.model.freeboard.getpost.DomainGetFreeBoardResponse
 import com.google.gson.annotations.SerializedName
 
 data class AddFreeBoardResponse(
@@ -14,4 +15,27 @@ data class AddFreeBoardResponse(
     @SerializedName("create_user") val createUser: Int,
     @SerializedName("create_date") val createDate: String,
     @SerializedName("correction_date") val correctionDate: String
-)
+): DomainGetFreeBoardResponse {
+    override val _id: Int
+        get() = id
+    override val _title: String
+        get() = title
+    override val _context: String
+        get() = context
+    override val _img1: String
+        get() = img1
+    override val _img2: String
+        get() = img2
+    override val _img3: String
+        get() = img3
+    override val _img4: String
+        get() = img4
+    override val _img5: String
+        get() = img5
+    override val _createUser: Int
+        get() = createUser
+    override val _createDate: String
+        get() = createDate
+    override val _correctionDate: String
+        get() = correctionDate
+}
