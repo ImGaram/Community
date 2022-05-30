@@ -1,7 +1,7 @@
 package com.example.data.mapper
 
 import com.example.data.entity.freeboard.response.AddFreeBoardResponse
-import com.example.domain.model.freeboard.DomainAddFreeBoardResponse
+import com.example.domain.model.freeboard.addpost.DomainAddFreeBoardResponse
 
 object FreeBoardMapper {
 //    data -> domain
@@ -9,7 +9,7 @@ object FreeBoardMapper {
         dataResponse: AddFreeBoardResponse?
     ): DomainAddFreeBoardResponse? {
         return if (dataResponse != null) {
-            DomainAddFreeBoardResponse(
+                DomainAddFreeBoardResponse(
                 id = dataResponse.id,
                 title = dataResponse.title,
                 context = dataResponse.context,
