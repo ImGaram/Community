@@ -5,11 +5,13 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.base.DomainBaseResponse
-import com.example.domain.model.freeboard.DomainAddFreeBoardResponse
+import com.example.domain.model.freeboard.addpost.DomainAddFreeBoardResponse
+import com.example.domain.model.freeboard.getpost.DomainGetFreeBoardResponse
 import com.example.domain.model.user.DomainLoginResponse
 import com.example.domain.model.user.DomainSignInResponse
 import com.example.domain.model.user.DomainUserInfoResponse
-import com.example.domain.usecase.freeboard.AddPostUseCase
+import com.example.domain.usecase.freeboard.addpost.AddPostUseCase
+import com.example.domain.usecase.freeboard.getpost.GetPostUseCase
 import com.example.domain.usecase.user.delete.DeleteUserUseCase
 import com.example.domain.usecase.user.login.LoginUseCase
 import com.example.domain.usecase.user.revision.RevisionUseCase
@@ -28,7 +30,8 @@ class NbViewModel @Inject constructor(
     private val userInfoUseCase: UserInfoUseCase,
     private val revisionUseCase: RevisionUseCase,
     private val deleteUserUseCase: DeleteUserUseCase,
-    private val addPostUseCase: AddPostUseCase
+    private val addPostUseCase: AddPostUseCase,
+    private val getPostUseCase: GetPostUseCase
 ): BaseViewModel() {
     // 회원가입
     private val _signInApiCallResult = MutableLiveData<DomainSignInResponse>()
@@ -101,6 +104,16 @@ class NbViewModel @Inject constructor(
         viewModelScope.launch {
             addPostUseCase(title, content, img1, img2, img3, img4, img5, createUser, viewModelScope) {
                 _addPostApiCallResult.value = it
+            }
+        }
+    }
+
+    private val _getPostApiCallResult = MutableLiveData<List<DomainGetFreeBoardResponse>>()
+    val getPostApiCallResult: LiveData<List<DomainGetFreeBoardResponse>> = _getPostApiCallResult
+    fun getPostLogic() {
+        viewModelScope.launch {
+            getPostUseCase(viewModelScope) {
+                _getPostApiCallResult.value = it
             }
         }
     }

@@ -1,7 +1,9 @@
 package com.example.presentation.di.module
 
-import com.example.data.datasource.freeboard.remote.AddPostDataSourceImpl
-import com.example.data.datasource.freeboard.repositoryimpl.AddPostRepositoryImpl
+import com.example.data.datasource.freeboard.remote.addpost.AddPostDataSourceImpl
+import com.example.data.datasource.freeboard.remote.getpost.GetPostDataSourceImpl
+import com.example.data.datasource.freeboard.repositoryimpl.addpost.AddPostRepositoryImpl
+import com.example.data.datasource.freeboard.repositoryimpl.getpost.GetPostRepositoryImpl
 import com.example.data.datasource.user.remote.delete.DeleteUserDataSourceImpl
 import com.example.data.datasource.user.remote.login.LoginDataSourceImpl
 import com.example.data.datasource.user.remote.revision.RevisionDataSourceImpl
@@ -12,7 +14,8 @@ import com.example.data.datasource.user.repositoryimpl.delete.DeleteRepositoryIm
 import com.example.data.datasource.user.repositoryimpl.login.LoginRepositoryImpl
 import com.example.data.datasource.user.repositoryimpl.revision.RevisionRepositoryImpl
 import com.example.data.datasource.user.repositoryimpl.userinfo.UserInfoRepositoryImpl
-import com.example.domain.repository.freeboard.AddPostRepository
+import com.example.domain.repository.freeboard.addpost.AddPostRepository
+import com.example.domain.repository.freeboard.getpost.GetPostRepository
 import com.example.domain.repository.user.delete.DeleteUserRepository
 import com.example.domain.repository.user.login.LoginRepository
 import com.example.domain.repository.user.revision.RevisionRepository
@@ -63,5 +66,11 @@ object RepositoryModule {
     @Singleton
     fun provideAddPostRepository(addPostDataSourceImpl: AddPostDataSourceImpl): AddPostRepository {
         return AddPostRepositoryImpl(addPostDataSourceImpl)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetPostRepository(getPostDataSourceImpl: GetPostDataSourceImpl): GetPostRepository {
+        return GetPostRepositoryImpl(getPostDataSourceImpl)
     }
 }
