@@ -1,6 +1,6 @@
-package com.example.domain.repository.freeboard
+package com.example.domain.repository.freeboard.addpost
 
-import com.example.domain.model.freeboard.DomainAddFreeBoardResponse
+import com.example.domain.model.freeboard.addpost.DomainAddFreeBoardResponse
 
 interface AddPostRepository {
     suspend fun createPost(

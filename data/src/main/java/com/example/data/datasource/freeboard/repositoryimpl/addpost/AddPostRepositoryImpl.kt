@@ -1,10 +1,10 @@
-package com.example.data.datasource.freeboard.repositoryimpl
+package com.example.data.datasource.freeboard.repositoryimpl.addpost
 
-import com.example.data.datasource.freeboard.remote.AddPostDataSource
+import com.example.data.datasource.freeboard.remote.addpost.AddPostDataSource
 import com.example.data.entity.freeboard.request.AddFreeBoardRequest
 import com.example.data.mapper.FreeBoardMapper
-import com.example.domain.model.freeboard.DomainAddFreeBoardResponse
-import com.example.domain.repository.freeboard.AddPostRepository
+import com.example.domain.model.freeboard.addpost.DomainAddFreeBoardResponse
+import com.example.domain.repository.freeboard.addpost.AddPostRepository
 import javax.inject.Inject
 
 class AddPostRepositoryImpl @Inject constructor(

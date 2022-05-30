@@ -1,4 +1,4 @@
-package com.example.data.datasource.freeboard.remote
+package com.example.data.datasource.freeboard.remote.addpost
 
 import com.example.data.api.freeboard.FreeAddPostService
 import com.example.data.base.BaseDataSource

@@ -1,7 +1,7 @@
-package com.example.domain.usecase.freeboard
+package com.example.domain.usecase.freeboard.addpost
 
-import com.example.domain.model.freeboard.DomainAddFreeBoardResponse
-import com.example.domain.repository.freeboard.AddPostRepository
+import com.example.domain.model.freeboard.addpost.DomainAddFreeBoardResponse
+import com.example.domain.repository.freeboard.addpost.AddPostRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
