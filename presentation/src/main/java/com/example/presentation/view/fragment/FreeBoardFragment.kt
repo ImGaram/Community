@@ -4,6 +4,7 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import com.example.data.entity.freeboard.response.AddFreeBoardResponse
 import com.example.presentation.R
 import com.example.presentation.base.BaseFragment
 import com.example.presentation.databinding.FragmentFreeBoardBinding
@@ -19,6 +20,7 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
         binding.free = this
         viewSetting()
         getUser()
+        getPost()
     }
 
     override fun onClick(view: View?) {
@@ -30,6 +32,13 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
                     .putExtra("createUser", id)
                 startActivity(intent)
             }
+        }
+    }
+
+    private fun getPost() {
+        nbViewModel.getPostLogic()
+        nbViewModel.getPostApiCallResult.observe(viewLifecycleOwner) {
+            Log.d("SUCCESS", "getPostApiCallResult it: $it")
         }
     }
 
