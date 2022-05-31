@@ -91,8 +91,16 @@ class AddFreeBoardActivity : AppCompatActivity() {
                                 Log.e("FAILURE", "File select Error", e)
                             }
                         }
+                        for (i in clipData.itemCount until 5) {
+                            uriList.add(Uri.parse("null"))
+                        }
+                        Log.d("SUCCESS", "uriList: $uriList")
 
-                        val adapter = SelectPhotoAdapter(uriList, applicationContext)
+                        val tempList = arrayListOf<Uri>()
+                        for (i in 0 until clipData.itemCount) {
+                            tempList.add(clipData.getItemAt(i).uri)
+                        }
+                        val adapter = SelectPhotoAdapter(tempList, applicationContext)
                         binding.selectPhotoRecyclerView.adapter = adapter
                         binding.selectPhotoRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
                     }
@@ -103,11 +111,16 @@ class AddFreeBoardActivity : AppCompatActivity() {
     }
 
     private fun toBase64(i: Int, uri: Uri) {
-        val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
-        val stream = ByteArrayOutputStream()
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
-        val byteArray: ByteArray = stream.toByteArray()
-        val endCoded = Base64.encodeToString(byteArray, Base64.DEFAULT)
-        base64List.add(endCoded)
+        if (uriList[i].toString() != "null") {
+            val bitmap = MediaStore.Images.Media.getBitmap(this.contentResolver, uri)
+            val stream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, stream)
+            val byteArray: ByteArray = stream.toByteArray()
+            val endCoded = Base64.encodeToString(byteArray, Base64.DEFAULT)
+            base64List.add(endCoded)
+        } else {
+            base64List.add("null")
+            Log.d("FAIL", "toBase64: wRk")
+        }
     }
 }

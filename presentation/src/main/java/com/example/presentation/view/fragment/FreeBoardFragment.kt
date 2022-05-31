@@ -4,11 +4,13 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
-import com.example.data.entity.freeboard.response.AddFreeBoardResponse
+import androidx.recyclerview.widget.GridLayoutManager
 import com.example.presentation.R
 import com.example.presentation.base.BaseFragment
 import com.example.presentation.databinding.FragmentFreeBoardBinding
 import com.example.presentation.view.freeboard.AddFreeBoardActivity
+import com.example.presentation.view.freeboard.adapter.FreeBoardPostAdapter
+import com.example.presentation.view.freeboard.adapter.SpacesItemDecoration
 import com.example.presentation.view.login.LoginActivity
 import com.example.presentation.viewmodel.NbViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -21,6 +23,9 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
         viewSetting()
         getUser()
         getPost()
+
+        binding.addPost.bringToFront()
+        binding.sangText.bringToFront()
     }
 
     override fun onClick(view: View?) {
@@ -38,7 +43,10 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
     private fun getPost() {
         nbViewModel.getPostLogic()
         nbViewModel.getPostApiCallResult.observe(viewLifecycleOwner) {
-            Log.d("SUCCESS", "getPostApiCallResult it: $it")
+            val adapter = FreeBoardPostAdapter(it, requireContext())
+            binding.freeBoardRecyclerView.adapter = adapter
+            binding.freeBoardRecyclerView.layoutManager = GridLayoutManager(context, 3)
+            binding.freeBoardRecyclerView.addItemDecoration(SpacesItemDecoration(20))
         }
     }
 
