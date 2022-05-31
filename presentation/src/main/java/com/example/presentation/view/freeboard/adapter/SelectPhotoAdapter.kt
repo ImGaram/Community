@@ -15,7 +15,7 @@ class SelectPhotoAdapter(var uriList: ArrayList<Uri>, val context: Context): Rec
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val context = parent.context
         val inflater = context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        return ViewHolder(inflater.inflate(R.layout.select_photo_recycler_item, parent, false))
+        return ViewHolder(inflater.inflate(R.layout.recycler_item_select_photo, parent, false))
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
