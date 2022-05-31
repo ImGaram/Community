@@ -68,8 +68,8 @@
             android:layout_height="230dp"
             android:layout_margin="20dp"
             android:background="#e5e5e5"
-            app:layout_constraintTop_toTopOf="@id/put_image"
-            app:layout_constraintStart_toStartOf="@id/put_image"/>
+            app:layout_constraintStart_toStartOf="@id/put_image"
+            app:layout_constraintTop_toTopOf="@id/put_image" />
 
 
         <LinearLayout
