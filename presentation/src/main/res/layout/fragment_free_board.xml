@@ -36,6 +36,7 @@
             app:layout_constraintEnd_toEndOf="parent" />
 
         <TextView
+            android:id="@+id/sang_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="생성"
@@ -46,6 +47,7 @@
             app:layout_constraintBottom_toBottomOf="@id/add_post"/>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/free_board_recycler_view"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_margin="15dp"
