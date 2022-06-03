@@ -7,9 +7,11 @@
     <application
         android:name=".di.App"
         android:usesCleartextTraffic="true">
+        <activity android:name=".view.freeboard.fragment.PostInfoActivity"
+            android:exported="false" />
         <activity
             android:name=".view.freeboard.AddFreeBoardActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".view.login.LoginActivity"
             android:exported="false" />
