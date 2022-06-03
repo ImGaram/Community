@@ -53,8 +53,8 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         val username = intent.getStringExtra("userName")
 
         if (username != null) {
-            val dataId = intent.getStringExtra("userId")
-            if (dataId != null) {
+            val dataId = intent.getIntExtra("userId", 0)
+            if (dataId != 0) {
                 binding.userNameText.text = username
             } else {
                 binding.userNameText.text = username
