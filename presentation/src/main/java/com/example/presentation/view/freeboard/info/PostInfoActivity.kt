@@ -30,9 +30,7 @@ class PostInfoActivity : AppCompatActivity(), PostImageData {
         }
     }
 
-    override fun intentData(
-        bitmapArray: ArrayList<Bitmap>
-    ) {
+    override fun intentData(bitmapArray: ArrayList<Bitmap>) {
         for (i in 0 until bitmapArray.size) {
             imageList.add(bitmapArray[i])
         }
