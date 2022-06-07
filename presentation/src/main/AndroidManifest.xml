@@ -5,11 +5,12 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <application
-        android:name=".di.App"
+        android:allowBackup="true"
+        android:supportsRtl="true"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".view.freeboard.info.PostInfoActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".view.freeboard.AddFreeBoardActivity"
             android:exported="false" />
