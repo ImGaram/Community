@@ -1,4 +1,4 @@
-package com.example.presentation.di.module
+package com.example.community.di.module
 
 import com.example.data.datasource.freeboard.remote.addpost.AddPostDataSourceImpl
 import com.example.data.datasource.freeboard.remote.getpost.GetPostDataSourceImpl

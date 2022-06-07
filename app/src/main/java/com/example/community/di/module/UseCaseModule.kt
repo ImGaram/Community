@@ -1,4 +1,4 @@
-package com.example.presentation.di.module
+package com.example.community.di.module
 
 import com.example.domain.repository.freeboard.addpost.AddPostRepository
 import com.example.domain.repository.freeboard.getpost.GetPostRepository
