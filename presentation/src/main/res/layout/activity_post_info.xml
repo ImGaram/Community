@@ -5,14 +5,14 @@
     <data>
         <variable
             name="post"
-            type="com.example.presentation.view.freeboard.fragment.PostInfoActivity" />
+            type="com.example.presentation.view.freeboard.info.PostInfoActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context=".view.freeboard.fragment.PostInfoActivity">
+        tools:context=".view.freeboard.info.PostInfoActivity">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/post_image_recycler_view"
