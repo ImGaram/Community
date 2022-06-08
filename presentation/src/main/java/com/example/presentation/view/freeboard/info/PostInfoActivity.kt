@@ -1,17 +1,20 @@
 package com.example.presentation.view.freeboard.info
 
+import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
 import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.presentation.R
 import com.example.presentation.databinding.ActivityPostInfoBinding
 import com.example.presentation.view.freeboard.adapter.FreeBoardPostInfoAdapter
 import com.example.presentation.view.freeboard.intent.PostImageData
 
 class PostInfoActivity : AppCompatActivity(), PostImageData {
     private lateinit var binding: ActivityPostInfoBinding
-    val imageList = arrayListOf<Bitmap>()
+    private val imageList = arrayListOf<Bitmap>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -26,7 +29,7 @@ class PostInfoActivity : AppCompatActivity(), PostImageData {
 
         binding.cancelView.setOnClickListener { finish() }
         binding.postModify.setOnClickListener {
-
+            startActivity(Intent(this, PostModifyActivity::class.java))
         }
     }
 
@@ -39,8 +42,12 @@ class PostInfoActivity : AppCompatActivity(), PostImageData {
     }
 
     private fun initRecyclerView(item: ArrayList<Bitmap>) {
-        binding.postImageRecyclerView.adapter = FreeBoardPostInfoAdapter(item, applicationContext)
-        binding.postImageRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
+        Log.d("SUCCESS", "initRecyclerView intentData: $item")
+        val recyclerView = findViewById<RecyclerView>(R.id.post_image_recycler_view)
+        recyclerView.apply {
+            adapter = FreeBoardPostInfoAdapter(item, applicationContext)
+            layoutManager = LinearLayoutManager(this@PostInfoActivity, LinearLayoutManager.HORIZONTAL, true)
+        }
     }
 
     private fun viewSetting() {

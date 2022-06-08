@@ -1,7 +1,5 @@
 package com.example.presentation.view.fragment
 
-import android.app.Activity
-import android.content.Context
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -14,7 +12,6 @@ import com.example.domain.model.freeboard.getpost.DomainGetFreeBoardResponse
 import com.example.presentation.R
 import com.example.presentation.base.BaseFragment
 import com.example.presentation.databinding.FragmentFreeBoardBinding
-import com.example.presentation.view.MainActivity
 import com.example.presentation.view.freeboard.AddFreeBoardActivity
 import com.example.presentation.view.freeboard.adapter.FreeBoardPostAdapter
 import com.example.presentation.view.freeboard.adapter.SpacesItemDecoration
@@ -23,8 +20,6 @@ import com.example.presentation.view.freeboard.intent.PostImageData
 import com.example.presentation.view.login.LoginActivity
 import com.example.presentation.viewmodel.NbViewModel
 import dagger.hilt.android.AndroidEntryPoint
-import java.lang.ClassCastException
-
 
 @AndroidEntryPoint
 class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragment_free_board), View.OnClickListener {
@@ -115,7 +110,9 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
         list.add(BitmapFactory.decodeByteArray(bitmapImg5, 0, bitmapImg5.size))
         Log.d("SUCCESS", "onClick bitmap list: $list")
 
+        postImageData = PostInfoActivity()
         postImageData?.intentData(list)
+        list.clear()
     }
 
     private fun viewSetting() {
@@ -123,21 +120,5 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
             goLoginText.setOnClickListener(this@FreeBoardFragment)
             addPost.setOnClickListener(this@FreeBoardFragment)
         }
-    }
-
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
-
-        try {
-            Log.d("SUCCESS", "onAttach: success")
-            postImageData = activity as PostImageData
-        } catch (e: ClassCastException) {
-            Log.e("ERROR", e.printStackTrace().toString(), e.cause)
-        }
-    }
-
-    override fun onDetach() {
-        super.onDetach()
-        postImageData = null
     }
 }
