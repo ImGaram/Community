@@ -1,6 +1,5 @@
 package com.example.domain.model.freeboard.addpost
 
-import com.example.domain.model.freeboard.getpost.DomainGetFreeBoardResponse
 import com.google.gson.annotations.SerializedName
 
 data class DomainAddFreeBoardResponse(

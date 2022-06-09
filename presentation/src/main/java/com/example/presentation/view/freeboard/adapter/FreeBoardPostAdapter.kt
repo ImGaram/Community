@@ -9,9 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.presentation.R
 import android.util.Base64
-import com.example.domain.model.freeboard.getpost.DomainGetFreeBoardResponse
+import com.example.domain.model.freeboard.getpost.DomainGetAllFreeBoardResponse
 
-class FreeBoardPostAdapter(var freeBoardList: List<DomainGetFreeBoardResponse>, val context: Context)
+class FreeBoardPostAdapter(var freeBoardList: List<DomainGetAllFreeBoardResponse>, val context: Context)
     : RecyclerView.Adapter<FreeBoardPostAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,7 +20,7 @@ class FreeBoardPostAdapter(var freeBoardList: List<DomainGetFreeBoardResponse>, 
     }
 
     interface ItemClick {
-        fun onClick(view: View, data: DomainGetFreeBoardResponse, position: Int)
+        fun onClick(view: View, data: DomainGetAllFreeBoardResponse, position: Int)
     }
     var itemClick: ItemClick? = null
 
@@ -35,7 +35,7 @@ class FreeBoardPostAdapter(var freeBoardList: List<DomainGetFreeBoardResponse>, 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         val imageView = itemView.findViewById<ImageView>(R.id.free_board_main_image)
 
-        fun bind(item: DomainGetFreeBoardResponse) {
+        fun bind(item: DomainGetAllFreeBoardResponse) {
             val imageByteArray = Base64.decode(item._img1, Base64.DEFAULT)
             Glide
                 .with(context)

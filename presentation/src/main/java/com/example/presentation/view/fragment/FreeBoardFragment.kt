@@ -8,7 +8,7 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.domain.model.freeboard.getpost.DomainGetFreeBoardResponse
+import com.example.domain.model.freeboard.getpost.DomainGetAllFreeBoardResponse
 import com.example.presentation.R
 import com.example.presentation.base.BaseFragment
 import com.example.presentation.databinding.FragmentFreeBoardBinding
@@ -16,7 +16,6 @@ import com.example.presentation.view.freeboard.AddFreeBoardActivity
 import com.example.presentation.view.freeboard.adapter.FreeBoardPostAdapter
 import com.example.presentation.view.freeboard.adapter.SpacesItemDecoration
 import com.example.presentation.view.freeboard.info.PostInfoActivity
-import com.example.presentation.view.freeboard.intent.PostImageData
 import com.example.presentation.view.login.LoginActivity
 import com.example.presentation.viewmodel.NbViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -24,7 +23,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragment_free_board), View.OnClickListener {
     private val nbViewModel by activityViewModels<NbViewModel>()
-    var postImageData: PostImageData? = null
     val bitmapList = arrayListOf<Bitmap>()
 
     override fun init() {
@@ -77,9 +75,9 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
         }
     }
 
-    private fun itemClick(item: List<DomainGetFreeBoardResponse>, adapter: FreeBoardPostAdapter) {
+    private fun itemClick(item: List<DomainGetAllFreeBoardResponse>, adapter: FreeBoardPostAdapter) {
         adapter.itemClick = object : FreeBoardPostAdapter.ItemClick {
-            override fun onClick(view: View, data: DomainGetFreeBoardResponse, position: Int) {
+            override fun onClick(view: View, data: DomainGetAllFreeBoardResponse, position: Int) {
                 val post = item[position]
                 Log.d("SUCCESS", "onClick post: ${post._title}")
                 base64ToBitmap(post, bitmapList)
@@ -96,7 +94,7 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
         }
     }
 
-    private fun base64ToBitmap(post: DomainGetFreeBoardResponse, list: ArrayList<Bitmap>) {
+    private fun base64ToBitmap(post: DomainGetAllFreeBoardResponse, list: ArrayList<Bitmap>) {
         val bitmapImg1 = Base64.decode(post._img1, Base64.DEFAULT)
         val bitmapImg2 = Base64.decode(post._img2, Base64.DEFAULT)
         val bitmapImg3 = Base64.decode(post._img3, Base64.DEFAULT)
@@ -109,9 +107,6 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
         list.add(BitmapFactory.decodeByteArray(bitmapImg4, 0, bitmapImg4.size))
         list.add(BitmapFactory.decodeByteArray(bitmapImg5, 0, bitmapImg5.size))
         Log.d("SUCCESS", "onClick bitmap list: $list")
-
-        postImageData = PostInfoActivity()
-        postImageData?.intentData(list)
         list.clear()
     }
 
@@ -121,4 +116,5 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
             addPost.setOnClickListener(this@FreeBoardFragment)
         }
     }
+
 }

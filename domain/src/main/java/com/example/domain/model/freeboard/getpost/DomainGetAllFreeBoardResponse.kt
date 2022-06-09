@@ -1,6 +1,6 @@
 package com.example.domain.model.freeboard.getpost
 
-interface DomainGetFreeBoardResponse {
+interface DomainGetAllFreeBoardResponse {
     val _id: Int
     val _title: String
     val _context:String

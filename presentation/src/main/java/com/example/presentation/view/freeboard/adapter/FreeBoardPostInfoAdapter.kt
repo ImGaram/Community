@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.presentation.R
 
-class FreeBoardPostInfoAdapter(val imageList: ArrayList<Bitmap>, val context: Context): RecyclerView.Adapter<FreeBoardPostInfoAdapter.ViewHolder>() {
+class FreeBoardPostInfoAdapter(private var imageList: ArrayList<Bitmap>, val context: Context): RecyclerView.Adapter<FreeBoardPostInfoAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context).inflate(R.layout.recycler_item_post_info, parent, false)
@@ -19,7 +19,16 @@ class FreeBoardPostInfoAdapter(val imageList: ArrayList<Bitmap>, val context: Co
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(imageList[position])
+        val imagePos = imageList[position]
+        if (imagePos.toString() == "null") {
+            Log.d("SUCCESS", "bind image item $imagePos: is null")
+        } else {
+            Glide
+                .with(context)
+                .asBitmap()
+                .load(imagePos)
+                .into(holder.image)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -27,17 +36,6 @@ class FreeBoardPostInfoAdapter(val imageList: ArrayList<Bitmap>, val context: Co
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        fun bind(position: Bitmap) {
-            val image = itemView.findViewById<ImageView>(R.id.post_info_image)
-
-            if (position.toString() == "null") {
-                Log.d("SUCCESS", "bind image item $position: is null")
-            } else {
-                Glide
-                    .with(context)
-                    .load(position)
-                    .into(image)
-            }
-        }
+        val image = itemView.findViewById<ImageView>(R.id.post_info_image)
     }
 }

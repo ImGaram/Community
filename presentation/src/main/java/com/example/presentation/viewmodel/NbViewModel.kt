@@ -6,12 +6,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.base.DomainBaseResponse
 import com.example.domain.model.freeboard.addpost.DomainAddFreeBoardResponse
-import com.example.domain.model.freeboard.getpost.DomainGetFreeBoardResponse
+import com.example.domain.model.freeboard.getpost.DomainGetAllFreeBoardResponse
 import com.example.domain.model.user.DomainLoginResponse
 import com.example.domain.model.user.DomainSignInResponse
 import com.example.domain.model.user.DomainUserInfoResponse
 import com.example.domain.usecase.freeboard.addpost.AddPostUseCase
-import com.example.domain.usecase.freeboard.getpost.GetPostUseCase
+import com.example.domain.usecase.freeboard.getpost.GetPostAllUseCase
 import com.example.domain.usecase.user.delete.DeleteUserUseCase
 import com.example.domain.usecase.user.login.LoginUseCase
 import com.example.domain.usecase.user.revision.RevisionUseCase
@@ -31,7 +31,7 @@ class NbViewModel @Inject constructor(
     private val revisionUseCase: RevisionUseCase,
     private val deleteUserUseCase: DeleteUserUseCase,
     private val addPostUseCase: AddPostUseCase,
-    private val getPostUseCase: GetPostUseCase
+    private val getPostUseCase: GetPostAllUseCase
 ): BaseViewModel() {
     // 회원가입
     private val _signInApiCallResult = MutableLiveData<DomainSignInResponse>()
@@ -108,8 +108,8 @@ class NbViewModel @Inject constructor(
         }
     }
 
-    private val _getPostApiCallResult = MutableLiveData<List<DomainGetFreeBoardResponse>>()
-    val getPostApiCallResult: LiveData<List<DomainGetFreeBoardResponse>> = _getPostApiCallResult
+    private val _getPostApiCallResult = MutableLiveData<List<DomainGetAllFreeBoardResponse>>()
+    val getPostApiCallResult: LiveData<List<DomainGetAllFreeBoardResponse>> = _getPostApiCallResult
     fun getPostLogic() {
         viewModelScope.launch {
             getPostUseCase(viewModelScope) {

@@ -2,55 +2,55 @@ package com.example.presentation.view.freeboard.info
 
 import android.content.Intent
 import android.graphics.Bitmap
-import android.os.Bundle
 import android.util.Log
-import androidx.appcompat.app.AppCompatActivity
+import android.view.View
+import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.presentation.R
+import com.example.presentation.base.BaseActivity
 import com.example.presentation.databinding.ActivityPostInfoBinding
 import com.example.presentation.view.freeboard.adapter.FreeBoardPostInfoAdapter
-import com.example.presentation.view.freeboard.intent.PostImageData
+import com.example.presentation.viewmodel.NbViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class PostInfoActivity : AppCompatActivity(), PostImageData {
-    private lateinit var binding: ActivityPostInfoBinding
+@AndroidEntryPoint
+class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_post_info), View.OnClickListener{
     private val imageList = arrayListOf<Bitmap>()
+    private val viewModel by viewModels<NbViewModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-        binding = ActivityPostInfoBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+    override fun init() {
         binding.post = this
 
-        binding.cancelView.bringToFront()
-        binding.cancelText.bringToFront()
         viewSetting()
-
-        binding.cancelView.setOnClickListener { finish() }
-        binding.postModify.setOnClickListener {
-            startActivity(Intent(this, PostModifyActivity::class.java))
-        }
+        dataSetting()
     }
 
-    override fun intentData(bitmapArray: ArrayList<Bitmap>) {
-        for (i in 0 until bitmapArray.size) {
-            imageList.add(bitmapArray[i])
+    override fun onClick(view: View?) {
+        when(view?.id) {
+            binding.cancelView.id -> { finish() }
+            binding.postModify.id -> {
+                startActivity(Intent(this, PostModifyActivity::class.java))
+            }
         }
-        Log.d("SUCCESS", "intentData: $imageList")
-        initRecyclerView(imageList)
     }
 
     private fun initRecyclerView(item: ArrayList<Bitmap>) {
         Log.d("SUCCESS", "initRecyclerView intentData: $item")
-        val recyclerView = findViewById<RecyclerView>(R.id.post_image_recycler_view)
-        recyclerView.apply {
+        binding.postImageRecyclerView.apply {
             adapter = FreeBoardPostInfoAdapter(item, applicationContext)
             layoutManager = LinearLayoutManager(this@PostInfoActivity, LinearLayoutManager.HORIZONTAL, true)
         }
     }
 
     private fun viewSetting() {
+        binding.cancelView.bringToFront()
+        binding.cancelText.bringToFront()
+        binding.cancelView.setOnClickListener(this)
+        binding.postModify.setOnClickListener(this)
+    }
+
+    private fun dataSetting() {
+        Log.d("SUCCESS", "dataSetting pos: ${intent.getIntExtra("id", 0)}")
         binding.postTitleText.text = intent.getStringExtra("title")
         binding.postContentText.text = intent.getStringExtra("content")
         binding.postCreateUser.text = intent.getIntExtra("createUser", 0).toString()
