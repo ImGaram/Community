@@ -2,7 +2,7 @@ package com.example.community.di.module
 
 import com.example.data.ApiClient
 import com.example.data.api.freeboard.FreeAddPostService
-import com.example.data.api.freeboard.FreeGetPostService
+import com.example.data.api.freeboard.FreeGetPostAllService
 import com.example.data.api.user.*
 import dagger.Module
 import dagger.Provides
@@ -133,10 +133,10 @@ object NetWorkModule {
             .build()
     }
 
-    @Named("getPost")
+    @Named("getPostAll")
     @Provides
     @Singleton
-    fun provideGetPostRetrofitInstance(
+    fun provideGetPostAllRetrofitInstance(
         okHttpClient: OkHttpClient,
         gsonConverterFactory: GsonConverterFactory
     ): Retrofit {
@@ -194,7 +194,7 @@ object NetWorkModule {
 
     @Provides
     @Singleton
-    fun provideGetPostService(@Named("getPost") retrofit: Retrofit): FreeGetPostService {
-        return retrofit.create(FreeGetPostService::class.java)
+    fun provideGetPostAllService(@Named("getPostAll") retrofit: Retrofit): FreeGetPostAllService {
+        return retrofit.create(FreeGetPostAllService::class.java)
     }
 }
