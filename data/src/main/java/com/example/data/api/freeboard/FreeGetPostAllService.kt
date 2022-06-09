@@ -6,7 +6,7 @@ import org.json.JSONArray
 import retrofit2.Response
 import retrofit2.http.GET
 
-interface FreeGetPostService {
+interface FreeGetPostAllService {
     @GET("/FBN/")
     suspend fun getPost(): List<AddFreeBoardResponse>
 }
