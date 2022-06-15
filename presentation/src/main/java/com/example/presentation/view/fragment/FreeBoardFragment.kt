@@ -1,14 +1,11 @@
 package com.example.presentation.view.fragment
 
 import android.content.Intent
-import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.util.Base64
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.GridLayoutManager
-import com.example.domain.model.freeboard.getpost.DomainGetAllFreeBoardResponse
+import com.example.domain.model.freeboard.getpostall.DomainGetAllFreeBoardResponse
 import com.example.presentation.R
 import com.example.presentation.base.BaseFragment
 import com.example.presentation.databinding.FragmentFreeBoardBinding
@@ -23,7 +20,6 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragment_free_board), View.OnClickListener {
     private val nbViewModel by activityViewModels<NbViewModel>()
-    val bitmapList = arrayListOf<Bitmap>()
 
     override fun init() {
         binding.free = this
@@ -49,11 +45,24 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
 
     private fun getPost() {
         nbViewModel.getPostLogic()
-        nbViewModel.getPostApiCallResult.observe(viewLifecycleOwner) {
-            val adapter = FreeBoardPostAdapter(it, requireContext())
+        nbViewModel.getPostAllApiCallResult.observe(viewLifecycleOwner) {
+//            val tempList = listOf<DomainGetAllFreeBoardResponse>()
+//            val list = arrayListOf<String>()
+//
+//            for (i in it.indices) {
+//                list.add(it[i]._img1)
+//                list.add(it[i]._img2)
+//                list.add(it[i]._img3)
+//                list.add(it[i]._img4)
+//                list.add(it[i]._img5)
+//
+//                if (list[i] == "null")
+//            }
+            val adapter = FreeBoardPostAdapter(it, requireContext(), resources)
+            binding.freeBoardRecyclerView.setHasFixedSize(true)
             binding.freeBoardRecyclerView.adapter = adapter
-            binding.freeBoardRecyclerView.layoutManager = GridLayoutManager(context, 3)
-            binding.freeBoardRecyclerView.addItemDecoration(SpacesItemDecoration(20))
+            binding.freeBoardRecyclerView.layoutManager = GridLayoutManager(activity, 3)
+            binding.freeBoardRecyclerView.addItemDecoration(SpacesItemDecoration(10))
             itemClick(it ,adapter)
         }
     }
@@ -80,7 +89,6 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
             override fun onClick(view: View, data: DomainGetAllFreeBoardResponse, position: Int) {
                 val post = item[position]
                 Log.d("SUCCESS", "onClick post: ${post._title}")
-                base64ToBitmap(post, bitmapList)
 
                 val intent = Intent(context, PostInfoActivity::class.java)
                     .putExtra("title", post._title)
@@ -92,22 +100,6 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
                 startActivity(intent)
             }
         }
-    }
-
-    private fun base64ToBitmap(post: DomainGetAllFreeBoardResponse, list: ArrayList<Bitmap>) {
-        val bitmapImg1 = Base64.decode(post._img1, Base64.DEFAULT)
-        val bitmapImg2 = Base64.decode(post._img2, Base64.DEFAULT)
-        val bitmapImg3 = Base64.decode(post._img3, Base64.DEFAULT)
-        val bitmapImg4 = Base64.decode(post._img4, Base64.DEFAULT)
-        val bitmapImg5 = Base64.decode(post._img5, Base64.DEFAULT)
-
-        list.add(BitmapFactory.decodeByteArray(bitmapImg1, 0, bitmapImg1.size))
-        list.add(BitmapFactory.decodeByteArray(bitmapImg2, 0, bitmapImg2.size))
-        list.add(BitmapFactory.decodeByteArray(bitmapImg3, 0, bitmapImg3.size))
-        list.add(BitmapFactory.decodeByteArray(bitmapImg4, 0, bitmapImg4.size))
-        list.add(BitmapFactory.decodeByteArray(bitmapImg5, 0, bitmapImg5.size))
-        Log.d("SUCCESS", "onClick bitmap list: $list")
-        list.clear()
     }
 
     private fun viewSetting() {

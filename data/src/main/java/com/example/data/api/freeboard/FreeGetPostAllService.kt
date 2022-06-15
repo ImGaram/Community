@@ -1,12 +1,9 @@
 package com.example.data.api.freeboard
 
-import com.example.data.entity.freeboard.response.AddFreeBoardResponse
-import okhttp3.ResponseBody
-import org.json.JSONArray
-import retrofit2.Response
+import com.example.data.entity.freeboard.response.BaseFreeBoardResponse
 import retrofit2.http.GET
 
 interface FreeGetPostAllService {
     @GET("/FBN/")
-    suspend fun getPost(): List<AddFreeBoardResponse>
+    suspend fun getPost(): List<BaseFreeBoardResponse>
 }

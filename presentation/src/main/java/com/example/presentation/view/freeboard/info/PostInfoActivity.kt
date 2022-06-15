@@ -2,10 +2,14 @@ package com.example.presentation.view.freeboard.info
 
 import android.content.Intent
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.util.Base64
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.domain.model.freeboard.DomainBaseFreeBoardResponse
 import com.example.presentation.R
 import com.example.presentation.base.BaseActivity
 import com.example.presentation.databinding.ActivityPostInfoBinding
@@ -23,6 +27,7 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
 
         viewSetting()
         dataSetting()
+        initRecyclerView()
     }
 
     override fun onClick(view: View?) {
@@ -34,12 +39,32 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
         }
     }
 
-    private fun initRecyclerView(item: ArrayList<Bitmap>) {
-        Log.d("SUCCESS", "initRecyclerView intentData: $item")
-        binding.postImageRecyclerView.apply {
-            adapter = FreeBoardPostInfoAdapter(item, applicationContext)
-            layoutManager = LinearLayoutManager(this@PostInfoActivity, LinearLayoutManager.HORIZONTAL, true)
+    private fun initRecyclerView() {
+        viewModel.getPostSingleLogic(intent.getIntExtra("id", 0))
+        viewModel.getPostSingleApiCallResult.observe(this) {
+            base64ToBitmap(it, imageList)
+            binding.postImageRecyclerView.apply {
+                adapter = FreeBoardPostInfoAdapter(imageList, applicationContext)
+                layoutManager = LinearLayoutManager(this@PostInfoActivity, LinearLayoutManager.HORIZONTAL, true)
+            }
         }
+
+    }
+
+    private fun base64ToBitmap(post: DomainBaseFreeBoardResponse, list: ArrayList<Bitmap>) {
+        list.clear()
+        val bitmapImg1 = Base64.decode(post.img1, Base64.DEFAULT)
+        val bitmapImg2 = Base64.decode(post.img2, Base64.DEFAULT)
+        val bitmapImg3 = Base64.decode(post.img3, Base64.DEFAULT)
+        val bitmapImg4 = Base64.decode(post.img4, Base64.DEFAULT)
+        val bitmapImg5 = Base64.decode(post.img5, Base64.DEFAULT)
+
+        list.add(BitmapFactory.decodeByteArray(bitmapImg1, 0, bitmapImg1.size))
+        list.add(BitmapFactory.decodeByteArray(bitmapImg2, 0, bitmapImg2.size))
+        list.add(BitmapFactory.decodeByteArray(bitmapImg3, 0, bitmapImg3.size))
+        list.add(BitmapFactory.decodeByteArray(bitmapImg4, 0, bitmapImg4.size))
+        list.add(BitmapFactory.decodeByteArray(bitmapImg5, 0, bitmapImg5.size))
+        Log.d("SUCCESS", "onClick bitmap list: $list")
     }
 
     private fun viewSetting() {
@@ -50,7 +75,6 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
     }
 
     private fun dataSetting() {
-        Log.d("SUCCESS", "dataSetting pos: ${intent.getIntExtra("id", 0)}")
         binding.postTitleText.text = intent.getStringExtra("title")
         binding.postContentText.text = intent.getStringExtra("content")
         binding.postCreateUser.text = intent.getIntExtra("createUser", 0).toString()

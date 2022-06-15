@@ -15,7 +15,6 @@ import com.example.presentation.view.freeboard.adapter.SelectPhotoAdapter
 import com.example.presentation.viewmodel.NbViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import java.io.ByteArrayOutputStream
-import java.net.URL
 
 @AndroidEntryPoint
 class AddFreeBoardActivity : AppCompatActivity() {
