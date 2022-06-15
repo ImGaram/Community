@@ -7,6 +7,5 @@
     <ImageView
         android:id="@+id/free_board_main_image"
         android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:scaleType="centerInside"/>
+        android:layout_height="150dp" />
 </LinearLayout>

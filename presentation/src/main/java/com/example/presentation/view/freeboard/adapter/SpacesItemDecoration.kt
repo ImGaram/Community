@@ -13,5 +13,6 @@ class SpacesItemDecoration(val space: Int): RecyclerView.ItemDecoration() {
     ) {
         outRect.left = space
         outRect.right = space
+        outRect.bottom = space
     }
 }

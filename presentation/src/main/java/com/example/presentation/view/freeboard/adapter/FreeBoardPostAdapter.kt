@@ -1,6 +1,7 @@
 package com.example.presentation.view.freeboard.adapter
 
 import android.content.Context
+import android.content.res.Resources
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,9 +10,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.presentation.R
 import android.util.Base64
-import com.example.domain.model.freeboard.getpost.DomainGetAllFreeBoardResponse
+import androidx.appcompat.widget.LinearLayoutCompat
+import com.example.domain.model.freeboard.getpostall.DomainGetAllFreeBoardResponse
 
-class FreeBoardPostAdapter(var freeBoardList: List<DomainGetAllFreeBoardResponse>, val context: Context)
+class FreeBoardPostAdapter(var freeBoardList: List<DomainGetAllFreeBoardResponse>, val context: Context, val resources: Resources)
     : RecyclerView.Adapter<FreeBoardPostAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -25,7 +27,13 @@ class FreeBoardPostAdapter(var freeBoardList: List<DomainGetAllFreeBoardResponse
     var itemClick: ItemClick? = null
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.bind(freeBoardList[position])
+        val width = resources.displayMetrics.widthPixels / 3
+        holder.apply {
+            imageView.layoutParams= LinearLayoutCompat.LayoutParams(width, width)
+            bind(freeBoardList[position])
+            itemView.layoutParams.height = 400
+            itemView.requestLayout()
+        }
     }
 
     override fun getItemCount(): Int {
