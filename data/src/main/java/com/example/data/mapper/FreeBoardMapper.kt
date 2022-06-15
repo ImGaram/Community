@@ -1,15 +1,15 @@
 package com.example.data.mapper
 
-import com.example.data.entity.freeboard.response.AddFreeBoardResponse
-import com.example.domain.model.freeboard.addpost.DomainAddFreeBoardResponse
+import com.example.data.entity.freeboard.response.BaseFreeBoardResponse
+import com.example.domain.model.freeboard.DomainBaseFreeBoardResponse
 
 object FreeBoardMapper {
 //    data -> domain
-    fun toDomainAddFreeBoardResponse(
-        dataResponse: AddFreeBoardResponse?
-    ): DomainAddFreeBoardResponse? {
+    fun toDomainBaseFreeBoardResponse(
+        dataResponse: BaseFreeBoardResponse?
+    ): DomainBaseFreeBoardResponse? {
         return if (dataResponse != null) {
-                DomainAddFreeBoardResponse(
+                DomainBaseFreeBoardResponse(
                 id = dataResponse.id,
                 title = dataResponse.title,
                 context = dataResponse.context,

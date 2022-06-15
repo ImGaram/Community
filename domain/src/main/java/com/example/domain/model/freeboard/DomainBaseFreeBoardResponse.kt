@@ -1,8 +1,8 @@
-package com.example.domain.model.freeboard.addpost
+package com.example.domain.model.freeboard
 
 import com.google.gson.annotations.SerializedName
 
-data class DomainAddFreeBoardResponse(
+data class DomainBaseFreeBoardResponse(
     @SerializedName("id") val id: Int,
     @SerializedName("title") val title: String,
     @SerializedName("context") val context:String,

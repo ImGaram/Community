@@ -1,6 +1,6 @@
 package com.example.domain.usecase.freeboard.addpost
 
-import com.example.domain.model.freeboard.addpost.DomainAddFreeBoardResponse
+import com.example.domain.model.freeboard.DomainBaseFreeBoardResponse
 import com.example.domain.repository.freeboard.addpost.AddPostRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -20,7 +20,7 @@ class AddPostUseCase(
         img5:String,
         createUser: Int,
         scope: CoroutineScope,
-        onResult: (DomainAddFreeBoardResponse?) -> Unit = {}
+        onResult: (DomainBaseFreeBoardResponse?) -> Unit = {}
     ) {
         scope.launch(Dispatchers.Main) {
             val deferred = async(Dispatchers.IO) {

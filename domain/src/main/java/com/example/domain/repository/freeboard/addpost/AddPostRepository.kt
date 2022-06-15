@@ -1,6 +1,6 @@
 package com.example.domain.repository.freeboard.addpost
 
-import com.example.domain.model.freeboard.addpost.DomainAddFreeBoardResponse
+import com.example.domain.model.freeboard.DomainBaseFreeBoardResponse
 
 interface AddPostRepository {
     suspend fun createPost(
@@ -12,5 +12,5 @@ interface AddPostRepository {
         img4:String,
         img5:String,
         createUser: Int
-    ): DomainAddFreeBoardResponse?
+    ): DomainBaseFreeBoardResponse?
 }

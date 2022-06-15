@@ -1,7 +1,7 @@
-package com.example.domain.usecase.freeboard.getpost
+package com.example.domain.usecase.freeboard.getpostall
 
-import com.example.domain.model.freeboard.getpost.DomainGetAllFreeBoardResponse
-import com.example.domain.repository.freeboard.getpost.GetPostAllRepository
+import com.example.domain.model.freeboard.getpostall.DomainGetAllFreeBoardResponse
+import com.example.domain.repository.freeboard.getpostall.GetPostAllRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async

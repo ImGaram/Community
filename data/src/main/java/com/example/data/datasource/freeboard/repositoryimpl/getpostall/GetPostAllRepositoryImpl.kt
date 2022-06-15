@@ -1,8 +1,8 @@
-package com.example.data.datasource.freeboard.repositoryimpl.getpost
+package com.example.data.datasource.freeboard.repositoryimpl.getpostall
 
-import com.example.data.datasource.freeboard.remote.getpost.GetPostAllDataSource
-import com.example.domain.model.freeboard.getpost.DomainGetAllFreeBoardResponse
-import com.example.domain.repository.freeboard.getpost.GetPostAllRepository
+import com.example.data.datasource.freeboard.remote.getpostall.GetPostAllDataSource
+import com.example.domain.model.freeboard.getpostall.DomainGetAllFreeBoardResponse
+import com.example.domain.repository.freeboard.getpostall.GetPostAllRepository
 import javax.inject.Inject
 
 class GetPostAllRepositoryImpl @Inject constructor(

@@ -1,4 +1,4 @@
-package com.example.domain.model.freeboard.getpost
+package com.example.domain.model.freeboard.getpostall
 
 interface DomainGetAllFreeBoardResponse {
     val _id: Int
