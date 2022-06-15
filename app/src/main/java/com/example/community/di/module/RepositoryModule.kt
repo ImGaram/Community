@@ -1,9 +1,11 @@
 package com.example.community.di.module
 
 import com.example.data.datasource.freeboard.remote.addpost.AddPostDataSourceImpl
-import com.example.data.datasource.freeboard.remote.getpost.GetPostAllDataSourceImpl
+import com.example.data.datasource.freeboard.remote.getpost.GetPostDataSourceImpl
+import com.example.data.datasource.freeboard.remote.getpostall.GetPostAllDataSourceImpl
 import com.example.data.datasource.freeboard.repositoryimpl.addpost.AddPostRepositoryImpl
-import com.example.data.datasource.freeboard.repositoryimpl.getpost.GetPostAllRepositoryImpl
+import com.example.data.datasource.freeboard.repositoryimpl.getpost.GetPostRepositoryImpl
+import com.example.data.datasource.freeboard.repositoryimpl.getpostall.GetPostAllRepositoryImpl
 import com.example.data.datasource.user.remote.delete.DeleteUserDataSourceImpl
 import com.example.data.datasource.user.remote.login.LoginDataSourceImpl
 import com.example.data.datasource.user.remote.revision.RevisionDataSourceImpl
@@ -15,7 +17,8 @@ import com.example.data.datasource.user.repositoryimpl.login.LoginRepositoryImpl
 import com.example.data.datasource.user.repositoryimpl.revision.RevisionRepositoryImpl
 import com.example.data.datasource.user.repositoryimpl.userinfo.UserInfoRepositoryImpl
 import com.example.domain.repository.freeboard.addpost.AddPostRepository
-import com.example.domain.repository.freeboard.getpost.GetPostAllRepository
+import com.example.domain.repository.freeboard.getpost.GetPostRepository
+import com.example.domain.repository.freeboard.getpostall.GetPostAllRepository
 import com.example.domain.repository.user.delete.DeleteUserRepository
 import com.example.domain.repository.user.login.LoginRepository
 import com.example.domain.repository.user.revision.RevisionRepository
@@ -72,5 +75,11 @@ object RepositoryModule {
     @Singleton
     fun provideGetPostAllRepository(getPostDataSourceImpl: GetPostAllDataSourceImpl): GetPostAllRepository {
         return GetPostAllRepositoryImpl(getPostDataSourceImpl)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetPostRepository(getPostDataSourceImpl: GetPostDataSourceImpl): GetPostRepository {
+        return GetPostRepositoryImpl(getPostDataSourceImpl)
     }
 }

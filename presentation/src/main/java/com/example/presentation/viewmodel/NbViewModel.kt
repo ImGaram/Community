@@ -5,13 +5,14 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.base.DomainBaseResponse
-import com.example.domain.model.freeboard.addpost.DomainAddFreeBoardResponse
-import com.example.domain.model.freeboard.getpost.DomainGetAllFreeBoardResponse
+import com.example.domain.model.freeboard.DomainBaseFreeBoardResponse
+import com.example.domain.model.freeboard.getpostall.DomainGetAllFreeBoardResponse
 import com.example.domain.model.user.DomainLoginResponse
 import com.example.domain.model.user.DomainSignInResponse
 import com.example.domain.model.user.DomainUserInfoResponse
 import com.example.domain.usecase.freeboard.addpost.AddPostUseCase
-import com.example.domain.usecase.freeboard.getpost.GetPostAllUseCase
+import com.example.domain.usecase.freeboard.getpost.GetPostUseCase
+import com.example.domain.usecase.freeboard.getpostall.GetPostAllUseCase
 import com.example.domain.usecase.user.delete.DeleteUserUseCase
 import com.example.domain.usecase.user.login.LoginUseCase
 import com.example.domain.usecase.user.revision.RevisionUseCase
@@ -31,7 +32,8 @@ class NbViewModel @Inject constructor(
     private val revisionUseCase: RevisionUseCase,
     private val deleteUserUseCase: DeleteUserUseCase,
     private val addPostUseCase: AddPostUseCase,
-    private val getPostUseCase: GetPostAllUseCase
+    private val getPostAllUseCase: GetPostAllUseCase,
+    private val getPostUseCase: GetPostUseCase
 ): BaseViewModel() {
     // 회원가입
     private val _signInApiCallResult = MutableLiveData<DomainSignInResponse>()
@@ -95,8 +97,8 @@ class NbViewModel @Inject constructor(
     // free board
 
     // 게시물 추가
-    private val _addPostApiCallResult = MutableLiveData<DomainAddFreeBoardResponse>()
-    val addPostApiCallResult: LiveData<DomainAddFreeBoardResponse> = _addPostApiCallResult
+    private val _addPostApiCallResult = MutableLiveData<DomainBaseFreeBoardResponse>()
+    val addPostApiCallResult: LiveData<DomainBaseFreeBoardResponse> = _addPostApiCallResult
     fun createPostLogic(
         title: String, content:String, img1:String, img2:String,
         img3:String, img4:String, img5:String, createUser: Int
@@ -108,12 +110,24 @@ class NbViewModel @Inject constructor(
         }
     }
 
-    private val _getPostApiCallResult = MutableLiveData<List<DomainGetAllFreeBoardResponse>>()
-    val getPostApiCallResult: LiveData<List<DomainGetAllFreeBoardResponse>> = _getPostApiCallResult
+    // 게시글 정보 모두 가져오기
+    private val _getPostAllApiCallResult = MutableLiveData<List<DomainGetAllFreeBoardResponse>>()
+    val getPostAllApiCallResult: LiveData<List<DomainGetAllFreeBoardResponse>> = _getPostAllApiCallResult
     fun getPostLogic() {
         viewModelScope.launch {
-            getPostUseCase(viewModelScope) {
-                _getPostApiCallResult.value = it
+            getPostAllUseCase(viewModelScope) {
+                _getPostAllApiCallResult.value = it
+            }
+        }
+    }
+
+    // 게시글 정보 하나만 가져오기
+    private val _getPostSingleApiCallResult = MutableLiveData<DomainBaseFreeBoardResponse>()
+    val getPostSingleApiCallResult: LiveData<DomainBaseFreeBoardResponse> get() = _getPostSingleApiCallResult
+    fun getPostSingleLogic(id: Int) {
+        viewModelScope.launch {
+            getPostUseCase(id, viewModelScope) {
+                _getPostSingleApiCallResult.value = it
             }
         }
     }

@@ -1,14 +1,16 @@
 package com.example.community.di.module
 
 import com.example.domain.repository.freeboard.addpost.AddPostRepository
-import com.example.domain.repository.freeboard.getpost.GetPostAllRepository
+import com.example.domain.repository.freeboard.getpost.GetPostRepository
+import com.example.domain.repository.freeboard.getpostall.GetPostAllRepository
 import com.example.domain.repository.user.delete.DeleteUserRepository
 import com.example.domain.repository.user.login.LoginRepository
 import com.example.domain.repository.user.revision.RevisionRepository
 import com.example.domain.repository.user.signin.SignInRepository
 import com.example.domain.repository.user.userinfo.UserInfoRepository
 import com.example.domain.usecase.freeboard.addpost.AddPostUseCase
-import com.example.domain.usecase.freeboard.getpost.GetPostAllUseCase
+import com.example.domain.usecase.freeboard.getpost.GetPostUseCase
+import com.example.domain.usecase.freeboard.getpostall.GetPostAllUseCase
 import com.example.domain.usecase.user.delete.DeleteUserUseCase
 import com.example.domain.usecase.user.login.LoginUseCase
 import com.example.domain.usecase.user.revision.RevisionUseCase
@@ -52,4 +54,8 @@ class UseCaseModule {
     @Provides
     @Singleton
     fun provideGetPostAllUseCase(repository: GetPostAllRepository) = GetPostAllUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideGetPostUseCase(repository: GetPostRepository) = GetPostUseCase(repository)
 }
