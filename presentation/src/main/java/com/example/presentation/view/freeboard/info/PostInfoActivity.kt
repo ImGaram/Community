@@ -42,13 +42,16 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
     private fun initRecyclerView() {
         viewModel.getPostSingleLogic(intent.getIntExtra("id", 0))
         viewModel.getPostSingleApiCallResult.observe(this) {
+            Log.d("SUCCESS", "initRecyclerView user id: ${intent.getStringExtra("userIdIdx")}")
+            if (intent.getIntExtra("userIdIdx", 0) == it.createUser) {
+                binding.btnLinear.visibility = View.VISIBLE
+            }
             base64ToBitmap(it, imageList)
             binding.postImageRecyclerView.apply {
                 adapter = FreeBoardPostInfoAdapter(imageList, applicationContext)
                 layoutManager = LinearLayoutManager(this@PostInfoActivity, LinearLayoutManager.HORIZONTAL, true)
             }
         }
-
     }
 
     private fun base64ToBitmap(post: DomainBaseFreeBoardResponse, list: ArrayList<Bitmap>) {

@@ -46,18 +46,6 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
     private fun getPost() {
         nbViewModel.getPostLogic()
         nbViewModel.getPostAllApiCallResult.observe(viewLifecycleOwner) {
-//            val tempList = listOf<DomainGetAllFreeBoardResponse>()
-//            val list = arrayListOf<String>()
-//
-//            for (i in it.indices) {
-//                list.add(it[i]._img1)
-//                list.add(it[i]._img2)
-//                list.add(it[i]._img3)
-//                list.add(it[i]._img4)
-//                list.add(it[i]._img5)
-//
-//                if (list[i] == "null")
-//            }
             val adapter = FreeBoardPostAdapter(it, requireContext(), resources)
             binding.freeBoardRecyclerView.setHasFixedSize(true)
             binding.freeBoardRecyclerView.adapter = adapter
@@ -97,6 +85,7 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
                     .putExtra("createUser", post._createUser)
                     .putExtra("createDate", post._createDate)
                     .putExtra("correctionDate", post._correctionDate)
+                    .putExtra("userIdIdx", arguments?.getInt("id"))
                 startActivity(intent)
             }
         }
