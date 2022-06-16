@@ -95,6 +95,12 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
         binding.apply {
             goLoginText.setOnClickListener(this@FreeBoardFragment)
             addPost.setOnClickListener(this@FreeBoardFragment)
+
+            if (arguments?.getInt("id") == 0) {
+                binding.addPost.visibility = View.GONE
+            } else {
+                binding.addPost.visibility = View.VISIBLE
+            }
         }
     }
 
