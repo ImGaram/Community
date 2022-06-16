@@ -13,6 +13,7 @@ import com.example.domain.model.user.DomainUserInfoResponse
 import com.example.domain.usecase.freeboard.addpost.AddPostUseCase
 import com.example.domain.usecase.freeboard.getpost.GetPostUseCase
 import com.example.domain.usecase.freeboard.getpostall.GetPostAllUseCase
+import com.example.domain.usecase.freeboard.modify.ModifyPostUseCase
 import com.example.domain.usecase.user.delete.DeleteUserUseCase
 import com.example.domain.usecase.user.login.LoginUseCase
 import com.example.domain.usecase.user.revision.RevisionUseCase
@@ -33,7 +34,8 @@ class NbViewModel @Inject constructor(
     private val deleteUserUseCase: DeleteUserUseCase,
     private val addPostUseCase: AddPostUseCase,
     private val getPostAllUseCase: GetPostAllUseCase,
-    private val getPostUseCase: GetPostUseCase
+    private val getPostUseCase: GetPostUseCase,
+    private val modifyPostUseCase: ModifyPostUseCase
 ): BaseViewModel() {
     // 회원가입
     private val _signInApiCallResult = MutableLiveData<DomainSignInResponse>()
@@ -128,6 +130,20 @@ class NbViewModel @Inject constructor(
         viewModelScope.launch {
             getPostUseCase(id, viewModelScope) {
                 _getPostSingleApiCallResult.value = it
+            }
+        }
+    }
+
+    // 게시글 수정
+    private val _modifyPostApiCallResult = MutableLiveData<DomainBaseFreeBoardResponse>()
+    val modifyPostApiCallResult: LiveData<DomainBaseFreeBoardResponse> = _modifyPostApiCallResult
+    fun modifyPostLogic(
+        title: String, content:String, img1:String, img2:String,
+        img3:String, img4:String, img5:String, createUser: Int, id: Int
+    ) {
+        viewModelScope.launch {
+            modifyPostUseCase(title, content, img1, img2, img3, img4, img5, createUser, id, viewModelScope) {
+                _modifyPostApiCallResult.value = it
             }
         }
     }

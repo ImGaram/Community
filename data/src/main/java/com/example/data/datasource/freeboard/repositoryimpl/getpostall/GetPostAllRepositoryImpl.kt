@@ -10,6 +10,5 @@ class GetPostAllRepositoryImpl @Inject constructor(
 ): GetPostAllRepository {
     override suspend fun getPost(): List<DomainGetAllFreeBoardResponse>? {
         return dataSource.getPost()
-//        return FreeBoardMapper.toListDomainAddFreeBoardResponse()
     }
 }

@@ -4,6 +4,7 @@ import com.example.data.ApiClient
 import com.example.data.api.freeboard.FreeAddPostService
 import com.example.data.api.freeboard.FreeGetPostAllService
 import com.example.data.api.freeboard.FreeGetPostService
+import com.example.data.api.freeboard.FreeModifyPostService
 import com.example.data.api.user.*
 import dagger.Module
 import dagger.Provides
@@ -166,6 +167,22 @@ object NetWorkModule {
             .build()
     }
 
+    @Named("modify")
+    @Provides
+    @Singleton
+    fun provideModifyPostRetrofitInstance(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .client(provideOkhttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Provides
     @Singleton
     fun provideConverterFactory(): GsonConverterFactory {
@@ -219,5 +236,11 @@ object NetWorkModule {
     @Singleton
     fun provideGetPostService(@Named("getPost") retrofit: Retrofit): FreeGetPostService {
         return retrofit.create(FreeGetPostService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideModifyPostService(@Named("modify") retrofit: Retrofit): FreeModifyPostService {
+        return retrofit.create(FreeModifyPostService::class.java)
     }
 }
