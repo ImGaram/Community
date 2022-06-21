@@ -7,7 +7,6 @@ import android.util.Base64
 import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.domain.model.freeboard.DomainBaseFreeBoardResponse
 import com.example.presentation.R
@@ -34,7 +33,12 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
         when(view?.id) {
             binding.cancelView.id -> { finish() }
             binding.postModify.id -> {
-                startActivity(Intent(this, PostModifyActivity::class.java))
+                val intent = Intent(this, PostModifyActivity::class.java).apply {
+                    putExtra("titleToModify", intent.getStringExtra("title"))
+                    putExtra("contentToModify", intent.getStringExtra("content"))
+                    putExtra("idx", intent.getIntExtra("id", 0))
+                }
+                startActivity(intent)
             }
         }
     }

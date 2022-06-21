@@ -4,7 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
     <data>
         <variable
-            name="add"
+            name="modifyPost"
             type="com.example.presentation.view.freeboard.info.PostModifyActivity" />
     </data>
 
@@ -101,7 +101,6 @@
                 android:id="@+id/modify_cancel_btn"
                 android:layout_width="160dp"
                 android:layout_height="55dp"
-
                 android:background="@drawable/btn_background2"
                 android:text="취소"
                 android:gravity="center"
