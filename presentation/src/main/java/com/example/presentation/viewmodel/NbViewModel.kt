@@ -11,6 +11,7 @@ import com.example.domain.model.user.DomainLoginResponse
 import com.example.domain.model.user.DomainSignInResponse
 import com.example.domain.model.user.DomainUserInfoResponse
 import com.example.domain.usecase.freeboard.addpost.AddPostUseCase
+import com.example.domain.usecase.freeboard.delete.DeletePostUseCase
 import com.example.domain.usecase.freeboard.getpost.GetPostUseCase
 import com.example.domain.usecase.freeboard.getpostall.GetPostAllUseCase
 import com.example.domain.usecase.freeboard.modify.ModifyPostUseCase
@@ -35,7 +36,8 @@ class NbViewModel @Inject constructor(
     private val addPostUseCase: AddPostUseCase,
     private val getPostAllUseCase: GetPostAllUseCase,
     private val getPostUseCase: GetPostUseCase,
-    private val modifyPostUseCase: ModifyPostUseCase
+    private val modifyPostUseCase: ModifyPostUseCase,
+    private val deletePostUseCase: DeletePostUseCase
 ): BaseViewModel() {
     // 회원가입
     private val _signInApiCallResult = MutableLiveData<DomainSignInResponse>()
@@ -144,6 +146,17 @@ class NbViewModel @Inject constructor(
         viewModelScope.launch {
             modifyPostUseCase(title, content, img1, img2, img3, img4, img5, createUser, id, viewModelScope) {
                 _modifyPostApiCallResult.value = it
+            }
+        }
+    }
+
+    // 게시글 삭제
+    private val _deletePostApiCallResult = MutableLiveData<Int>()
+    val deletePostApiCallResult: LiveData<Int> = _deletePostApiCallResult
+    fun deletePostLogic(pk: Int) {
+        viewModelScope.launch {
+            deletePostUseCase(pk, viewModelScope) {
+                _deletePostApiCallResult.value = it
             }
         }
     }
