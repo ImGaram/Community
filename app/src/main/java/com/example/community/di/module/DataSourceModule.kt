@@ -1,11 +1,9 @@
 package com.example.community.di.module
 
-import com.example.data.api.freeboard.FreeAddPostService
-import com.example.data.api.freeboard.FreeGetPostAllService
-import com.example.data.api.freeboard.FreeGetPostService
-import com.example.data.api.freeboard.FreeModifyPostService
+import com.example.data.api.freeboard.*
 import com.example.data.api.user.*
 import com.example.data.datasource.freeboard.remote.addpost.AddPostDataSourceImpl
+import com.example.data.datasource.freeboard.remote.delete.DeletePostDataSourceImpl
 import com.example.data.datasource.freeboard.remote.getpost.GetPostDataSource
 import com.example.data.datasource.freeboard.remote.getpost.GetPostDataSourceImpl
 import com.example.data.datasource.freeboard.remote.getpostall.GetPostAllDataSourceImpl
@@ -78,5 +76,11 @@ object DataSourceModule {
     @Singleton
     fun provideModifyPostDataSource(modifyService: FreeModifyPostService): ModifyFreeBoardDatasourceImpl {
         return ModifyFreeBoardDatasourceImpl(modifyService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeletePostDataSource(deletePostService: FreeDeletePostService): DeletePostDataSourceImpl {
+        return DeletePostDataSourceImpl((deletePostService))
     }
 }

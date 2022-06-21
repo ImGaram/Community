@@ -1,6 +1,7 @@
 package com.example.community.di.module
 
 import com.example.domain.repository.freeboard.addpost.AddPostRepository
+import com.example.domain.repository.freeboard.delete.DeletePostRepository
 import com.example.domain.repository.freeboard.getpost.GetPostRepository
 import com.example.domain.repository.freeboard.getpostall.GetPostAllRepository
 import com.example.domain.repository.freeboard.modify.ModifyPostRepository
@@ -10,6 +11,7 @@ import com.example.domain.repository.user.revision.RevisionRepository
 import com.example.domain.repository.user.signin.SignInRepository
 import com.example.domain.repository.user.userinfo.UserInfoRepository
 import com.example.domain.usecase.freeboard.addpost.AddPostUseCase
+import com.example.domain.usecase.freeboard.delete.DeletePostUseCase
 import com.example.domain.usecase.freeboard.getpost.GetPostUseCase
 import com.example.domain.usecase.freeboard.getpostall.GetPostAllUseCase
 import com.example.domain.usecase.freeboard.modify.ModifyPostUseCase
@@ -22,6 +24,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
+import org.intellij.lang.annotations.PrintFormat
 import javax.inject.Singleton
 
 @Module
@@ -64,4 +67,8 @@ class UseCaseModule {
     @Provides
     @Singleton
     fun provideModifyPostUseCase(repository: ModifyPostRepository) = ModifyPostUseCase(repository)
+
+    @PrintFormat
+    @Singleton
+    fun provideDeletePostUseCase(repository: DeletePostRepository) = DeletePostUseCase(repository)
 }
