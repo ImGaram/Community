@@ -1,12 +1,19 @@
 package com.example.presentation.view.freeboard.info
 
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.util.Base64
 import android.util.Log
+import android.view.LayoutInflater
 import android.view.View
+import android.view.Window
 import androidx.activity.viewModels
+import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.domain.model.freeboard.DomainBaseFreeBoardResponse
 import com.example.presentation.R
@@ -40,6 +47,20 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
                 }
                 startActivity(intent)
             }
+            binding.postDelete.id -> {
+                val delDialogView = LayoutInflater.from(this).inflate(R.layout.custom_dialog_delete, null)
+                val dialogBuilder = AlertDialog.Builder(this)
+                    .setView(delDialogView)
+                val dialog = dialogBuilder.show()
+                val mDialog = Dialog(this)
+                mDialog.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+                mDialog.requestWindowFeature(Window.FEATURE_NO_TITLE)
+
+                delDialogView.findViewById<AppCompatButton>(R.id.delete_ok_btn).setOnClickListener {
+                    deleteLogic(dialog)
+                }
+                delDialogView.findViewById<AppCompatButton>(R.id.delete_cancel_btn).setOnClickListener { dialog.dismiss() }
+            }
         }
     }
 
@@ -54,6 +75,20 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
             binding.postImageRecyclerView.apply {
                 adapter = FreeBoardPostInfoAdapter(imageList, applicationContext)
                 layoutManager = LinearLayoutManager(this@PostInfoActivity, LinearLayoutManager.HORIZONTAL, true)
+            }
+        }
+    }
+
+    private fun deleteLogic(dialog: AlertDialog) {
+        viewModel.deletePostLogic(intent.getIntExtra("id", 0))
+        viewModel.deletePostApiCallResult.observe(this) {
+            if (it == 204) {
+                Log.d("SUCCESS", "onClick result code: $it")
+                dialog.dismiss()
+                finish()
+            } else {
+                Log.d("FAIL", "onClick result code: $it")
+                dialog.dismiss()
             }
         }
     }
@@ -79,6 +114,7 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
         binding.cancelText.bringToFront()
         binding.cancelView.setOnClickListener(this)
         binding.postModify.setOnClickListener(this)
+        binding.postDelete.setOnClickListener(this)
     }
 
     private fun dataSetting() {
