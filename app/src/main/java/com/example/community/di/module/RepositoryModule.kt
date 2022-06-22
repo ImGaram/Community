@@ -1,11 +1,13 @@
 package com.example.community.di.module
 
 import com.example.data.datasource.freeboard.remote.addpost.AddPostDataSourceImpl
+import com.example.data.datasource.freeboard.remote.comment.AddCommentDataSourceImpl
 import com.example.data.datasource.freeboard.remote.delete.DeletePostDataSourceImpl
 import com.example.data.datasource.freeboard.remote.getpost.GetPostDataSourceImpl
 import com.example.data.datasource.freeboard.remote.getpostall.GetPostAllDataSourceImpl
 import com.example.data.datasource.freeboard.remote.modify.ModifyFreeBoardDatasourceImpl
 import com.example.data.datasource.freeboard.repositoryimpl.addpost.AddPostRepositoryImpl
+import com.example.data.datasource.freeboard.repositoryimpl.comment.AddCommentRepositoryImpl
 import com.example.data.datasource.freeboard.repositoryimpl.delete.DeletePostRepositoryImpl
 import com.example.data.datasource.freeboard.repositoryimpl.getpost.GetPostRepositoryImpl
 import com.example.data.datasource.freeboard.repositoryimpl.getpostall.GetPostAllRepositoryImpl
@@ -21,6 +23,7 @@ import com.example.data.datasource.user.repositoryimpl.login.LoginRepositoryImpl
 import com.example.data.datasource.user.repositoryimpl.revision.RevisionRepositoryImpl
 import com.example.data.datasource.user.repositoryimpl.userinfo.UserInfoRepositoryImpl
 import com.example.domain.repository.freeboard.addpost.AddPostRepository
+import com.example.domain.repository.freeboard.comment.AddCommentRepository
 import com.example.domain.repository.freeboard.delete.DeletePostRepository
 import com.example.domain.repository.freeboard.getpost.GetPostRepository
 import com.example.domain.repository.freeboard.getpostall.GetPostAllRepository
@@ -99,5 +102,11 @@ object RepositoryModule {
     @Singleton
     fun provideDeletePostRepository(deletePostRepository: DeletePostDataSourceImpl): DeletePostRepository {
         return DeletePostRepositoryImpl(deletePostRepository)
+    }
+
+    @Provides
+    @Singleton
+    fun provideAddCommentRepository(addCommentRepository: AddCommentDataSourceImpl): AddCommentRepository {
+        return AddCommentRepositoryImpl(addCommentRepository)
     }
 }
