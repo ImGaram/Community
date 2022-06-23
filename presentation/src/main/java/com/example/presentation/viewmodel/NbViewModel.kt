@@ -1,5 +1,6 @@
 package com.example.presentation.viewmodel
 
+import android.animation.PropertyValuesHolder
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -11,6 +12,7 @@ import com.example.domain.model.user.DomainLoginResponse
 import com.example.domain.model.user.DomainSignInResponse
 import com.example.domain.model.user.DomainUserInfoResponse
 import com.example.domain.usecase.freeboard.addpost.AddPostUseCase
+import com.example.domain.usecase.freeboard.comment.AddCommentUseCase
 import com.example.domain.usecase.freeboard.delete.DeletePostUseCase
 import com.example.domain.usecase.freeboard.getpost.GetPostUseCase
 import com.example.domain.usecase.freeboard.getpostall.GetPostAllUseCase
@@ -37,7 +39,8 @@ class NbViewModel @Inject constructor(
     private val getPostAllUseCase: GetPostAllUseCase,
     private val getPostUseCase: GetPostUseCase,
     private val modifyPostUseCase: ModifyPostUseCase,
-    private val deletePostUseCase: DeletePostUseCase
+    private val deletePostUseCase: DeletePostUseCase,
+    private val addCommentUseCase: AddCommentUseCase
 ): BaseViewModel() {
     // 회원가입
     private val _signInApiCallResult = MutableLiveData<DomainSignInResponse>()
@@ -157,6 +160,17 @@ class NbViewModel @Inject constructor(
         viewModelScope.launch {
             deletePostUseCase(pk, viewModelScope) {
                 _deletePostApiCallResult.value = it
+            }
+        }
+    }
+
+    // 댓글 추가
+    private val _addCommentApiCallResult = MutableLiveData<Int>()
+    val addCommentApiCallResult: LiveData<Int> = _addCommentApiCallResult
+    fun addCommentLogic(context: String, createUserId: Int, postId: Int) {
+        viewModelScope.launch {
+            addCommentUseCase(context, createUserId, postId, viewModelScope) {
+                _addCommentApiCallResult.value = it
             }
         }
     }

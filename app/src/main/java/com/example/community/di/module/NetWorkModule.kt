@@ -3,6 +3,7 @@ package com.example.community.di.module
 import com.example.data.ApiClient
 import com.example.data.api.freeboard.*
 import com.example.data.api.user.*
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -196,7 +197,7 @@ object NetWorkModule {
             .build()
     }
 
-    @Named("modify")
+    @Named("addComment")
     @Provides
     @Singleton
     fun provideAddCommentRetrofitInstance(

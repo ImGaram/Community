@@ -61,13 +61,27 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
                 }
                 delDialogView.findViewById<AppCompatButton>(R.id.delete_cancel_btn).setOnClickListener { dialog.dismiss() }
             }
+            binding.addComment.id -> {
+                viewModel.addCommentLogic(binding.editComment.text.toString(), intent.getIntExtra("userIdIdx", 0),
+                    intent.getIntExtra("id", 0))
+                viewModel.addCommentApiCallResult.observe(this) {
+                    if (it == 201) {
+                        Log.d("SUCCESS", "onClick: $it")
+                    } else {
+                        Log.d("FAIL", "onClick: $it")
+                    }
+                }
+                Log.d("SUCCESS", "onClick: ${binding.editComment.text}")
+                Log.d("SUCCESS", "onClick useridx: ${intent.getIntExtra("userIdIdx", 0)}")
+                Log.d("SUCCESS", "onClick id: ${intent.getIntExtra("id", 0)}")
+            }
         }
     }
 
     private fun initRecyclerView() {
         viewModel.getPostSingleLogic(intent.getIntExtra("id", 0))
         viewModel.getPostSingleApiCallResult.observe(this) {
-            Log.d("SUCCESS", "initRecyclerView user id: ${intent.getStringExtra("userIdIdx")}")
+            Log.d("SUCCESS", "initRecyclerView user id: ${intent.getIntExtra("userIdIdx", 0)}")
             if (intent.getIntExtra("userIdIdx", 0) == it.createUser) {
                 binding.btnLinear.visibility = View.VISIBLE
             }
@@ -115,6 +129,7 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
         binding.cancelView.setOnClickListener(this)
         binding.postModify.setOnClickListener(this)
         binding.postDelete.setOnClickListener(this)
+        binding.addComment.setOnClickListener(this)
     }
 
     private fun dataSetting() {
