@@ -5,8 +5,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class AddCommentUseCase(
+class AddCommentUseCase @Inject constructor(
     private val repository: AddCommentRepository
 ) {
     operator fun invoke(
