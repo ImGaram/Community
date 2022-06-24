@@ -7,12 +7,14 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.base.DomainBaseResponse
 import com.example.domain.model.freeboard.DomainBaseFreeBoardResponse
+import com.example.domain.model.freeboard.comment.DomainGetCommentResponse
 import com.example.domain.model.freeboard.getpostall.DomainGetAllFreeBoardResponse
 import com.example.domain.model.user.DomainLoginResponse
 import com.example.domain.model.user.DomainSignInResponse
 import com.example.domain.model.user.DomainUserInfoResponse
 import com.example.domain.usecase.freeboard.addpost.AddPostUseCase
 import com.example.domain.usecase.freeboard.comment.AddCommentUseCase
+import com.example.domain.usecase.freeboard.comment.GetCommentUseCase
 import com.example.domain.usecase.freeboard.delete.DeletePostUseCase
 import com.example.domain.usecase.freeboard.getpost.GetPostUseCase
 import com.example.domain.usecase.freeboard.getpostall.GetPostAllUseCase
@@ -40,7 +42,8 @@ class NbViewModel @Inject constructor(
     private val getPostUseCase: GetPostUseCase,
     private val modifyPostUseCase: ModifyPostUseCase,
     private val deletePostUseCase: DeletePostUseCase,
-    private val addCommentUseCase: AddCommentUseCase
+    private val addCommentUseCase: AddCommentUseCase,
+    private val getCommentUseCase: GetCommentUseCase
 ): BaseViewModel() {
     // 회원가입
     private val _signInApiCallResult = MutableLiveData<DomainSignInResponse>()
@@ -171,6 +174,17 @@ class NbViewModel @Inject constructor(
         viewModelScope.launch {
             addCommentUseCase(context, createUserId, postId, viewModelScope) {
                 _addCommentApiCallResult.value = it
+            }
+        }
+    }
+
+    // 게시들 댓글 불러오기
+    private val _getCommentApiCallResult = MutableLiveData<List<DomainGetCommentResponse>>()
+    val getCommentApiCallResult: LiveData<List<DomainGetCommentResponse>> = _getCommentApiCallResult
+    fun getCommentLogic(postId: Int) {
+        viewModelScope.launch {
+            getCommentUseCase(postId, viewModelScope) {
+                _getCommentApiCallResult.value = it
             }
         }
     }

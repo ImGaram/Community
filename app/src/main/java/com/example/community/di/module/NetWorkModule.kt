@@ -3,7 +3,6 @@ package com.example.community.di.module
 import com.example.data.ApiClient
 import com.example.data.api.freeboard.*
 import com.example.data.api.user.*
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -213,6 +212,22 @@ object NetWorkModule {
             .build()
     }
 
+    @Named("getComment")
+    @Provides
+    @Singleton
+    fun provideGetCommentRetrofitInstance(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .client(provideOkhttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Provides
     @Singleton
     fun provideConverterFactory(): GsonConverterFactory {
@@ -284,5 +299,11 @@ object NetWorkModule {
     @Singleton
     fun provideAddCommentService(@Named("addComment") retrofit: Retrofit): AddCommentService {
         return retrofit.create(AddCommentService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetCommentService(@Named("getComment") retrofit: Retrofit): GetCommentService {
+        return retrofit.create(GetCommentService::class.java)
     }
 }
