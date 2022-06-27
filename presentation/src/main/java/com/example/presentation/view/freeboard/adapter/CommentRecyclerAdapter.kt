@@ -34,6 +34,15 @@ class CommentRecyclerAdapter(private val commentList: List<DomainGetCommentRespo
             } else {
                 binding.commentOption.visibility = View.GONE
             }
+
+            binding.textComment.setOnClickListener {
+                // text -> edit text
+                binding.textComment.visibility = View.GONE
+                binding.editTextComment.visibility = View.VISIBLE
+                binding.commentModify.setOnClickListener {
+                    // modify logic
+                }
+            }
         }
     }
 }
