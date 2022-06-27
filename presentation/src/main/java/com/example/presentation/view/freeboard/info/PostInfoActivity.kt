@@ -33,6 +33,8 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
     override fun init() {
         binding.post = this
 
+        Log.d("SUCCESS", "init user name: ${intent.getStringExtra("createUser")}")
+
         viewSetting()
         dataSetting()
         initRecyclerView()

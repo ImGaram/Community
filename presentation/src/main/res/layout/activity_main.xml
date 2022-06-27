@@ -42,7 +42,7 @@
         app:itemIconTint="#00ffffff"
         app:itemTextAppearanceActive="@style/BottomNavigationView.IsActive"
         app:itemTextAppearanceInactive="@style/BottomNavigationView.IsNotActive"
-        android:background="@color/main_color"
+        android:background="@color/sub_color"
         app:menu="@menu/btm_menu" />
 
     <LinearLayout

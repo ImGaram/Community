@@ -75,7 +75,6 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
         adapter.itemClick = object : FreeBoardPostAdapter.ItemClick {
             override fun onClick(view: View, data: DomainGetAllFreeBoardResponse, position: Int) {
                 val post = item[position]
-                Log.d("SUCCESS", "onClick post: ${post._title}")
 
                 val intent = Intent(context, PostInfoActivity::class.java)
                     .putExtra("title", post._title)

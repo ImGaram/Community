@@ -51,6 +51,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
 
     private fun setView() {
         val username = intent.getStringExtra("userName")
+        Log.d("SUCCESS", "setView user name: $username")
 
         if (username != null) {
             val dataId = intent.getIntExtra("userId", 0)
