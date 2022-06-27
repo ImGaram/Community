@@ -16,9 +16,11 @@ import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatButton
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.domain.model.freeboard.DomainBaseFreeBoardResponse
+import com.example.domain.model.freeboard.comment.DomainGetCommentResponse
 import com.example.presentation.R
 import com.example.presentation.base.BaseActivity
 import com.example.presentation.databinding.ActivityPostInfoBinding
+import com.example.presentation.view.freeboard.adapter.CommentRecyclerAdapter
 import com.example.presentation.view.freeboard.adapter.FreeBoardPostInfoAdapter
 import com.example.presentation.viewmodel.NbViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -34,6 +36,7 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
         viewSetting()
         dataSetting()
         initRecyclerView()
+        getComment()
     }
 
     override fun onClick(view: View?) {
@@ -76,6 +79,19 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
                 Log.d("SUCCESS", "onClick id: ${intent.getIntExtra("id", 0)}")
             }
         }
+    }
+
+    private fun getComment() {
+        viewModel.getCommentLogic(intent.getIntExtra("id", 0))
+        viewModel.getCommentApiCallResult.observe(this) {
+            Log.d("SUCCESS", "getComment: $it")
+            initCommentRecycler(it)
+        }
+    }
+
+    private fun initCommentRecycler(comment: List<DomainGetCommentResponse>) {
+        binding.commentRecyclerView.adapter = CommentRecyclerAdapter(comment, intent.getIntExtra("userIdIdx", 0))
+        binding.commentRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false)
     }
 
     private fun initRecyclerView() {

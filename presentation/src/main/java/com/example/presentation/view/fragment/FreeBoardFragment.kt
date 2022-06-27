@@ -61,7 +61,6 @@ class FreeBoardFragment : BaseFragment<FragmentFreeBoardBinding>(R.layout.fragme
             nbViewModel.getUserLogic(id)
             nbViewModel.userInfoApiCallResult.observe(viewLifecycleOwner) {
                 if (it != null) {   // 로그인한 유저가 있음
-                    Log.d("SUCCESS", "getUser it: $it")
                     binding.goLoginText.visibility = View.GONE
                 } else {
                     Log.d("SUCCESS", "guest user")

@@ -71,6 +71,7 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
                 supportFragmentManager.beginTransaction().replace(R.id.fragmentContainerView, FreeBoardFragment().apply {
                     arguments = Bundle().apply {
                         putInt("id", intent.getIntExtra("userId", 0))
+                        putString("username", intent.getStringExtra("userName"))
                     }
                 }).commitAllowingStateLoss()
                 return true
