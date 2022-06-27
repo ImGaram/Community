@@ -5,6 +5,7 @@ import com.example.data.api.user.*
 import com.example.data.datasource.freeboard.remote.addpost.AddPostDataSourceImpl
 import com.example.data.datasource.freeboard.remote.comment.AddCommentDataSourceImpl
 import com.example.data.datasource.freeboard.remote.comment.GetCommentDataSourceImpl
+import com.example.data.datasource.freeboard.remote.comment.ModifyCommentDataSourceImpl
 import com.example.data.datasource.freeboard.remote.delete.DeletePostDataSourceImpl
 import com.example.data.datasource.freeboard.remote.getpost.GetPostDataSource
 import com.example.data.datasource.freeboard.remote.getpost.GetPostDataSourceImpl
@@ -96,5 +97,11 @@ object DataSourceModule {
     @Singleton
     fun provideGetCommentDataSource(getCommentService: GetCommentService): GetCommentDataSourceImpl {
         return GetCommentDataSourceImpl(getCommentService)
+    }
+
+    @Provides
+    @Singleton
+    fun provideModifyCommentDataSource(modifyCommentService: ModifyCommentService): ModifyCommentDataSourceImpl {
+        return ModifyCommentDataSourceImpl(modifyCommentService)
     }
 }
