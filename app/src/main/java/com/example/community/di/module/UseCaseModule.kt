@@ -2,6 +2,7 @@ package com.example.community.di.module
 
 import com.example.domain.repository.freeboard.addpost.AddPostRepository
 import com.example.domain.repository.freeboard.comment.AddCommentRepository
+import com.example.domain.repository.freeboard.comment.DeleteCommentRepository
 import com.example.domain.repository.freeboard.comment.GetCommentRepository
 import com.example.domain.repository.freeboard.comment.ModifyCommentRepository
 import com.example.domain.repository.freeboard.delete.DeletePostRepository
@@ -15,6 +16,7 @@ import com.example.domain.repository.user.signin.SignInRepository
 import com.example.domain.repository.user.userinfo.UserInfoRepository
 import com.example.domain.usecase.freeboard.addpost.AddPostUseCase
 import com.example.domain.usecase.freeboard.comment.AddCommentUseCase
+import com.example.domain.usecase.freeboard.comment.DeleteCommentUseCase
 import com.example.domain.usecase.freeboard.comment.GetCommentUseCase
 import com.example.domain.usecase.freeboard.comment.ModifyCommentUseCase
 import com.example.domain.usecase.freeboard.delete.DeletePostUseCase
@@ -89,4 +91,8 @@ class UseCaseModule {
     @Provides
     @Singleton
     fun provideModifyCommentUseCase(repository: ModifyCommentRepository) = ModifyCommentUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideDeleteCommentUseCase(repository: DeleteCommentRepository) = DeleteCommentUseCase(repository)
 }

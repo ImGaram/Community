@@ -244,6 +244,22 @@ object NetWorkModule {
             .build()
     }
 
+    @Named("deleteComment")
+    @Provides
+    @Singleton
+    fun provideDeleteCommentInstance(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .client(provideOkhttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Provides
     @Singleton
     fun provideConverterFactory(): GsonConverterFactory {
@@ -327,5 +343,11 @@ object NetWorkModule {
     @Singleton
     fun provideModifyCommentService(@Named("modifyComment") retrofit: Retrofit): ModifyCommentService {
         return retrofit.create(ModifyCommentService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeleteCommentService(@Named("deleteComment") retrofit: Retrofit): DeleteCommentService {
+        return retrofit.create(DeleteCommentService::class.java)
     }
 }

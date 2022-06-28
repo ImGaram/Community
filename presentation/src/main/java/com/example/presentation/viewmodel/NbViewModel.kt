@@ -1,6 +1,5 @@
 package com.example.presentation.viewmodel
 
-import android.animation.PropertyValuesHolder
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -14,7 +13,9 @@ import com.example.domain.model.user.DomainSignInResponse
 import com.example.domain.model.user.DomainUserInfoResponse
 import com.example.domain.usecase.freeboard.addpost.AddPostUseCase
 import com.example.domain.usecase.freeboard.comment.AddCommentUseCase
+import com.example.domain.usecase.freeboard.comment.DeleteCommentUseCase
 import com.example.domain.usecase.freeboard.comment.GetCommentUseCase
+import com.example.domain.usecase.freeboard.comment.ModifyCommentUseCase
 import com.example.domain.usecase.freeboard.delete.DeletePostUseCase
 import com.example.domain.usecase.freeboard.getpost.GetPostUseCase
 import com.example.domain.usecase.freeboard.getpostall.GetPostAllUseCase
@@ -43,7 +44,9 @@ class NbViewModel @Inject constructor(
     private val modifyPostUseCase: ModifyPostUseCase,
     private val deletePostUseCase: DeletePostUseCase,
     private val addCommentUseCase: AddCommentUseCase,
-    private val getCommentUseCase: GetCommentUseCase
+    private val getCommentUseCase: GetCommentUseCase,
+    private val modifyCommentUseCase: ModifyCommentUseCase,
+    private val deleteCommentUseCase: DeleteCommentUseCase
 ): BaseViewModel() {
     // 회원가입
     private val _signInApiCallResult = MutableLiveData<DomainSignInResponse>()
@@ -185,6 +188,30 @@ class NbViewModel @Inject constructor(
         viewModelScope.launch {
             getCommentUseCase(postId, viewModelScope) {
                 _getCommentApiCallResult.value = it
+            }
+        }
+    }
+
+    // 댓글 수정
+    private val _modifyCommentApiCallResult = MutableLiveData<Int>()
+    val modifyCommentApiCallResult: LiveData<Int> = _modifyCommentApiCallResult
+    fun modifyCommentLogic(
+        context: String, createUserId: Int, postId: Int, pk: Int
+    ) {
+        viewModelScope.launch {
+            modifyCommentUseCase(context, createUserId, postId, pk, viewModelScope) {
+                _modifyCommentApiCallResult.value = it
+            }
+        }
+    }
+
+    // 댓글 삭제
+    private val _deleteCommentApiCallResult = MutableLiveData<Int>()
+    val deleteCommentApiCallResult: LiveData<Int> = _deleteCommentApiCallResult
+    fun deleteCommentLogic(postId: Int) {
+        viewModelScope.launch {
+            deleteCommentUseCase(postId, viewModelScope) {
+                _deleteCommentApiCallResult.value = it
             }
         }
     }
