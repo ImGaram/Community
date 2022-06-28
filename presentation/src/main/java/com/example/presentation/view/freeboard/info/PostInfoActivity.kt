@@ -20,6 +20,7 @@ import com.example.domain.model.freeboard.comment.DomainGetCommentResponse
 import com.example.presentation.R
 import com.example.presentation.base.BaseActivity
 import com.example.presentation.databinding.ActivityPostInfoBinding
+import com.example.presentation.databinding.RecyclerItemCommentBinding
 import com.example.presentation.view.freeboard.adapter.CommentRecyclerAdapter
 import com.example.presentation.view.freeboard.adapter.FreeBoardPostInfoAdapter
 import com.example.presentation.viewmodel.NbViewModel
@@ -76,9 +77,6 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
                         Log.d("FAIL", "onClick: $it")
                     }
                 }
-                Log.d("SUCCESS", "onClick: ${binding.editComment.text}")
-                Log.d("SUCCESS", "onClick useridx: ${intent.getIntExtra("userIdIdx", 0)}")
-                Log.d("SUCCESS", "onClick id: ${intent.getIntExtra("id", 0)}")
             }
         }
     }
@@ -86,7 +84,6 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
     private fun getComment() {
         viewModel.getCommentLogic(intent.getIntExtra("id", 0))
         viewModel.getCommentApiCallResult.observe(this) {
-            Log.d("SUCCESS", "getComment: $it")
             initCommentRecycler(it)
         }
     }
@@ -115,11 +112,9 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
         viewModel.deletePostLogic(intent.getIntExtra("id", 0))
         viewModel.deletePostApiCallResult.observe(this) {
             if (it == 204) {
-                Log.d("SUCCESS", "onClick result code: $it")
                 dialog.dismiss()
                 finish()
             } else {
-                Log.d("FAIL", "onClick result code: $it")
                 dialog.dismiss()
             }
         }

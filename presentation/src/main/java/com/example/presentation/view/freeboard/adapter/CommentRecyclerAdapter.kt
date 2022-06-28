@@ -8,7 +8,6 @@ import com.example.domain.model.freeboard.comment.DomainGetCommentResponse
 import com.example.presentation.databinding.RecyclerItemCommentBinding
 
 class CommentRecyclerAdapter(private val commentList: List<DomainGetCommentResponse>, private val userId: Int): RecyclerView.Adapter<CommentRecyclerAdapter.ViewHolder>() {
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = RecyclerItemCommentBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
@@ -33,15 +32,6 @@ class CommentRecyclerAdapter(private val commentList: List<DomainGetCommentRespo
                 binding.commentOption.visibility = View.VISIBLE
             } else {
                 binding.commentOption.visibility = View.GONE
-            }
-
-            binding.textComment.setOnClickListener {
-                // text -> edit text
-                binding.textComment.visibility = View.GONE
-                binding.editTextComment.visibility = View.VISIBLE
-                binding.commentModify.setOnClickListener {
-                    // modify logic
-                }
             }
         }
     }
