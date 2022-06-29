@@ -9,16 +9,14 @@ import com.example.domain.repository.freeboard.delete.DeletePostRepository
 import com.example.domain.repository.freeboard.getpost.GetPostRepository
 import com.example.domain.repository.freeboard.getpostall.GetPostAllRepository
 import com.example.domain.repository.freeboard.modify.ModifyPostRepository
+import com.example.domain.repository.freeboard.suggest.SuggestPostRepository
 import com.example.domain.repository.user.delete.DeleteUserRepository
 import com.example.domain.repository.user.login.LoginRepository
 import com.example.domain.repository.user.revision.RevisionRepository
 import com.example.domain.repository.user.signin.SignInRepository
 import com.example.domain.repository.user.userinfo.UserInfoRepository
 import com.example.domain.usecase.freeboard.addpost.AddPostUseCase
-import com.example.domain.usecase.freeboard.comment.AddCommentUseCase
-import com.example.domain.usecase.freeboard.comment.DeleteCommentUseCase
-import com.example.domain.usecase.freeboard.comment.GetCommentUseCase
-import com.example.domain.usecase.freeboard.comment.ModifyCommentUseCase
+import com.example.domain.usecase.freeboard.comment.*
 import com.example.domain.usecase.freeboard.delete.DeletePostUseCase
 import com.example.domain.usecase.freeboard.getpost.GetPostUseCase
 import com.example.domain.usecase.freeboard.getpostall.GetPostAllUseCase
@@ -95,4 +93,8 @@ class UseCaseModule {
     @Provides
     @Singleton
     fun provideDeleteCommentUseCase(repository: DeleteCommentRepository) = DeleteCommentUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideSuggestPostUseCase(repository: SuggestPostRepository) = SuggestPostUseCase(repository)
 }

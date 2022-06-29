@@ -260,6 +260,22 @@ object NetWorkModule {
             .build()
     }
 
+    @Named("suggest")
+    @Provides
+    @Singleton
+    fun provideSuggestPost(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .client(provideOkhttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Provides
     @Singleton
     fun provideConverterFactory(): GsonConverterFactory {
@@ -349,5 +365,11 @@ object NetWorkModule {
     @Singleton
     fun provideDeleteCommentService(@Named("deleteComment") retrofit: Retrofit): DeleteCommentService {
         return retrofit.create(DeleteCommentService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSuggestPostService(@Named("suggest") retrofit: Retrofit): SuggestService {
+        return retrofit.create(SuggestService::class.java)
     }
 }

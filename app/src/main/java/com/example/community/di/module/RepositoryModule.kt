@@ -9,6 +9,7 @@ import com.example.data.datasource.freeboard.remote.delete.DeletePostDataSourceI
 import com.example.data.datasource.freeboard.remote.getpost.GetPostDataSourceImpl
 import com.example.data.datasource.freeboard.remote.getpostall.GetPostAllDataSourceImpl
 import com.example.data.datasource.freeboard.remote.modify.ModifyFreeBoardDatasourceImpl
+import com.example.data.datasource.freeboard.remote.suggest.SuggestDataSourceImpl
 import com.example.data.datasource.freeboard.repositoryimpl.addpost.AddPostRepositoryImpl
 import com.example.data.datasource.freeboard.repositoryimpl.comment.AddCommentRepositoryImpl
 import com.example.data.datasource.freeboard.repositoryimpl.comment.DeleteCommentRepositoryImpl
@@ -18,6 +19,7 @@ import com.example.data.datasource.freeboard.repositoryimpl.delete.DeletePostRep
 import com.example.data.datasource.freeboard.repositoryimpl.getpost.GetPostRepositoryImpl
 import com.example.data.datasource.freeboard.repositoryimpl.getpostall.GetPostAllRepositoryImpl
 import com.example.data.datasource.freeboard.repositoryimpl.modify.ModifyPostRepositoryImpl
+import com.example.data.datasource.freeboard.repositoryimpl.suggest.SuggestPostRepositoryImpl
 import com.example.data.datasource.user.remote.delete.DeleteUserDataSourceImpl
 import com.example.data.datasource.user.remote.login.LoginDataSourceImpl
 import com.example.data.datasource.user.remote.revision.RevisionDataSourceImpl
@@ -37,6 +39,7 @@ import com.example.domain.repository.freeboard.delete.DeletePostRepository
 import com.example.domain.repository.freeboard.getpost.GetPostRepository
 import com.example.domain.repository.freeboard.getpostall.GetPostAllRepository
 import com.example.domain.repository.freeboard.modify.ModifyPostRepository
+import com.example.domain.repository.freeboard.suggest.SuggestPostRepository
 import com.example.domain.repository.user.delete.DeleteUserRepository
 import com.example.domain.repository.user.login.LoginRepository
 import com.example.domain.repository.user.revision.RevisionRepository
@@ -135,5 +138,11 @@ object RepositoryModule {
     @Singleton
     fun provideDeleteCommentRepository(deleteCommentDataSourceImpl: DeleteCommentDataSourceImpl): DeleteCommentRepository {
         return DeleteCommentRepositoryImpl(deleteCommentDataSourceImpl)
+    }
+
+    @Provides
+    @Singleton
+    fun provideSuggestPostRepository(suggestPostDataSourceImpl: SuggestDataSourceImpl): SuggestPostRepository {
+        return SuggestPostRepositoryImpl(suggestPostDataSourceImpl)
     }
 }

@@ -12,10 +12,7 @@ import com.example.domain.model.user.DomainLoginResponse
 import com.example.domain.model.user.DomainSignInResponse
 import com.example.domain.model.user.DomainUserInfoResponse
 import com.example.domain.usecase.freeboard.addpost.AddPostUseCase
-import com.example.domain.usecase.freeboard.comment.AddCommentUseCase
-import com.example.domain.usecase.freeboard.comment.DeleteCommentUseCase
-import com.example.domain.usecase.freeboard.comment.GetCommentUseCase
-import com.example.domain.usecase.freeboard.comment.ModifyCommentUseCase
+import com.example.domain.usecase.freeboard.comment.*
 import com.example.domain.usecase.freeboard.delete.DeletePostUseCase
 import com.example.domain.usecase.freeboard.getpost.GetPostUseCase
 import com.example.domain.usecase.freeboard.getpostall.GetPostAllUseCase
@@ -46,7 +43,8 @@ class NbViewModel @Inject constructor(
     private val addCommentUseCase: AddCommentUseCase,
     private val getCommentUseCase: GetCommentUseCase,
     private val modifyCommentUseCase: ModifyCommentUseCase,
-    private val deleteCommentUseCase: DeleteCommentUseCase
+    private val deleteCommentUseCase: DeleteCommentUseCase,
+    private val suggestPostUseCase: SuggestPostUseCase
 ): BaseViewModel() {
     // 회원가입
     private val _signInApiCallResult = MutableLiveData<DomainSignInResponse>()
@@ -212,6 +210,17 @@ class NbViewModel @Inject constructor(
         viewModelScope.launch {
             deleteCommentUseCase(postId, viewModelScope) {
                 _deleteCommentApiCallResult.value = it
+            }
+        }
+    }
+
+    // 추천
+    private val _suggestSuggestPostApiCallResult = MutableLiveData<Int>()
+    val suggestPostApiCallResult: LiveData<Int> = _suggestSuggestPostApiCallResult
+    fun suggestLogic(user: Int, board: Int) {
+        viewModelScope.launch {
+            suggestPostUseCase(user, board, viewModelScope) {
+                _suggestSuggestPostApiCallResult.value = it
             }
         }
     }
