@@ -20,7 +20,6 @@ import com.example.domain.model.freeboard.comment.DomainGetCommentResponse
 import com.example.presentation.R
 import com.example.presentation.base.BaseActivity
 import com.example.presentation.databinding.ActivityPostInfoBinding
-import com.example.presentation.databinding.RecyclerItemCommentBinding
 import com.example.presentation.view.freeboard.adapter.CommentRecyclerAdapter
 import com.example.presentation.view.freeboard.adapter.FreeBoardPostInfoAdapter
 import com.example.presentation.viewmodel.NbViewModel
@@ -76,6 +75,12 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
                     } else {
                         Log.d("FAIL", "onClick: $it")
                     }
+                }
+            }
+            binding.like.id -> {
+                viewModel.suggestLogic(intent.getIntExtra("userIdIdx", 0), intent.getIntExtra("id", 0))
+                viewModel.suggestPostApiCallResult.observe(this) {
+                    Log.d("SUCCESS", "onClick suggest post result code: $it")
                 }
             }
         }
@@ -143,6 +148,7 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
         binding.postModify.setOnClickListener(this)
         binding.postDelete.setOnClickListener(this)
         binding.addComment.setOnClickListener(this)
+        binding.like.setOnClickListener(this)
     }
 
     private fun dataSetting() {
