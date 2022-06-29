@@ -12,6 +12,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton
@@ -276,6 +277,22 @@ object NetWorkModule {
             .build()
     }
 
+    @Named("getSuggest")
+    @Provides
+    @Singleton
+    fun provideGetSuggestPost(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .client(okHttpClient)
+            .client(provideOkhttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Provides
     @Singleton
     fun provideConverterFactory(): GsonConverterFactory {
@@ -371,5 +388,11 @@ object NetWorkModule {
     @Singleton
     fun provideSuggestPostService(@Named("suggest") retrofit: Retrofit): SuggestService {
         return retrofit.create(SuggestService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetSuggestService(@Named("getSuggest") retrofit: Retrofit): GetSuggestService {
+        return retrofit.create(GetSuggestService::class.java)
     }
 }

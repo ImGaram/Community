@@ -12,6 +12,7 @@ import com.example.data.datasource.freeboard.remote.getpost.GetPostDataSource
 import com.example.data.datasource.freeboard.remote.getpost.GetPostDataSourceImpl
 import com.example.data.datasource.freeboard.remote.getpostall.GetPostAllDataSourceImpl
 import com.example.data.datasource.freeboard.remote.modify.ModifyFreeBoardDatasourceImpl
+import com.example.data.datasource.freeboard.remote.suggest.GetSuggestDataSourceImpl
 import com.example.data.datasource.freeboard.remote.suggest.SuggestDataSourceImpl
 import com.example.data.datasource.user.remote.delete.DeleteUserDataSourceImpl
 import com.example.data.datasource.user.remote.login.LoginDataSourceImpl
@@ -117,5 +118,11 @@ object DataSourceModule {
     @Singleton
     fun provideSuggestPostDataSource(suggestService: SuggestService): SuggestDataSourceImpl {
         return SuggestDataSourceImpl((suggestService))
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetSuggestPostDataSource(getSuggestService: GetSuggestService): GetSuggestDataSourceImpl {
+        return GetSuggestDataSourceImpl((getSuggestService))
     }
 }

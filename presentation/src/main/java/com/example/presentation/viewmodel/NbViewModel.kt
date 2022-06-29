@@ -44,7 +44,8 @@ class NbViewModel @Inject constructor(
     private val getCommentUseCase: GetCommentUseCase,
     private val modifyCommentUseCase: ModifyCommentUseCase,
     private val deleteCommentUseCase: DeleteCommentUseCase,
-    private val suggestPostUseCase: SuggestPostUseCase
+    private val suggestPostUseCase: SuggestPostUseCase,
+    private val getSuggestPostUseCase: GetSuggestPostUseCase
 ): BaseViewModel() {
     // 회원가입
     private val _signInApiCallResult = MutableLiveData<DomainSignInResponse>()
@@ -221,6 +222,17 @@ class NbViewModel @Inject constructor(
         viewModelScope.launch {
             suggestPostUseCase(user, board, viewModelScope) {
                 _suggestSuggestPostApiCallResult.value = it
+            }
+        }
+    }
+
+    // 추천 받아오기
+    private val _getSuggestPostApiCallResult = MutableLiveData<Int>()
+    val getSuggestPostApiCallResult: LiveData<Int> = _getSuggestPostApiCallResult
+    fun getSuggestLogic(board: Int) {
+        viewModelScope.launch {
+            getSuggestPostUseCase(board, viewModelScope) {
+                _getSuggestPostApiCallResult.value = it
             }
         }
     }

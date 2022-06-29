@@ -9,6 +9,7 @@ import com.example.domain.repository.freeboard.delete.DeletePostRepository
 import com.example.domain.repository.freeboard.getpost.GetPostRepository
 import com.example.domain.repository.freeboard.getpostall.GetPostAllRepository
 import com.example.domain.repository.freeboard.modify.ModifyPostRepository
+import com.example.domain.repository.freeboard.suggest.GetSuggestRepository
 import com.example.domain.repository.freeboard.suggest.SuggestPostRepository
 import com.example.domain.repository.user.delete.DeleteUserRepository
 import com.example.domain.repository.user.login.LoginRepository
@@ -97,4 +98,8 @@ class UseCaseModule {
     @Provides
     @Singleton
     fun provideSuggestPostUseCase(repository: SuggestPostRepository) = SuggestPostUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideGetSuggestPostUseCase(repository: GetSuggestRepository) = GetSuggestPostUseCase(repository)
 }
