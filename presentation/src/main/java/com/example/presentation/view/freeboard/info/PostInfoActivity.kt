@@ -152,6 +152,11 @@ class PostInfoActivity: BaseActivity<ActivityPostInfoBinding>(R.layout.activity_
     }
 
     private fun dataSetting() {
+        viewModel.getSuggestLogic(intent.getIntExtra("id", 0))
+        viewModel.getSuggestPostApiCallResult.observe(this) {
+            Log.d("SUCCESS", "getSuggest get suggest post: $it")
+            binding.likeCount.text = it.toString()
+        }
         binding.postTitleText.text = intent.getStringExtra("title")
         binding.postContentText.text = intent.getStringExtra("content")
         binding.postCreateUser.text = intent.getIntExtra("createUser", 0).toString()
