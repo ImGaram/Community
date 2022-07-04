@@ -1,7 +1,9 @@
 package com.example.community.di.module.usecase
 
 import com.example.domain.repository.story.CreateStoryRepository
+import com.example.domain.repository.story.GetStoryRepository
 import com.example.domain.usecase.story.CreateStoryUseCase
+import com.example.domain.usecase.story.GetStoryUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -14,4 +16,8 @@ class StoryUseCaseModule {
     @Provides
     @Singleton
     fun provideCreateStoryUseCase(repository: CreateStoryRepository) = CreateStoryUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideGetStoryUseCase(repository: GetStoryRepository) = GetStoryUseCase(repository)
 }
