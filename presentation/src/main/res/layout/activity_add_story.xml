@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="addStory"
+            type="com.example.presentation.view.story.AddStoryActivity" />
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.story.AddStoryActivity"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edit_title_text"
+            android:layout_width="match_parent"
+            android:layout_height="75dp"
+            android:hint="TITLE"
+            android:textSize="40sp"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/kodchasan_light"/>
+
+        <EditText
+            android:id="@+id/edit_story_content"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_margin="10dp"
+            android:background="@null"
+            android:hint="content"
+            android:gravity="center"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginStart="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginTop="40dp">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/story_create_btn"
+                android:layout_width="160dp"
+                android:layout_height="55dp"
+                android:background="@drawable/btn_background2"
+                android:text="확인"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="25sp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/story_cancel_btn"
+                android:layout_width="160dp"
+                android:layout_height="55dp"
+                android:background="@drawable/btn_background2"
+                android:text="취소"
+                android:gravity="center"
+                android:layout_gravity="end"
+                android:textColor="@color/white"
+                android:textSize="25sp"/>
+        </LinearLayout>
+    </LinearLayout>
+</layout>
