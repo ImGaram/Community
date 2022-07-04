@@ -24,9 +24,7 @@ class AddStoryActivity : BaseActivity<ActivityAddStoryBinding>(R.layout.activity
             binding.storyCreateBtn.id -> {
                 createStory()
             }
-            binding.storyCancelBtn.id -> {
-
-            }
+            binding.storyCancelBtn.id -> finish()
         }
     }
 
