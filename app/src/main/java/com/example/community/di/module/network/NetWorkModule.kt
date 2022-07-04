@@ -1,4 +1,4 @@
-package com.example.community.di.module
+package com.example.community.di.module.network
 
 import com.example.data.ApiClient
 import com.example.data.api.freeboard.*
@@ -12,7 +12,6 @@ import io.reactivex.rxjava3.schedulers.Schedulers
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import retrofit2.create
 import java.util.concurrent.TimeUnit
 import javax.inject.Named
 import javax.inject.Singleton

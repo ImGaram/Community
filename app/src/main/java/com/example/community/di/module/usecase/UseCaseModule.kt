@@ -1,4 +1,4 @@
-package com.example.community.di.module
+package com.example.community.di.module.usecase
 
 import com.example.domain.repository.freeboard.addpost.AddPostRepository
 import com.example.domain.repository.freeboard.comment.AddCommentRepository

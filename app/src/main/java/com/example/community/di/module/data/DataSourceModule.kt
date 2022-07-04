@@ -1,4 +1,4 @@
-package com.example.community.di.module
+package com.example.community.di.module.data
 
 import com.example.data.api.freeboard.*
 import com.example.data.api.user.*
@@ -8,7 +8,6 @@ import com.example.data.datasource.freeboard.remote.comment.DeleteCommentDataSou
 import com.example.data.datasource.freeboard.remote.comment.GetCommentDataSourceImpl
 import com.example.data.datasource.freeboard.remote.comment.ModifyCommentDataSourceImpl
 import com.example.data.datasource.freeboard.remote.delete.DeletePostDataSourceImpl
-import com.example.data.datasource.freeboard.remote.getpost.GetPostDataSource
 import com.example.data.datasource.freeboard.remote.getpost.GetPostDataSourceImpl
 import com.example.data.datasource.freeboard.remote.getpostall.GetPostAllDataSourceImpl
 import com.example.data.datasource.freeboard.remote.modify.ModifyFreeBoardDatasourceImpl
