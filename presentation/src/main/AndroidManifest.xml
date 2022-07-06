@@ -8,8 +8,12 @@
         android:allowBackup="true"
         android:supportsRtl="true"
         android:usesCleartextTraffic="true">
-        <activity android:name=".view.story.AddStoryActivity"
-            android:exported="false"/>
+        <activity
+            android:name=".view.story.info.StoryInfoActivity"
+            android:exported="false" />
+        <activity
+            android:name=".view.story.AddStoryActivity"
+            android:exported="false" />
         <activity
             android:name=".view.freeboard.info.PostModifyActivity"
             android:exported="false" />
