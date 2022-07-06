@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="storyInfo"
+            type="com.example.presentation.view.story.info.StoryInfoActivity" />
+    </data>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.story.info.StoryInfoActivity">
+
+        <LinearLayout
+            android:id="@+id/linear_story_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent">
+
+            <TextView
+                android:id="@+id/story_info_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="title"
+                android:fontFamily="@font/kodchasan_light"
+                android:textSize="50sp"
+                android:layout_margin="10dp"/>
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/story_info_create_user"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="username"
+                android:layout_gravity="bottom"
+                android:layout_margin="10dp"/>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="5dp"
+            android:background="#e5e5e5"
+            app:layout_constraintTop_toBottomOf="@+id/linear_story_info"
+            tools:layout_editor_absoluteX="5dp" />
+
+        <TextView
+            android:id="@+id/story_content_text"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:layout_margin="10dp"
+            android:text="content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/view4" />
+
+        <ImageView
+            android:id="@+id/story_like"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginEnd="10dp"
+            android:layout_margin="10dp"
+            android:src="@drawable/like_unselect"
+            app:layout_constraintEnd_toStartOf="@+id/story_like_count"
+            app:layout_constraintTop_toBottomOf="@+id/story_content_text" />
+
+        <TextView
+            android:id="@+id/story_like_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/kodchasan_light"
+            android:text="0"
+            app:layout_constraintBottom_toBottomOf="@+id/story_like"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/story_like" />
+
+        <TextView
+            android:id="@+id/story_create_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/kodchasan_light"
+            android:text="2022"
+            android:layout_margin="10dp"
+            app:layout_constraintStart_toStartOf="@+id/story_content_text"
+            app:layout_constraintTop_toBottomOf="@+id/story_content_text" />
+
+        <LinearLayout
+            android:id="@+id/story_btn_linear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_margin="10dp"
+            android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="@+id/story_like"
+            app:layout_constraintEnd_toStartOf="@id/story_like"
+            app:layout_constraintTop_toTopOf="@+id/story_like">
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/story_modify"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/btn_background2"
+                android:gravity="center"
+                android:text="수정"
+                android:textColor="@color/white" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/story_delete"
+                android:layout_width="40dp"
+                android:layout_height="20dp"
+                android:background="@drawable/btn_background2"
+                android:gravity="center"
+                android:text="삭제"
+                android:textColor="@color/white" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view5"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_margin="10dp"
+            android:background="#e5e5e5"
+            app:layout_constraintTop_toBottomOf="@id/story_like"
+            tools:layout_editor_absoluteX="10dp" />
+
+        <TextView
+            android:id="@+id/textView4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:text="댓글"
+            app:layout_constraintStart_toStartOf="@+id/view5"
+            app:layout_constraintTop_toBottomOf="@+id/view5" />
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/story_comment_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_margin="10dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+        <View
+            android:id="@+id/story_cancel_view"
+            android:layout_width="95dp"
+            android:layout_height="45dp"
+            android:background="@drawable/inqury_add"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+        <TextView
+            android:id="@+id/story_cancel_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="뒤로"
+            android:textColor="@color/white"
+            app:layout_constraintTop_toTopOf="@id/story_cancel_view"
+            app:layout_constraintStart_toStartOf="@id/story_cancel_view"
+            app:layout_constraintEnd_toEndOf="@id/story_cancel_view"
+            app:layout_constraintBottom_toBottomOf="@id/story_cancel_view"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
