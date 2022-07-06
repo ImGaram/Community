@@ -2,10 +2,13 @@ package com.example.community.di.module.repository
 
 import com.example.data.datasource.story.datasource.CreateStoryDataSourceImpl
 import com.example.data.datasource.story.datasource.GetStoryDataSourceImpl
+import com.example.data.datasource.story.datasource.GetStorySingleDataSourceImpl
 import com.example.data.datasource.story.repository.CreateStoryRepositoryImpl
+import com.example.data.datasource.story.repository.GetSingleStoryRepositoryImpl
 import com.example.data.datasource.story.repository.GetStoryRepositoryImpl
 import com.example.domain.repository.story.CreateStoryRepository
 import com.example.domain.repository.story.GetStoryRepository
+import com.example.domain.repository.story.GetStorySingleRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,5 +28,11 @@ class StoryRepositoryModule {
     @Singleton
     fun provideGetStoryRepository(dataSourceImpl: GetStoryDataSourceImpl): GetStoryRepository {
         return GetStoryRepositoryImpl(dataSourceImpl)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetSingleStoryRepository(dataSourceImpl: GetStorySingleDataSourceImpl): GetStorySingleRepository {
+        return GetSingleStoryRepositoryImpl(dataSourceImpl)
     }
 }

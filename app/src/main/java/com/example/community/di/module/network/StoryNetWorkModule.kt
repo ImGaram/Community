@@ -3,6 +3,7 @@ package com.example.community.di.module.network
 import com.example.data.ApiClient
 import com.example.data.api.story.CreateStoryService
 import com.example.data.api.story.GetStoryService
+import com.example.data.api.story.GetStorySingleService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -51,6 +52,22 @@ object StoryNetWorkModule {
             .build()
     }
 
+    @Named("getSingle")
+    @Provides
+    @Singleton
+    fun provideGetSingleStoryRetrofitInstance(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(ApiClient.BASE_URL)
+            .client(okHttpClient)
+            .client(NetWorkModule.provideOkhttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Provides
     @Singleton
     fun provideCreateService(@Named("create") retrofit: Retrofit): CreateStoryService {
@@ -61,5 +78,11 @@ object StoryNetWorkModule {
     @Singleton
     fun provideGetStory(@Named("get") retrofit: Retrofit): GetStoryService {
         return retrofit.create(GetStoryService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetSingleStoryService(@Named("getSingle") retrofit: Retrofit): GetStorySingleService {
+        return retrofit.create(GetStorySingleService::class.java)
     }
 }
