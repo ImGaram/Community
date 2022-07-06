@@ -1,6 +1,7 @@
 package com.example.presentation.view.story.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.model.story.DomainBaseStoryResponse
@@ -12,6 +13,11 @@ class StoryListRecyclerAdapter(val storyList: List<DomainBaseStoryResponse>): Re
         val view = RecyclerItemStoryListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
+
+    interface ItemClick {
+        fun onClick(view: View, data: DomainBaseStoryResponse, position: Int)
+    }
+    var itemClick: ItemClick? = null
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(storyList[position])

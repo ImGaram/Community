@@ -11,6 +11,7 @@ import com.example.presentation.base.BaseFragment
 import com.example.presentation.databinding.FragmentStoryBoardBinding
 import com.example.presentation.view.story.AddStoryActivity
 import com.example.presentation.view.story.adapter.StoryListRecyclerAdapter
+import com.example.presentation.view.story.info.StoryInfoActivity
 import com.example.presentation.viewmodel.StoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -60,7 +61,25 @@ class StoryBoardFragment : BaseFragment<FragmentStoryBoardBinding>(R.layout.frag
     }
 
     private fun initRecycler(list: List<DomainBaseStoryResponse>) {
-        binding.storyListRecyclerView.adapter = StoryListRecyclerAdapter(list)
+        val adapter = StoryListRecyclerAdapter(list)
+        binding.storyListRecyclerView.adapter = adapter
         binding.storyListRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        onItemClick(list, adapter)
+    }
+
+    private fun onItemClick(list: List<DomainBaseStoryResponse>, adapter: StoryListRecyclerAdapter) {
+        adapter.itemClick = object :StoryListRecyclerAdapter.ItemClick {
+            override fun onClick(view: View, data: DomainBaseStoryResponse, position: Int) {
+                val story = list[position]
+
+                val intent = Intent(context, StoryInfoActivity::class.java)
+                    .putExtra("postId", story.id)
+                    .putExtra("title", story.title)
+                    .putExtra("context", story.context)
+                    .putExtra("createUser", story.createUser)
+                    .putExtra("createDate", story.createDate)
+                startActivity(intent)
+            }
+        }
     }
 }
