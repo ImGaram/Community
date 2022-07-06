@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <style name="Toolbar.TitleText" parent="Widget.AppCompat.TextView">
         <item name="android:textSize">45sp</item>
         <item name="android:textStyle">bold</item>
@@ -18,4 +19,13 @@
     <style name="BottomNavigationView.IsNotActive" parent="TextAppearance.AppCompat.Caption">
         <item name="android:textSize">23sp</item>
     </style>
+
+    <style name="Theme.Community.NoActionBar">
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
+    <style name="Theme.Community.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="Theme.Community.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 </resources>
