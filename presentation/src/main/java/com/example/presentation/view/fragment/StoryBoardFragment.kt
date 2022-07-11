@@ -71,6 +71,7 @@ class StoryBoardFragment : BaseFragment<FragmentStoryBoardBinding>(R.layout.frag
 
                 Log.d("SUCCESS", "onClick post: $story")
                 val intent = Intent(context, StoryInfoActivity::class.java)
+                    .putExtra("userId", arguments?.getInt("id"))
                     .putExtra("postId", story.id)
                     .putExtra("title", story.title)
                     .putExtra("context", story.context)

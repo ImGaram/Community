@@ -1,5 +1,7 @@
 package com.example.presentation.view.story.info
 
+import android.content.Intent
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import com.example.presentation.R
@@ -24,7 +26,12 @@ class StoryInfoActivity : BaseActivity<ActivityStoryInfoBinding>(R.layout.activi
     override fun onClick(view: View?) {
         when(view?.id) {
             binding.storyModify.id -> {
-
+                val intent = Intent(this, StoryModifyActivity::class.java)
+                    .putExtra("createUser", intent.getIntExtra("createUser", 0))
+                    .putExtra("title", intent.getStringExtra("title"))
+                    .putExtra("context", intent.getStringExtra("context"))
+                    .putExtra("postId", intent.getIntExtra("postId", 0))
+                startActivity(intent)
             }
             binding.storyDelete.id -> {
 
@@ -42,12 +49,9 @@ class StoryInfoActivity : BaseActivity<ActivityStoryInfoBinding>(R.layout.activi
     private fun dataSetting() {
         viewModel.getSingleStoryLogic(intent.getIntExtra("postId", 0))
         viewModel.getSingleStory.observe(this) {
-            if (intent.getIntExtra("createUser", 0) == it.createUser) {
+            if (intent.getIntExtra("userId", 0) == it.createUser) {
                 binding.storyBtnLinear.visibility = View.VISIBLE
-            } else {
-                binding.storyBtnLinear.visibility = View.GONE
             }
-
             binding.storyInfoTitle.text = it.title
             binding.storyInfoCreateUser.text = it.createUser.toString()
             binding.storyContentText.text = it.context
