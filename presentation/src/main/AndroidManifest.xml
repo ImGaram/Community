@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.story.info.StoryModifyActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.story.info.StoryInfoActivity"
             android:exported="false" />
         <activity

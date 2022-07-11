@@ -99,6 +99,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom"
             android:layout_margin="10dp"
+            android:visibility="gone"
             android:orientation="horizontal"
             app:layout_constraintBottom_toBottomOf="@+id/story_like"
             app:layout_constraintEnd_toStartOf="@id/story_like"
