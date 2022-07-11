@@ -1,13 +1,7 @@
 package com.example.community.di.module.usecase
 
-import com.example.domain.repository.story.CreateStoryRepository
-import com.example.domain.repository.story.GetStoryRepository
-import com.example.domain.repository.story.GetStorySingleRepository
-import com.example.domain.repository.story.ModifyStoryRepository
-import com.example.domain.usecase.story.CreateStoryUseCase
-import com.example.domain.usecase.story.GetSingleStoryUseCase
-import com.example.domain.usecase.story.GetStoryUseCase
-import com.example.domain.usecase.story.ModifyStoryUseCase
+import com.example.domain.repository.story.*
+import com.example.domain.usecase.story.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -32,4 +26,8 @@ class StoryUseCaseModule {
     @Provides
     @Singleton
     fun provideModifyStoryUseCase(repository: ModifyStoryRepository) = ModifyStoryUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideDeleteStoryUseCase(repository: DeleteStoryRepository) = DeleteStoryUseCase(repository)
 }

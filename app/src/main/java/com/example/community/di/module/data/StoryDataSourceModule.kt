@@ -1,13 +1,7 @@
 package com.example.community.di.module.data
 
-import com.example.data.api.story.CreateStoryService
-import com.example.data.api.story.GetStoryService
-import com.example.data.api.story.GetStorySingleService
-import com.example.data.api.story.ModifyStoryService
-import com.example.data.datasource.story.datasource.CreateStoryDataSourceImpl
-import com.example.data.datasource.story.datasource.GetStoryDataSourceImpl
-import com.example.data.datasource.story.datasource.GetStorySingleDataSourceImpl
-import com.example.data.datasource.story.datasource.ModifyStoryDataSourceImpl
+import com.example.data.api.story.*
+import com.example.data.datasource.story.datasource.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -39,5 +33,11 @@ object StoryDataSourceModule {
     @Singleton
     fun provideModifyStoryDataSource(service: ModifyStoryService): ModifyStoryDataSourceImpl {
         return ModifyStoryDataSourceImpl(service)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeleteStoryDataSource(service: DeleteStoryService): DeleteStoryDataSourceImpl {
+        return DeleteStoryDataSourceImpl(service)
     }
 }

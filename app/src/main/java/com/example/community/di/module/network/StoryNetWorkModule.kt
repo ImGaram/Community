@@ -1,10 +1,7 @@
 package com.example.community.di.module.network
 
 import com.example.data.ApiClient
-import com.example.data.api.story.CreateStoryService
-import com.example.data.api.story.GetStoryService
-import com.example.data.api.story.GetStorySingleService
-import com.example.data.api.story.ModifyStoryService
+import com.example.data.api.story.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -85,6 +82,22 @@ object StoryNetWorkModule {
             .build()
     }
 
+    @Named("deleteStory")
+    @Provides
+    @Singleton
+    fun provideDeleteStoryRetrofitInstance(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(ApiClient.BASE_URL)
+            .client(okHttpClient)
+            .client(NetWorkModule.provideOkhttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Provides
     @Singleton
     fun provideCreateService(@Named("create") retrofit: Retrofit): CreateStoryService {
@@ -107,5 +120,11 @@ object StoryNetWorkModule {
     @Singleton
     fun provideModifyStoryService(@Named("modifyStory") retrofit: Retrofit): ModifyStoryService {
         return retrofit.create(ModifyStoryService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeleteStoryService(@Named("deleteStory") retrofit: Retrofit): DeleteStoryService {
+        return retrofit.create(DeleteStoryService::class.java)
     }
 }
