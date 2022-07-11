@@ -33,6 +33,13 @@ class StoryListRecyclerAdapter(val storyList: List<DomainBaseStoryResponse>): Re
             binding.storyTitle.text = item.title
             binding.storyCreatUser.text = item.createUser.toString()
             binding.storyCreateDate.text = item.createDate
+
+            val pos = adapterPosition
+            if (pos != RecyclerView.NO_POSITION) {
+                itemView.setOnClickListener {
+                    itemClick?.onClick(itemView, item, pos)
+                }
+            }
         }
     }
 }

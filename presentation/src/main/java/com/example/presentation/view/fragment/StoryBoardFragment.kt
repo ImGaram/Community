@@ -44,7 +44,11 @@ class StoryBoardFragment : BaseFragment<FragmentStoryBoardBinding>(R.layout.frag
         nbViewModel.getStory.observe(viewLifecycleOwner) {
             if (it != null) {
                 Log.d("SUCCESS", "getStory response: $it")
-                initRecycler(it)
+                val adapter = StoryListRecyclerAdapter(it)
+                binding.storyListRecyclerView.setHasFixedSize(true)
+                binding.storyListRecyclerView.adapter = adapter
+                binding.storyListRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                onItemClick(it, adapter)
             } else {
                 Log.d("FAIL", "getStory response: $it")
             }
@@ -60,18 +64,12 @@ class StoryBoardFragment : BaseFragment<FragmentStoryBoardBinding>(R.layout.frag
         }
     }
 
-    private fun initRecycler(list: List<DomainBaseStoryResponse>) {
-        val adapter = StoryListRecyclerAdapter(list)
-        binding.storyListRecyclerView.adapter = adapter
-        binding.storyListRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
-        onItemClick(list, adapter)
-    }
-
     private fun onItemClick(list: List<DomainBaseStoryResponse>, adapter: StoryListRecyclerAdapter) {
         adapter.itemClick = object :StoryListRecyclerAdapter.ItemClick {
             override fun onClick(view: View, data: DomainBaseStoryResponse, position: Int) {
                 val story = list[position]
 
+                Log.d("SUCCESS", "onClick post: $story")
                 val intent = Intent(context, StoryInfoActivity::class.java)
                     .putExtra("postId", story.id)
                     .putExtra("title", story.title)
