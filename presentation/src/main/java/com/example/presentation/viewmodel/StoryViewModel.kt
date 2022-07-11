@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.story.DomainBaseStoryResponse
-import com.example.domain.usecase.story.CreateStoryUseCase
-import com.example.domain.usecase.story.GetSingleStoryUseCase
-import com.example.domain.usecase.story.GetStoryUseCase
-import com.example.domain.usecase.story.ModifyStoryUseCase
+import com.example.domain.usecase.story.*
 import com.example.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,7 +15,8 @@ class StoryViewModel @Inject constructor(
     private val createStoryUseCase: CreateStoryUseCase,
     private val getStoryUseCase: GetStoryUseCase,
     private val getSingleStoryUseCase: GetSingleStoryUseCase,
-    private val modifyStoryUseCase: ModifyStoryUseCase
+    private val modifyStoryUseCase: ModifyStoryUseCase,
+    private val deleteStoryUseCase: DeleteStoryUseCase
 ): BaseViewModel() {
     // create story
     private val _createStory = MutableLiveData<DomainBaseStoryResponse>()
@@ -64,6 +62,17 @@ class StoryViewModel @Inject constructor(
         viewModelScope.launch {
             modifyStoryUseCase(story, title, content, createUser, viewModelScope) {
                 _modifyStory.value = it
+            }
+        }
+    }
+
+    // delete story
+    private val _deleteStory = MutableLiveData<Int>()
+    val deleteStory: LiveData<Int> = _deleteStory
+    fun deleteStoryLogic(story: Int) {
+        viewModelScope.launch {
+            deleteStoryUseCase(story, viewModelScope) {
+                _deleteStory.value = it
             }
         }
     }
