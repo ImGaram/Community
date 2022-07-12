@@ -1,6 +1,6 @@
 package com.example.domain.model.story
 
-interface DomainCommentResponse {
+interface DomainBaseCommentResponse {
     val id: Int
     val context: String
     val createIdUserSt: Int

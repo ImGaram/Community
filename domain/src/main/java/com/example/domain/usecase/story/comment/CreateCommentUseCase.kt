@@ -1,6 +1,6 @@
 package com.example.domain.usecase.story.comment
 
-import com.example.domain.model.story.DomainCommentResponse
+import com.example.domain.model.story.DomainBaseCommentResponse
 import com.example.domain.repository.story.comment.CreateCommentRepository
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
@@ -16,7 +16,7 @@ class CreateCommentUseCase @Inject constructor(
         createIdUserSt: Int,
         commentStory: Int,
         scope: CoroutineScope,
-        onResult: (DomainCommentResponse?) -> Unit = {}
+        onResult: (DomainBaseCommentResponse?) -> Unit = {}
     ) {
         scope.launch(Dispatchers.Main) {
             val deferred = async(Dispatchers.IO) {

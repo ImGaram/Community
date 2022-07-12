@@ -1,16 +1,16 @@
 package com.example.data.entity.story.response
 
-import com.example.domain.model.story.DomainCommentResponse
+import com.example.domain.model.story.DomainBaseCommentResponse
 import com.google.gson.annotations.SerializedName
 
-data class CreateCommentResponse(
+data class BaseCommentResponse(
     @SerializedName("id") val _id: Int,
     @SerializedName("context") val _context: String,
     @SerializedName("create_id_user_st") val _createIdUserSt: Int,
     @SerializedName("comment_Story") val _commentStory: Int,
     @SerializedName("create_date") val _createDate: String,
     @SerializedName("correction_date") val _correctionDate: String
-): DomainCommentResponse {
+): DomainBaseCommentResponse {
     override val id: Int
         get() = _id
     override val context: String
