@@ -55,6 +55,13 @@ class StoryInfoActivity : BaseActivity<ActivityStoryInfoBinding>(R.layout.activi
                 delDialogView.findViewById<AppCompatButton>(R.id.delete_cancel_btn).setOnClickListener { dialog.dismiss() }
             }
             binding.storyCancelView.id -> { finish() }
+            binding.createCommentBtn.id -> {
+                viewModel.createCommentLogic(binding.createCommentEditText.text.toString(), intent.getIntExtra("createUser", 0), intent.getIntExtra("postId", 0))
+                viewModel.createComment.observe(this) {
+                    Log.d("SUCCESS", "onClick create comment response: $it")
+                    binding.createCommentEditText.text = null
+                }
+            }
         }
     }
 
@@ -82,6 +89,7 @@ class StoryInfoActivity : BaseActivity<ActivityStoryInfoBinding>(R.layout.activi
         binding.storyDelete.setOnClickListener(this)
         binding.storyModify.setOnClickListener(this)
         binding.storyCancelView.setOnClickListener(this)
+        binding.createCommentBtn.setOnClickListener(this)
     }
 
     private fun dataSetting() {
