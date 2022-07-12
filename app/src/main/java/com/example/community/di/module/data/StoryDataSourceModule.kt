@@ -1,8 +1,11 @@
 package com.example.community.di.module.data
 
 import com.example.data.api.story.*
+import com.example.data.api.story.comment.CreateStoryCommentService
+import com.example.data.api.story.comment.GetCommentListService
 import com.example.data.datasource.story.datasource.*
 import com.example.data.datasource.story.datasource.comment.CreateCommentDataSourceImpl
+import com.example.data.datasource.story.datasource.comment.GetCommentListDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,5 +49,11 @@ object StoryDataSourceModule {
     @Singleton
     fun provideCreateCommentDataSource(service: CreateStoryCommentService): CreateCommentDataSourceImpl {
         return CreateCommentDataSourceImpl(service)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetCommentListDataSource(service: GetCommentListService): GetCommentListDataSourceImpl {
+        return GetCommentListDataSourceImpl(service)
     }
 }

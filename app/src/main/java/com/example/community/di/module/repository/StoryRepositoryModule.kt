@@ -2,10 +2,13 @@ package com.example.community.di.module.repository
 
 import com.example.data.datasource.story.datasource.*
 import com.example.data.datasource.story.datasource.comment.CreateCommentDataSourceImpl
+import com.example.data.datasource.story.datasource.comment.GetCommentListDataSourceImpl
 import com.example.data.datasource.story.repository.*
 import com.example.data.datasource.story.repository.comment.CreateCommentRepositoryImpl
+import com.example.data.datasource.story.repository.comment.GetCommentListRepositoryImpl
 import com.example.domain.repository.story.*
 import com.example.domain.repository.story.comment.CreateCommentRepository
+import com.example.domain.repository.story.comment.GetCommentListRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -49,5 +52,11 @@ class StoryRepositoryModule {
     @Singleton
     fun provideCreateCommentRepository(dataSourceImpl: CreateCommentDataSourceImpl): CreateCommentRepository {
         return CreateCommentRepositoryImpl(dataSourceImpl)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetCommentListRepository(dataSourceImpl: GetCommentListDataSourceImpl): GetCommentListRepository {
+        return GetCommentListRepositoryImpl(dataSourceImpl)
     }
 }

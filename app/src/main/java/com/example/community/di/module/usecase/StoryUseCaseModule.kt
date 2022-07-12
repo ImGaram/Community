@@ -2,8 +2,10 @@ package com.example.community.di.module.usecase
 
 import com.example.domain.repository.story.*
 import com.example.domain.repository.story.comment.CreateCommentRepository
+import com.example.domain.repository.story.comment.GetCommentListRepository
 import com.example.domain.usecase.story.*
 import com.example.domain.usecase.story.comment.CreateCommentUseCase
+import com.example.domain.usecase.story.comment.GetCommentListUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,4 +38,8 @@ class StoryUseCaseModule {
     @Provides
     @Singleton
     fun provideCreateCommentUseCase(repository: CreateCommentRepository) = CreateCommentUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideGetCommentListUseCase(repository: GetCommentListRepository) = GetCommentListUseCase(repository)
 }
