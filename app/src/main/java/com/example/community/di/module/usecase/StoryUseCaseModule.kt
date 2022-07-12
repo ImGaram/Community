@@ -1,7 +1,9 @@
 package com.example.community.di.module.usecase
 
 import com.example.domain.repository.story.*
+import com.example.domain.repository.story.comment.CreateCommentRepository
 import com.example.domain.usecase.story.*
+import com.example.domain.usecase.story.comment.CreateCommentUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,4 +32,8 @@ class StoryUseCaseModule {
     @Provides
     @Singleton
     fun provideDeleteStoryUseCase(repository: DeleteStoryRepository) = DeleteStoryUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideCreateCommentUseCase(repository: CreateCommentRepository) = CreateCommentUseCase(repository)
 }

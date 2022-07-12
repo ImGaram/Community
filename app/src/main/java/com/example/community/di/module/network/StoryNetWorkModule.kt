@@ -98,6 +98,22 @@ object StoryNetWorkModule {
             .build()
     }
 
+    @Named("createComment")
+    @Provides
+    @Singleton
+    fun provideCreateCommentRetrofitInstance(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(ApiClient.BASE_URL)
+            .client(okHttpClient)
+            .client(NetWorkModule.provideOkhttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Provides
     @Singleton
     fun provideCreateService(@Named("create") retrofit: Retrofit): CreateStoryService {
@@ -126,5 +142,11 @@ object StoryNetWorkModule {
     @Singleton
     fun provideDeleteStoryService(@Named("deleteStory") retrofit: Retrofit): DeleteStoryService {
         return retrofit.create(DeleteStoryService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCreateCommentService(@Named("createComment") retrofit: Retrofit): CreateStoryCommentService {
+        return retrofit.create(CreateStoryCommentService::class.java)
     }
 }

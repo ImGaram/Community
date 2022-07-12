@@ -1,8 +1,11 @@
 package com.example.community.di.module.repository
 
 import com.example.data.datasource.story.datasource.*
+import com.example.data.datasource.story.datasource.comment.CreateCommentDataSourceImpl
 import com.example.data.datasource.story.repository.*
+import com.example.data.datasource.story.repository.comment.CreateCommentRepositoryImpl
 import com.example.domain.repository.story.*
+import com.example.domain.repository.story.comment.CreateCommentRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -40,5 +43,11 @@ class StoryRepositoryModule {
     @Singleton
     fun provideDeleteStoryRepository(dataSourceImpl: DeleteStoryDataSourceImpl): DeleteStoryRepository {
         return DeleteStoryRepositoryImpl(dataSourceImpl)
+    }
+
+    @Provides
+    @Singleton
+    fun provideCreateCommentRepository(dataSourceImpl: CreateCommentDataSourceImpl): CreateCommentRepository {
+        return CreateCommentRepositoryImpl(dataSourceImpl)
     }
 }
