@@ -11,9 +11,11 @@ import android.view.View
 import android.view.Window
 import androidx.activity.viewModels
 import androidx.appcompat.widget.AppCompatButton
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.presentation.R
 import com.example.presentation.base.BaseActivity
 import com.example.presentation.databinding.ActivityStoryInfoBinding
+import com.example.presentation.view.story.adapter.CommentListRecyclerAdapter
 import com.example.presentation.viewmodel.StoryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -26,6 +28,7 @@ class StoryInfoActivity : BaseActivity<ActivityStoryInfoBinding>(R.layout.activi
         binding.storyCancelView.bringToFront()
         binding.storyCancelText.bringToFront()
 
+        initRecycler()
         dataSetting()
         viewSetting()
     }
@@ -62,6 +65,15 @@ class StoryInfoActivity : BaseActivity<ActivityStoryInfoBinding>(R.layout.activi
                     binding.createCommentEditText.text = null
                 }
             }
+        }
+    }
+
+    private fun initRecycler() {
+        viewModel.getCommentListLogic(intent.getIntExtra("postId", 0))
+        viewModel.getCommentList.observe(this) {
+            val adapter = CommentListRecyclerAdapter(it)
+            binding.storyCommentRecyclerView.adapter = adapter
+            binding.storyCommentRecyclerView.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, true)
         }
     }
 
