@@ -3,9 +3,11 @@ package com.example.community.di.module.usecase
 import com.example.domain.repository.story.*
 import com.example.domain.repository.story.comment.CreateCommentRepository
 import com.example.domain.repository.story.comment.GetCommentListRepository
+import com.example.domain.repository.story.comment.SuggestStoryRepository
 import com.example.domain.usecase.story.*
 import com.example.domain.usecase.story.comment.CreateCommentUseCase
 import com.example.domain.usecase.story.comment.GetCommentListUseCase
+import com.example.domain.usecase.story.comment.SuggestStoryUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -42,4 +44,8 @@ class StoryUseCaseModule {
     @Provides
     @Singleton
     fun provideGetCommentListUseCase(repository: GetCommentListRepository) = GetCommentListUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideSuggestStoryUseCase(repository: SuggestStoryRepository) = SuggestStoryUseCase(repository)
 }
