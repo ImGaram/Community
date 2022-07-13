@@ -8,6 +8,7 @@ import com.example.domain.model.story.DomainBaseCommentResponse
 import com.example.domain.usecase.story.*
 import com.example.domain.usecase.story.comment.CreateCommentUseCase
 import com.example.domain.usecase.story.comment.GetCommentListUseCase
+import com.example.domain.usecase.story.comment.SuggestStoryUseCase
 import com.example.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -21,7 +22,8 @@ class StoryViewModel @Inject constructor(
     private val modifyStoryUseCase: ModifyStoryUseCase,
     private val deleteStoryUseCase: DeleteStoryUseCase,
     private val createCommentUseCase: CreateCommentUseCase,
-    private val getCommentListUseCase: GetCommentListUseCase
+    private val getCommentListUseCase: GetCommentListUseCase,
+    private val suggestStoryUseCase: SuggestStoryUseCase
 ): BaseViewModel() {
     // create story
     private val _createStory = MutableLiveData<DomainBaseStoryResponse>()
@@ -100,6 +102,17 @@ class StoryViewModel @Inject constructor(
         viewModelScope.launch {
             getCommentListUseCase(story, viewModelScope) {
                 _getCommentList.value = it
+            }
+        }
+    }
+
+    // suggest story
+    private val _suggestStory = MutableLiveData<Int>()
+    val suggestStory: LiveData<Int> = _suggestStory
+    fun suggestStoryLogic(user: Int, board: Int) {
+        viewModelScope.launch {
+            suggestStoryUseCase(user, board, viewModelScope) {
+                _suggestStory.value = it
             }
         }
     }

@@ -65,6 +65,17 @@ class StoryInfoActivity : BaseActivity<ActivityStoryInfoBinding>(R.layout.activi
                     binding.createCommentEditText.text = null
                 }
             }
+            binding.storyLike.id -> {
+                viewModel.suggestStoryLogic(intent.getIntExtra("createUser", 0), intent.getIntExtra("postId", 0))
+                viewModel.suggestStory.observe(this) {
+                    when (it) {
+                        201 -> Log.d("SUCCESS", "추천 response code: $it")
+                        400 -> Log.d("FAIL", "추천 실패 response code: $it")
+                        204 -> Log.d("SUCCESS", "추천 취소 response code: $it")
+                        else -> Log.d("ERROR", "suggest response code: $it")
+                    }
+                }
+            }
         }
     }
 
@@ -102,6 +113,7 @@ class StoryInfoActivity : BaseActivity<ActivityStoryInfoBinding>(R.layout.activi
         binding.storyModify.setOnClickListener(this)
         binding.storyCancelView.setOnClickListener(this)
         binding.createCommentBtn.setOnClickListener(this)
+        binding.storyLike.setOnClickListener(this)
     }
 
     private fun dataSetting() {
