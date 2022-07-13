@@ -3,10 +3,12 @@ package com.example.community.di.module.data
 import com.example.data.api.story.*
 import com.example.data.api.story.comment.CreateStoryCommentService
 import com.example.data.api.story.comment.GetCommentListService
+import com.example.data.api.story.comment.GetSuggestService
 import com.example.data.api.story.comment.SuggestStoryService
 import com.example.data.datasource.story.datasource.*
 import com.example.data.datasource.story.datasource.comment.CreateCommentDataSourceImpl
 import com.example.data.datasource.story.datasource.comment.GetCommentListDataSourceImpl
+import com.example.data.datasource.story.datasource.comment.GetSuggestDataSourceImpl
 import com.example.data.datasource.story.datasource.comment.SuggestStoryDataSourceImpl
 import dagger.Module
 import dagger.Provides
@@ -63,5 +65,11 @@ object StoryDataSourceModule {
     @Singleton
     fun provideSuggestStoryDataSource(service: SuggestStoryService): SuggestStoryDataSourceImpl {
         return SuggestStoryDataSourceImpl(service)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetSuggestDataSource(service: GetSuggestService): GetSuggestDataSourceImpl {
+        return GetSuggestDataSourceImpl(service)
     }
 }

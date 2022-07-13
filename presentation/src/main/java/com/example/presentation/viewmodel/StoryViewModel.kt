@@ -8,6 +8,7 @@ import com.example.domain.model.story.DomainBaseCommentResponse
 import com.example.domain.usecase.story.*
 import com.example.domain.usecase.story.comment.CreateCommentUseCase
 import com.example.domain.usecase.story.comment.GetCommentListUseCase
+import com.example.domain.usecase.story.comment.GetSuggestUseCase
 import com.example.domain.usecase.story.comment.SuggestStoryUseCase
 import com.example.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -23,7 +24,8 @@ class StoryViewModel @Inject constructor(
     private val deleteStoryUseCase: DeleteStoryUseCase,
     private val createCommentUseCase: CreateCommentUseCase,
     private val getCommentListUseCase: GetCommentListUseCase,
-    private val suggestStoryUseCase: SuggestStoryUseCase
+    private val suggestStoryUseCase: SuggestStoryUseCase,
+    private val getSuggestUseCase: GetSuggestUseCase
 ): BaseViewModel() {
     // create story
     private val _createStory = MutableLiveData<DomainBaseStoryResponse>()
@@ -113,6 +115,17 @@ class StoryViewModel @Inject constructor(
         viewModelScope.launch {
             suggestStoryUseCase(user, board, viewModelScope) {
                 _suggestStory.value = it
+            }
+        }
+    }
+
+    // get suggest
+    private val _getSuggest = MutableLiveData<Int>()
+    val getSuggest: LiveData<Int> = _getSuggest
+    fun getSuggestLogic(story: Int) {
+        viewModelScope.launch {
+            getSuggestUseCase(story, viewModelScope) {
+                _getSuggest.value = it
             }
         }
     }

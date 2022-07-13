@@ -4,6 +4,7 @@ import com.example.data.ApiClient
 import com.example.data.api.story.*
 import com.example.data.api.story.comment.CreateStoryCommentService
 import com.example.data.api.story.comment.GetCommentListService
+import com.example.data.api.story.comment.GetSuggestService
 import com.example.data.api.story.comment.SuggestStoryService
 import dagger.Module
 import dagger.Provides
@@ -149,6 +150,22 @@ object StoryNetWorkModule {
             .build()
     }
 
+    @Named("getSuggestStory")
+    @Provides
+    @Singleton
+    fun provideGetSuggestRetrofitInstance(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(ApiClient.BASE_URL)
+            .client(okHttpClient)
+            .client(NetWorkModule.provideOkhttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Provides
     @Singleton
     fun provideCreateService(@Named("create") retrofit: Retrofit): CreateStoryService {
@@ -195,5 +212,11 @@ object StoryNetWorkModule {
     @Singleton
     fun provideSuggestStoryService(@Named("suggestStory") retrofit: Retrofit): SuggestStoryService {
         return retrofit.create(SuggestStoryService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetSuggestService(@Named("getSuggestStory") retrofit: Retrofit): GetSuggestService {
+        return retrofit.create(GetSuggestService::class.java)
     }
 }

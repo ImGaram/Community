@@ -3,14 +3,17 @@ package com.example.community.di.module.repository
 import com.example.data.datasource.story.datasource.*
 import com.example.data.datasource.story.datasource.comment.CreateCommentDataSourceImpl
 import com.example.data.datasource.story.datasource.comment.GetCommentListDataSourceImpl
+import com.example.data.datasource.story.datasource.comment.GetSuggestDataSourceImpl
 import com.example.data.datasource.story.datasource.comment.SuggestStoryDataSourceImpl
 import com.example.data.datasource.story.repository.*
 import com.example.data.datasource.story.repository.comment.CreateCommentRepositoryImpl
 import com.example.data.datasource.story.repository.comment.GetCommentListRepositoryImpl
+import com.example.data.datasource.story.repository.comment.GetSuggestRepositoryImpl
 import com.example.data.datasource.story.repository.comment.SuggestStoryRepositoryImpl
 import com.example.domain.repository.story.*
 import com.example.domain.repository.story.comment.CreateCommentRepository
 import com.example.domain.repository.story.comment.GetCommentListRepository
+import com.example.domain.repository.story.comment.GetSuggestRepository
 import com.example.domain.repository.story.comment.SuggestStoryRepository
 import dagger.Module
 import dagger.Provides
@@ -67,5 +70,11 @@ class StoryRepositoryModule {
     @Singleton
     fun provideSuggestStoryRepository(dataSourceImpl: SuggestStoryDataSourceImpl): SuggestStoryRepository {
         return SuggestStoryRepositoryImpl(dataSourceImpl)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetSuggestRepository(dataSourceImpl: GetSuggestDataSourceImpl): GetSuggestRepository {
+        return GetSuggestRepositoryImpl(dataSourceImpl)
     }
 }
