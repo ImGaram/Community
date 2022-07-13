@@ -108,6 +108,13 @@ class StoryInfoActivity : BaseActivity<ActivityStoryInfoBinding>(R.layout.activi
         }
     }
 
+    private fun setSuggest() {
+        viewModel.getSuggestLogic(intent.getIntExtra("postId", 0))
+        viewModel.getSuggest.observe(this) {
+            binding.storyLikeCount.text = it.toString()
+        }
+    }
+
     private fun viewSetting() {
         binding.storyDelete.setOnClickListener(this)
         binding.storyModify.setOnClickListener(this)
@@ -117,6 +124,7 @@ class StoryInfoActivity : BaseActivity<ActivityStoryInfoBinding>(R.layout.activi
     }
 
     private fun dataSetting() {
+        setSuggest()
         viewModel.getSingleStoryLogic(intent.getIntExtra("postId", 0))
         viewModel.getSingleStory.observe(this) {
             if (intent.getIntExtra("userId", 0) == it.createUser) {
