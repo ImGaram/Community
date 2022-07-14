@@ -67,7 +67,7 @@
             app:layout_constraintStart_toStartOf="parent" />
 
         <View
-            android:id="@+id/view2"
+            android:id="@+id/create_inquiry"
             android:layout_width="95dp"
             android:layout_height="45dp"
             android:background="@drawable/inqury_add"
@@ -81,9 +81,9 @@
             android:fontFamily="@font/nanum_square_round_regular"
             android:textColor="@color/white"
             android:layout_marginEnd="15dp"
-            app:layout_constraintBottom_toBottomOf="@+id/view2"
+            app:layout_constraintBottom_toBottomOf="@+id/create_inquiry"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/view2" />
+            app:layout_constraintTop_toTopOf="@+id/create_inquiry" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>
