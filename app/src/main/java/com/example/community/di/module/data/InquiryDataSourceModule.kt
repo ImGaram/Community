@@ -1,7 +1,9 @@
 package com.example.community.di.module.data
 
 import com.example.data.api.inquiry.CreateInquiryService
+import com.example.data.api.inquiry.GetInquiryListService
 import com.example.data.datasource.inquiry.remote.CreateInquiryDataSourceImpl
+import com.example.data.datasource.inquiry.remote.GetInquiryListDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -15,5 +17,11 @@ class InquiryDataSourceModule {
     @Singleton
     fun provideCreateInquiryDataSource(service: CreateInquiryService): CreateInquiryDataSourceImpl {
         return CreateInquiryDataSourceImpl(service)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetInquiryDataSource(service: GetInquiryListService): GetInquiryListDataSourceImpl {
+        return GetInquiryListDataSourceImpl((service))
     }
 }
