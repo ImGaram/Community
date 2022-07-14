@@ -4,10 +4,12 @@ import android.content.Intent
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.presentation.R
 import com.example.presentation.base.BaseFragment
 import com.example.presentation.databinding.FragmentInquiryBinding
 import com.example.presentation.view.inquiry.AddInquiryActivity
+import com.example.presentation.view.inquiry.adapter.InquiryListRecyclerAdapter
 import com.example.presentation.viewmodel.InquiryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -16,6 +18,9 @@ class InquiryFragment : BaseFragment<FragmentInquiryBinding>(R.layout.fragment_i
     private val viewModel by activityViewModels<InquiryViewModel>()
 
     override fun init() {
+        binding.inquiry = this
+
+        initRecycler()
         viewSetting()
     }
 
@@ -33,11 +38,24 @@ class InquiryFragment : BaseFragment<FragmentInquiryBinding>(R.layout.fragment_i
         }
     }
 
+    private fun initRecycler() {
+        viewModel.getInquiryListLogic()
+        viewModel.getInquiryList.observe(viewLifecycleOwner) {
+            if (it != null) {
+                val adapter = InquiryListRecyclerAdapter(it)
+                binding.inquiryRecyclerView.setHasFixedSize(true)
+                binding.inquiryRecyclerView.adapter = adapter
+                binding.inquiryRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+            } else {
+                Log.d("FAIL", "initRecycler response: $it")
+            }
+        }
+    }
+
     private fun viewSetting() {
         binding.apply {
             createInquiry.setOnClickListener(this@InquiryFragment)
             moreBtn.setOnClickListener(this@InquiryFragment)
-
         }
     }
 }
