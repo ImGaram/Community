@@ -3,6 +3,7 @@ package com.example.community.di.module.network
 import com.example.data.ApiClient
 import com.example.data.api.inquiry.CreateInquiryService
 import com.example.data.api.inquiry.GetInquiryListService
+import com.example.data.api.inquiry.GetInquiryService
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -51,6 +52,22 @@ class InquiryNetWorkModule {
             .build()
     }
 
+    @Named("getInquiry")
+    @Provides
+    @Singleton
+    fun provideGetInquiryRetrofitInstance(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(ApiClient.BASE_URL)
+            .client(okHttpClient)
+            .client(NetWorkModule.provideOkhttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Provides
     @Singleton
     fun provideCreateInquiryService(@Named("createInquiry") retrofit: Retrofit): CreateInquiryService {
@@ -59,7 +76,13 @@ class InquiryNetWorkModule {
 
     @Provides
     @Singleton
-    fun provideGetInquiryService(@Named("getInquiryList") retrofit: Retrofit): GetInquiryListService {
+    fun provideGetInquiryListService(@Named("getInquiryList") retrofit: Retrofit): GetInquiryListService {
         return retrofit.create(GetInquiryListService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetInquiryService(@Named("getInquiry") retrofit: Retrofit): GetInquiryService {
+        return retrofit.create(GetInquiryService::class.java)
     }
 }
