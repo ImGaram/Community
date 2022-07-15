@@ -1,6 +1,7 @@
 package com.example.presentation.view.inquiry.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.model.inquiry.DomainBaseInquiryResponse
@@ -11,6 +12,11 @@ class InquiryListRecyclerAdapter(val inquiryList: List<DomainBaseInquiryResponse
         val view = RecyclerItemStoryListBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
+
+    interface OnItemClick {
+        fun onClick(view: View, data: DomainBaseInquiryResponse, position: Int)
+    }
+    var onItemClick: OnItemClick? = null
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(inquiryList[position])
@@ -26,6 +32,13 @@ class InquiryListRecyclerAdapter(val inquiryList: List<DomainBaseInquiryResponse
             binding.storyCreateDate.text = item.createDate
             binding.storyTitle.text = item.title
             binding.storyCreateDate.text = item.createDate
+
+            val pos = adapterPosition
+            if (pos != RecyclerView.NO_POSITION) {
+                itemView.setOnClickListener {
+                    onItemClick?.onClick(itemView, item, pos)
+                }
+            }
         }
     }
 }
