@@ -5,11 +5,13 @@ import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.domain.model.inquiry.DomainBaseInquiryResponse
 import com.example.presentation.R
 import com.example.presentation.base.BaseFragment
 import com.example.presentation.databinding.FragmentInquiryBinding
 import com.example.presentation.view.inquiry.AddInquiryActivity
 import com.example.presentation.view.inquiry.adapter.InquiryListRecyclerAdapter
+import com.example.presentation.view.inquiry.info.InquiryInfoActivity
 import com.example.presentation.viewmodel.InquiryViewModel
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -46,8 +48,19 @@ class InquiryFragment : BaseFragment<FragmentInquiryBinding>(R.layout.fragment_i
                 binding.inquiryRecyclerView.setHasFixedSize(true)
                 binding.inquiryRecyclerView.adapter = adapter
                 binding.inquiryRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+                onItemClick(adapter, it)
             } else {
                 Log.d("FAIL", "initRecycler response: $it")
+            }
+        }
+    }
+
+    private fun onItemClick(adapter: InquiryListRecyclerAdapter, list: List<DomainBaseInquiryResponse>) {
+        adapter.onItemClick = object :InquiryListRecyclerAdapter.OnItemClick {
+            override fun onClick(view: View, data: DomainBaseInquiryResponse, position: Int) {
+                val intent = Intent(context, InquiryInfoActivity::class.java)
+                    .putExtra("postId", list[position].id)
+                startActivity(intent)
             }
         }
     }
