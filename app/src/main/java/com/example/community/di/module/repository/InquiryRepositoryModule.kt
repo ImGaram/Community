@@ -3,12 +3,15 @@ package com.example.community.di.module.repository
 import com.example.data.datasource.inquiry.remote.CreateInquiryDataSourceImpl
 import com.example.data.datasource.inquiry.remote.GetInquiryDataSourceImpl
 import com.example.data.datasource.inquiry.remote.GetInquiryListDataSourceImpl
+import com.example.data.datasource.inquiry.remote.ModifyInquiryDataSourceImpl
 import com.example.data.datasource.inquiry.repositoryimpl.CreateInquiryRepositoryImpl
 import com.example.data.datasource.inquiry.repositoryimpl.GetInquiryListRepositoryImpl
 import com.example.data.datasource.inquiry.repositoryimpl.GetInquiryRepositoryImpl
+import com.example.data.datasource.inquiry.repositoryimpl.ModifyInquiryRepositoryImpl
 import com.example.domain.repository.inquiry.CreateInquiryRepository
 import com.example.domain.repository.inquiry.GetInquiryListRepository
 import com.example.domain.repository.inquiry.GetInquiryRepository
+import com.example.domain.repository.inquiry.ModifyInquiryRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -34,5 +37,11 @@ class InquiryRepositoryModule {
     @Singleton
     fun provideGetInquiryRepository(dataSourceImpl: GetInquiryDataSourceImpl): GetInquiryRepository {
         return GetInquiryRepositoryImpl(dataSourceImpl)
+    }
+
+    @Provides
+    @Singleton
+    fun provideModifyInquiryRepository(dataSourceImpl: ModifyInquiryDataSourceImpl): ModifyInquiryRepository {
+        return ModifyInquiryRepositoryImpl(dataSourceImpl)
     }
 }

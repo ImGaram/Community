@@ -3,9 +3,11 @@ package com.example.community.di.module.usecase
 import com.example.domain.repository.inquiry.CreateInquiryRepository
 import com.example.domain.repository.inquiry.GetInquiryListRepository
 import com.example.domain.repository.inquiry.GetInquiryRepository
+import com.example.domain.repository.inquiry.ModifyInquiryRepository
 import com.example.domain.usecase.inquiry.CreateInquiryUseCase
 import com.example.domain.usecase.inquiry.GetInquiryListUseCase
 import com.example.domain.usecase.inquiry.GetInquiryUseCase
+import com.example.domain.usecase.inquiry.ModifyInquiryUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,4 +28,8 @@ class InquiryUseCaseModule {
     @Provides
     @Singleton
     fun provideGetInquiryUseCase(repository: GetInquiryRepository) = GetInquiryUseCase(repository)
+
+    @Provides
+    @Singleton
+    fun provideModifyInquiryUseCase(repository: ModifyInquiryRepository) = ModifyInquiryUseCase(repository)
 }

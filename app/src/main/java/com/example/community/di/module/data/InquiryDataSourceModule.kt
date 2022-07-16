@@ -3,9 +3,11 @@ package com.example.community.di.module.data
 import com.example.data.api.inquiry.CreateInquiryService
 import com.example.data.api.inquiry.GetInquiryListService
 import com.example.data.api.inquiry.GetInquiryService
+import com.example.data.api.inquiry.ModifyInquiryService
 import com.example.data.datasource.inquiry.remote.CreateInquiryDataSourceImpl
 import com.example.data.datasource.inquiry.remote.GetInquiryDataSourceImpl
 import com.example.data.datasource.inquiry.remote.GetInquiryListDataSourceImpl
+import com.example.data.datasource.inquiry.remote.ModifyInquiryDataSourceImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -31,5 +33,11 @@ class InquiryDataSourceModule {
     @Singleton
     fun provideGetInquiryDataSource(service: GetInquiryService): GetInquiryDataSourceImpl {
         return GetInquiryDataSourceImpl(service)
+    }
+
+    @Provides
+    @Singleton
+    fun provideModifyInquiryDataSource(service: ModifyInquiryService): ModifyInquiryDataSourceImpl {
+        return ModifyInquiryDataSourceImpl(service)
     }
 }
