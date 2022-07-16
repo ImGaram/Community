@@ -60,6 +60,9 @@ class InquiryFragment : BaseFragment<FragmentInquiryBinding>(R.layout.fragment_i
             override fun onClick(view: View, data: DomainBaseInquiryResponse, position: Int) {
                 val intent = Intent(context, InquiryInfoActivity::class.java)
                     .putExtra("postId", list[position].id)
+                    .putExtra("title", list[position].title)
+                    .putExtra("context", list[position].context)
+                    .putExtra("createUser", list[position].createUserId)
                 startActivity(intent)
             }
         }

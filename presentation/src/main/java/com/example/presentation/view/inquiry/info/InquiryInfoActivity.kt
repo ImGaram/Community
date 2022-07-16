@@ -1,5 +1,6 @@
 package com.example.presentation.view.inquiry.info
 
+import android.content.Intent
 import android.view.View
 import androidx.activity.viewModels
 import com.example.presentation.R
@@ -22,7 +23,12 @@ class InquiryInfoActivity : BaseActivity<ActivityInquiryInfoBinding>(R.layout.ac
     override fun onClick(view: View?) {
         when (view?.id) {
             binding.inquiryModify.id -> {
-
+                val intent = Intent(this, ModifyInquiryActivity::class.java)
+                    .putExtra("postId", intent.getIntExtra("postId", 0))
+                    .putExtra("title", intent.getStringExtra("title"))
+                    .putExtra("context", intent.getStringExtra("context"))
+                    .putExtra("userId", intent.getStringExtra("createUser"))
+                startActivity(intent)
             }
             binding.inquiryDelete.id -> {
 
