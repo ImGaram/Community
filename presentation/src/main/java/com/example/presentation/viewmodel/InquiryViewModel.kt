@@ -7,6 +7,7 @@ import com.example.domain.model.inquiry.DomainBaseInquiryResponse
 import com.example.domain.usecase.inquiry.CreateInquiryUseCase
 import com.example.domain.usecase.inquiry.GetInquiryListUseCase
 import com.example.domain.usecase.inquiry.GetInquiryUseCase
+import com.example.domain.usecase.inquiry.ModifyInquiryUseCase
 import com.example.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -16,7 +17,8 @@ import javax.inject.Inject
 class InquiryViewModel @Inject constructor(
     private val createInquiryUseCase: CreateInquiryUseCase,
     private val getInquiryListUseCase: GetInquiryListUseCase,
-    private val getInquiryUseCase: GetInquiryUseCase
+    private val getInquiryUseCase: GetInquiryUseCase,
+    private val modifyInquiryUseCase: ModifyInquiryUseCase
 ): BaseViewModel() {
     // create inquiry
     private val _createInquiry = MutableLiveData<DomainBaseInquiryResponse>()
@@ -47,6 +49,17 @@ class InquiryViewModel @Inject constructor(
         viewModelScope.launch {
             getInquiryUseCase(inquiry, viewModelScope) {
                 _getInquiry.value = it
+            }
+        }
+    }
+
+    // modify inquiry
+    private val _modifyInquiry = MutableLiveData<DomainBaseInquiryResponse>()
+    val modifyInquiry: LiveData<DomainBaseInquiryResponse> = _modifyInquiry
+    fun modifyInquiryLogic(inquiry: Int, title: String, context: String, createUserId: Int) {
+        viewModelScope.launch {
+            modifyInquiryUseCase(inquiry, title, context, createUserId, viewModelScope) {
+                _modifyInquiry.value = it
             }
         }
     }
