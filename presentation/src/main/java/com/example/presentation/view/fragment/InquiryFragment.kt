@@ -59,6 +59,7 @@ class InquiryFragment : BaseFragment<FragmentInquiryBinding>(R.layout.fragment_i
         adapter.onItemClick = object :InquiryListRecyclerAdapter.OnItemClick {
             override fun onClick(view: View, data: DomainBaseInquiryResponse, position: Int) {
                 val intent = Intent(context, InquiryInfoActivity::class.java)
+                    .putExtra("userId", arguments?.getInt("id"))
                     .putExtra("postId", list[position].id)
                     .putExtra("title", list[position].title)
                     .putExtra("context", list[position].context)
@@ -69,6 +70,8 @@ class InquiryFragment : BaseFragment<FragmentInquiryBinding>(R.layout.fragment_i
     }
 
     private fun viewSetting() {
+        if (arguments?.getInt("id") == 0) binding.createInquiry.visibility = View.GONE
+
         binding.apply {
             createInquiry.setOnClickListener(this@InquiryFragment)
             moreBtn.setOnClickListener(this@InquiryFragment)

@@ -29,7 +29,7 @@ class InquiryListRecyclerAdapter(val inquiryList: List<DomainBaseInquiryResponse
     inner class ViewHolder(val binding: RecyclerItemStoryListBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(item: DomainBaseInquiryResponse) {
             binding.storyNumber.text = item.id.toString()
-            binding.storyCreateDate.text = item.createDate
+            binding.storyCreateUser.text = item.createUserId.toString()
             binding.storyTitle.text = item.title
             binding.storyCreateDate.text = item.createDate
 

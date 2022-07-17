@@ -31,7 +31,7 @@ class StoryListRecyclerAdapter(val storyList: List<DomainBaseStoryResponse>): Re
         fun bind(item: DomainBaseStoryResponse) {
             binding.storyNumber.text = item.id.toString()
             binding.storyTitle.text = item.title
-            binding.storyCreatUser.text = item.createUser.toString()
+            binding.storyCreateUser.text = item.createUser.toString()
             binding.storyCreateDate.text = item.createDate
 
             val pos = adapterPosition
