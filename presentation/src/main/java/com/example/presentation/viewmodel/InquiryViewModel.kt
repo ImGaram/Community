@@ -4,10 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import com.example.domain.model.inquiry.DomainBaseInquiryResponse
-import com.example.domain.usecase.inquiry.CreateInquiryUseCase
-import com.example.domain.usecase.inquiry.GetInquiryListUseCase
-import com.example.domain.usecase.inquiry.GetInquiryUseCase
-import com.example.domain.usecase.inquiry.ModifyInquiryUseCase
+import com.example.domain.usecase.inquiry.*
 import com.example.presentation.base.BaseViewModel
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -18,7 +15,8 @@ class InquiryViewModel @Inject constructor(
     private val createInquiryUseCase: CreateInquiryUseCase,
     private val getInquiryListUseCase: GetInquiryListUseCase,
     private val getInquiryUseCase: GetInquiryUseCase,
-    private val modifyInquiryUseCase: ModifyInquiryUseCase
+    private val modifyInquiryUseCase: ModifyInquiryUseCase,
+    private val deleteInquiryUseCase: DeleteInquiryUseCase
 ): BaseViewModel() {
     // create inquiry
     private val _createInquiry = MutableLiveData<DomainBaseInquiryResponse>()
@@ -60,6 +58,17 @@ class InquiryViewModel @Inject constructor(
         viewModelScope.launch {
             modifyInquiryUseCase(inquiry, title, context, createUserId, viewModelScope) {
                 _modifyInquiry.value = it
+            }
+        }
+    }
+
+    // delete inquiry
+    private val _deleteInquiry = MutableLiveData<Int>()
+    val deleteInquiry: LiveData<Int> = _deleteInquiry
+    fun deleteInquiryLogic(inquiry: Int) {
+        viewModelScope.launch {
+            deleteInquiryUseCase(inquiry, viewModelScope) {
+                _deleteInquiry.value = it
             }
         }
     }

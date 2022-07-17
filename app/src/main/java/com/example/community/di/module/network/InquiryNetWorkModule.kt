@@ -1,10 +1,7 @@
 package com.example.community.di.module.network
 
 import com.example.data.ApiClient
-import com.example.data.api.inquiry.CreateInquiryService
-import com.example.data.api.inquiry.GetInquiryListService
-import com.example.data.api.inquiry.GetInquiryService
-import com.example.data.api.inquiry.ModifyInquiryService
+import com.example.data.api.inquiry.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -85,6 +82,22 @@ class InquiryNetWorkModule {
             .build()
     }
 
+    @Named("deleteInquiry")
+    @Provides
+    @Singleton
+    fun provideDeleteInquiryRetrofitInstance(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(ApiClient.BASE_URL)
+            .client(okHttpClient)
+            .client(NetWorkModule.provideOkhttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Provides
     @Singleton
     fun provideCreateInquiryService(@Named("createInquiry") retrofit: Retrofit): CreateInquiryService {
@@ -107,5 +120,11 @@ class InquiryNetWorkModule {
     @Singleton
     fun provideModifyInquiryService(@Named("modifyInquiry") retrofit: Retrofit): ModifyInquiryService {
         return retrofit.create(ModifyInquiryService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideDeleteInquiryService(@Named("deleteInquiry") retrofit: Retrofit): DeleteInquiryService {
+        return retrofit.create(DeleteInquiryService::class.java)
     }
 }
