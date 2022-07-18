@@ -1,6 +1,8 @@
 package com.example.community.di.module.data
 
+import com.example.data.api.notice.GetNoticeService
 import com.example.data.api.notice.NoticeListService
+import com.example.data.datasource.notice.datasource.GetNoticeDataSourceImpl
 import com.example.data.datasource.notice.datasource.NoticeListDataSourceImpl
 import dagger.Module
 import dagger.Provides
@@ -15,5 +17,11 @@ class NoticeDataSourceModule {
     @Singleton
     fun provideNoticeListDataSource(service: NoticeListService): NoticeListDataSourceImpl {
         return NoticeListDataSourceImpl(service)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetNoticeDataSource(service: GetNoticeService): GetNoticeDataSourceImpl {
+        return GetNoticeDataSourceImpl(service)
     }
 }

@@ -1,5 +1,6 @@
 package com.example.presentation.view.fragment
 
+import android.content.Intent
 import android.util.Log
 import android.view.View
 import androidx.fragment.app.activityViewModels
@@ -8,6 +9,7 @@ import com.example.domain.model.notice.DomainBaseNoticeResponse
 import com.example.presentation.R
 import com.example.presentation.base.BaseFragment
 import com.example.presentation.databinding.FragmentNoticeBinding
+import com.example.presentation.view.notice.NoticeInfoActivity
 import com.example.presentation.view.notice.adapter.NoticeRecyclerAdapter
 import com.example.presentation.viewmodel.NoticeViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -51,5 +53,19 @@ class NoticeFragment : BaseFragment<FragmentNoticeBinding>(R.layout.fragment_not
         val adapter = NoticeRecyclerAdapter(list)
         binding.noticeRecyclerView.adapter = adapter
         binding.noticeRecyclerView.layoutManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        itemClick(adapter)
+    }
+
+    private fun itemClick(adapter: NoticeRecyclerAdapter) {
+        adapter.onItemClick = object : NoticeRecyclerAdapter.OnItemClick {
+            override fun onClick(itemView: View, data: DomainBaseNoticeResponse, position: Int) {
+                val intent = Intent(context, NoticeInfoActivity::class.java)
+                    .putExtra("title", data.title)
+                    .putExtra("context", data.context)
+                    .putExtra("createDate", data.createDate)
+                    .putExtra("img", data.img1)
+                startActivity(intent)
+            }
+        }
     }
 }
