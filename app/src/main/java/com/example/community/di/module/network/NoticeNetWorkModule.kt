@@ -1,6 +1,7 @@
 package com.example.community.di.module.network
 
 import com.example.data.ApiClient
+import com.example.data.api.notice.GetNoticeService
 import com.example.data.api.notice.NoticeListService
 import dagger.Module
 import dagger.Provides
@@ -33,9 +34,31 @@ class NoticeNetWorkModule {
             .build()
     }
 
+    @Named("getNotice")
+    @Provides
+    @Singleton
+    fun provideGetNoticeRetrofitInstance(
+        okHttpClient: OkHttpClient,
+        gsonConverterFactory: GsonConverterFactory
+    ): Retrofit {
+        return Retrofit.Builder()
+            .baseUrl(ApiClient.BASE_URL)
+            .client(okHttpClient)
+            .client(NetWorkModule.provideOkhttpClient())
+            .addCallAdapterFactory(RxJava3CallAdapterFactory.createWithScheduler(Schedulers.newThread()))
+            .addConverterFactory(gsonConverterFactory)
+            .build()
+    }
+
     @Provides
     @Singleton
     fun provideNoticeListService(@Named("getNoticeList") retrofit: Retrofit): NoticeListService {
         return retrofit.create(NoticeListService::class.java)
+    }
+
+    @Provides
+    @Singleton
+    fun provideGetNoticeService(@Named("getNotice") retrofit: Retrofit): GetNoticeService {
+        return retrofit.create(GetNoticeService::class.java)
     }
 }

@@ -1,6 +1,7 @@
 package com.example.presentation.view.notice.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.domain.model.notice.DomainBaseNoticeResponse
@@ -11,6 +12,11 @@ class NoticeRecyclerAdapter(val noticeList: List<DomainBaseNoticeResponse>): Rec
         val view = RecyclerItemNoticeBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
     }
+
+    interface OnItemClick {
+        fun onClick(itemView: View, data: DomainBaseNoticeResponse, position: Int)
+    }
+    var onItemClick: OnItemClick? = null
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bind(noticeList[position])
@@ -25,6 +31,13 @@ class NoticeRecyclerAdapter(val noticeList: List<DomainBaseNoticeResponse>): Rec
             binding.noticeTitle.text = item.title
             binding.noticeNumber.text = item.id.toString()
             binding.noticeCreateDate.text = item.createDate
+
+            val pos = adapterPosition
+            if (pos != RecyclerView.NO_POSITION) {
+                itemView.setOnClickListener {
+                    onItemClick?.onClick(itemView, item, pos)
+                }
+            }
         }
     }
 }
