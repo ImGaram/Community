@@ -1,19 +1,45 @@
 package com.example.presentation.view.fragment
 
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
+import android.util.Log
 import android.view.View
-import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import com.example.presentation.R
+import com.example.presentation.base.BaseFragment
+import com.example.presentation.databinding.FragmentNoticeBinding
+import com.example.presentation.viewmodel.NoticeViewModel
+import dagger.hilt.android.AndroidEntryPoint
 
-class NoticeFragment : Fragment() {
+@AndroidEntryPoint
+class NoticeFragment : BaseFragment<FragmentNoticeBinding>(R.layout.fragment_notice), View.OnClickListener {
+    private val noticeViewModel by activityViewModels<NoticeViewModel>()
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?,
-    ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notice, container, false)
+    override fun init() {
+        binding.notice = this
+
+        getNotice()
+        viewSetting()
+    }
+
+    override fun onClick(view: View?) {
+        when(view?.id) {
+            binding.moreBtn.id -> {
+
+            }
+        }
+    }
+
+    private fun viewSetting() {
+        binding.moreBtn.setOnClickListener(this)
+    }
+
+    private fun getNotice() {
+        noticeViewModel.getNoticeListLogic()
+        noticeViewModel.getNoticeList.observe(viewLifecycleOwner) {
+            if (it != null) {
+                Log.d("SUCCESS", "getNotice response: $it")
+            } else {
+                Log.d("ERROR", "getNotice response: $it")
+            }
+        }
     }
 }
