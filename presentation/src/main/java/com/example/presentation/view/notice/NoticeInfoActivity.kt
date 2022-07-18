@@ -1,6 +1,9 @@
 package com.example.presentation.view.notice
 
+import android.util.Log
 import android.view.View
+import com.bumptech.glide.Glide
+import com.example.data.ApiClient
 import com.example.presentation.R
 import com.example.presentation.base.BaseActivity
 import com.example.presentation.databinding.ActivityNoticeInfoBinding
@@ -24,6 +27,6 @@ class NoticeInfoActivity : BaseActivity<ActivityNoticeInfoBinding>(R.layout.acti
         binding.noticeInfoContent.text = intent.getStringExtra("context")
         binding.noticeInfoCreateDate.text = intent.getStringExtra("createDate")
 
-        // TODO:: image 불러오기
+        Glide.with(this).load(ApiClient.BASE_URL + intent.getStringExtra("img")).into(binding.noticeInfoImage)
     }
 }
