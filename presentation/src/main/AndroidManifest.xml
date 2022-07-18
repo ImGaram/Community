@@ -9,6 +9,9 @@
         android:supportsRtl="true"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".view.notice.NoticeInfoActivity"
+            android:exported="false" />
+        <activity
             android:name=".view.inquiry.info.ModifyInquiryActivity"
             android:exported="false" />
         <activity
