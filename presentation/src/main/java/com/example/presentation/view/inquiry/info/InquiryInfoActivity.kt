@@ -35,7 +35,7 @@ class InquiryInfoActivity : BaseActivity<ActivityInquiryInfoBinding>(R.layout.ac
                     .putExtra("postId", intent.getIntExtra("postId", 0))
                     .putExtra("title", intent.getStringExtra("title"))
                     .putExtra("context", intent.getStringExtra("context"))
-                    .putExtra("userId", intent.getStringExtra("createUser"))
+                    .putExtra("userId", intent.getIntExtra("userId", 0))
                 startActivity(intent)
             }
             binding.inquiryDelete.id -> {
