@@ -51,6 +51,7 @@
             android:fontFamily="@font/kodchasan_light"
             android:hint="PASSWORD"
             android:padding="15dp"
+            android:inputType="textPassword"
             android:textColorHint="@color/black"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
